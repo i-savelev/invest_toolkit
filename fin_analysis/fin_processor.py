@@ -37,8 +37,9 @@ class FinProcessor():
                 profit_score = com.grow_score('Чистая прибыль, млрд руб', n)
                 div_count_score = com.count_score('Див.выплата, млрд руб', n)
                 div_grow_score = com.grow_score('Див.выплата, млрд руб', n)
-                if 'Free Float, %' in com.get_metric_list():
-                    free_float = com.df.loc['Free Float, %'].iloc[-1]
+                free_float_df = pd.read_excel(r'support_files/20251206-free-float.xlsx').set_index('Код')
+                if com.ticker in free_float_df.index:
+                    free_float = free_float_df.loc[com.ticker]['Коэффициент free-float, %']
                 else: free_float = 100
                 cap = com.cap()
                 
@@ -59,7 +60,7 @@ class FinProcessor():
                     }
                 data.append(row)
         df = pd.DataFrame(data).set_index('ticker')
-        df['sqrt_cap'] = df['cap']**ratio*df['score']
+        df['sqrt_cap'] = (df['cap']*df['free_float'])**ratio*df['score']
         df['cap_share'] = df['sqrt_cap']/df['sqrt_cap'].sum()
-        df['part'] = ((df['cap_share']*100))
+        df['part'] = ((df['cap_share']*100)).round(1)
         return df
