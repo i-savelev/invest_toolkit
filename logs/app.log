@@ -1,0 +1,334 @@
+2025-12-10 19:38:51 | INFO     | 1480522931.py:2 | logger.log |     Торговый код ценной бумаги Краткое наименование эмитента ценной бумаги  \
+0                         ABIO                                ПАО "Артген"   
+1                         ABRD                         ПАО "Абрау – Дюрсо"   
+2                         AFKS                           ПАО АФК "СИСТЕМА"   
+3                         AFLT                              ПАО "Аэрофлот"   
+4                         AKRN                                 ПАО "Акрон"   
+..                         ...                                         ...   
+249                       YRSB                  ПАО "ТНС энерго Ярославль"   
+250                      YRSBP                  ПАО "ТНС энерго Ярославль"   
+251                       ZAYM                            ПАО МФК "Займер"   
+252                       ZILL                                     АМО ЗИЛ   
+253                       ZVEZ                                ПАО "ЗВЕЗДА"   
+
+    Категория ценной бумаги (ао - акция обыкновенная, ап - акция привилегированная)  \
+0                                                   ао                                
+1                                                   ао                                
+2                                                   ао                                
+3                                                   ао                                
+4                                                   ао                                
+..                                                 ...                                
+249                                                 ао                                
+250                                                 ап                                
+251                                                 ао                                
+252                                                 ао                                
+253                                                 ао                                
+
+    Государственный  регистрационный  номер выпуска  (дополнительного  выпуска)*  \
+0                                         1-01-08902-A                             
+1                                         1-02-12500-A                             
+2                                         1-05-01669-A                             
+3                                         1-01-00010-A                             
+4                                         1-03-00207-A                             
+..                                                 ...                             
+249                                       1-01-50099-A                             
+250                                       2-01-50099-A                             
+251                                       1-01-16767-A                             
+252                                       1-02-00036-A                             
+253                                       1-01-00169-D                             
+
+    Объем выпуска, штук  Рыночная цена (3) на 30.09.2025, руб.  \
+0            92 645 451                                  703.0   
+1           108 889 117                                 1616.0   
+2         9 650 000 000                                 1346.0   
+3         3 975 771 215                                 5449.0   
+4            36 757 156                                16836.0   
+..                  ...                                    ...   
+249          17 143 584                                  814.0   
+250           4 507 320                                 1915.0   
+251         100 000 000                                14095.0   
+252           2 659 962                                 4050.0   
+253         562 020 480                                  746.0   
+
+     Капитализация, руб.  
+0           6.512975e+09  
+1           1.759648e+10  
+2           1.298890e+11  
+3           2.166398e+11  
+4           6.188435e+11  
+..                   ...  
+249         1.395488e+10  
+250         8.631518e+08   
+251         1.409500e+10  
+252         1.077285e+10  
+253         4.192673e+09  
+
+[254 rows x 7 columns]
+2025-12-10 19:39:54 | INFO     | 2813538932.py:2 | logger.log | None
+2025-12-10 19:40:10 | INFO     | 2813538932.py:2 | logger.log | None
+2025-12-10 20:09:34 | INFO     | capitalization_table.py:35 | logger.log | тикера gaz нет в таблице support_files/cap.html
+2025-12-10 20:23:08 | INFO     | capitalization_table.py:35 | logger.log | тикера gaz нет в таблице support_files/cap.html
+2025-12-10 20:23:08 | INFO     | free_float_table.py:21 | logger.log | тикера [gazp] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:23:23 | INFO     | capitalization_table.py:35 | logger.log | тикера gaz нет в таблице support_files/cap.html
+2025-12-10 20:23:23 | INFO     | free_float_table.py:21 | logger.log | тикера [gazp] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:23:37 | INFO     | free_float_table.py:21 | logger.log | тикера [gazp] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:25:37 | INFO     | free_float_table.py:5 | logger.log |                          Полное наименование организации  ИНН организации  \
+Код                                                                         
+RASP         Публичное акционерное общество "Распадская"       4214002316   
+MAGN   Публичное акционерное общество "Магнитогорский...       7414003633   
+ROSN   публичное акционерное общество "Нефтяная компа...       7706107510   
+PIKK   Публичное акционерное общество "ПИК-специализи...       7713011336   
+VTBR           Банк ВТБ (публичное акционерное общество)       7702070139   
+...                                                  ...              ...   
+OZPH   Публичное акционерное общество "Озон Фармацевт...       6320080729   
+CNRU   Международная компания публичное акционерное о...       3900031141   
+FIXR         Публичное акционерное общество "Фикс Прайс"       7743462664   
+DOMRF            Публичное акционерное общество "ДОМ.РФ"       7729355614   
+GLRX            Публичное акционерное общество "ГЛОРАКС"       9729387137   
+
+          Тип инструмента Регистрационный номер выпуска / ISIN  \
+Код                                                              
+RASP   Акция обыкновенная                         1-04-21725-N   
+MAGN   Акция обыкновенная                         1-03-00078-A   
+ROSN   Акция обыкновенная                         1-02-00122-A   
+PIKK   Акция обыкновенная                         1-02-01556-A   
+VTBR   Акция обыкновенная                            10401000B   
+...                   ...                                  ...   
+OZPH   Акция обыкновенная                         1-01-10877-P   
+CNRU   Акция обыкновенная                         1-01-16918-A   
+FIXR   Акция обыкновенная                         1-01-08699-G   
+DOMRF  Акция обыкновенная                         1-02-00739-A   
+GLRX   Акция обыкновенная                         1-01-16806-A   
+
+      Уровень листинга  Коэффициент free-float, %  
+Код                                                
+RASP    Второй уровень                          7  
+MAGN    Первый уровень                         20  
+ROSN    Первый уровень                         11  
+PIKK    Первый уровень                         21  
+VTBR    Первый уровень                         50  
+...                ...                        ...  
+OZPH    Первый уровень                         13  
+CNRU    Первый уровень                         37  
+FIXR    Первый уровень                         15  
+DOMRF   Первый уровень                         10  
+GLRX    Второй уровень                         12  
+
+[99 rows x 6 columns]
+2025-12-10 20:25:37 | INFO     | free_float_table.py:21 | logger.log | тикера [gazp] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:26:18 | INFO     | free_float_table.py:5 | logger.log | Index(['RASP', 'MAGN', 'ROSN', 'PIKK', 'VTBR', 'TRMK', 'LSRG', 'MVID', 'AFKS',
+       'HYDR', 'BSPB', 'MRKP', 'OGKB', 'AFLT', 'AKRN', 'CHMF', 'GAZP', 'GMKN',
+       'ABIO', 'KMAZ', 'LKOH', 'MSNG', 'MSRS', 'MTSS', 'NLMK', 'NVTK', 'UPRO',
+       'ELFV', 'PLZL', 'RTKM', 'RTKMP', 'APTK', 'TATN', 'TATNP', 'SBER',
+       'SBERP', 'SNGS', 'SNGSP', 'SVAV', 'BELU', 'TGKA', 'TGKN', 'TRNFP',
+       'VSMO', 'MRKV', 'MRKC', 'MRKZ', 'UGLD', 'MRKU', 'FEES', 'MTLRP', 'FESH',
+       'MTLR', 'AQUA', 'RAGR', 'SELG', 'ALRS', 'PHOR', 'MOEX', 'CBOM', 'MBNK',
+       'IRAO', 'RUAL', 'SFIN', 'FLOT', 'RNFT', 'ENPG', 'T', 'VKCO', 'ETLN',
+       'SMLT', 'MDMG', 'OZON', 'SGZH', 'LEAS', 'GEMC', 'LENT', 'RENI', 'POSI',
+       'WUSH', 'EUTR', 'SOFL', 'ASTR', 'HNFG', 'SVCB', 'DIAS', 'DELI', 'YDEX',
+       'IVAT', 'VSEH', 'PRMD', 'HEAD', 'DATA', 'X5', 'OZPH', 'CNRU', 'FIXR',
+       'DOMRF', 'GLRX'],
+      dtype='object', name='Код')
+2025-12-10 20:26:18 | INFO     | free_float_table.py:21 | logger.log | тикера [gazp] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [ROLO] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [BANE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [OKEY] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | capitalization_table.py:35 | logger.log | тикера OKEY нет в таблице support_files/cap.html
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [PMSB] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [RBCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [GCHE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [NMTP] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [MGNT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | capitalization_table.py:35 | logger.log | тикера DOMRF нет в таблице support_files/cap.html
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [LSNG] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [SIBN] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [SPBE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [IRKT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | capitalization_table.py:35 | logger.log | тикера OZON нет в таблице support_files/cap.html
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [NKNC] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [TRNF] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | capitalization_table.py:35 | logger.log | тикера TRNF нет в таблице support_files/cap.html
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [WTCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [ZAYM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | free_float_table.py:21 | logger.log | тикера [ELMT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 20:52:55 | INFO     | capitalization_table.py:35 | logger.log | тикера GLRX нет в таблице support_files/cap.html
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [ROLO] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [BANE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [OKEY] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | capitalization_table.py:35 | logger.log | тикера OKEY нет в таблице support_files/cap.html
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [PMSB] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [RBCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [GCHE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [NMTP] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [MGNT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | capitalization_table.py:35 | logger.log | тикера DOMRF нет в таблице support_files/cap.html
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [LSNG] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [SIBN] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [SPBE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [IRKT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | capitalization_table.py:35 | logger.log | тикера OZON нет в таблице support_files/cap.html
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [NKNC] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [WTCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [ZAYM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | free_float_table.py:21 | logger.log | тикера [ELMT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:18:55 | INFO     | capitalization_table.py:35 | logger.log | тикера GLRX нет в таблице support_files/cap.html
+2025-12-10 21:21:15 | INFO     | free_float_table.py:21 | logger.log | тикера [ROLO] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:15 | INFO     | free_float_table.py:21 | logger.log | тикера [BANE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:15 | INFO     | free_float_table.py:21 | logger.log | тикера [OKEY] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:15 | INFO     | capitalization_table.py:35 | logger.log | тикера OKEY нет в таблице support_files/cap.html
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [PMSB] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [RBCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [GCHE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [NMTP] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [MGNT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | capitalization_table.py:35 | logger.log | тикера DOMRF нет в таблице support_files/cap.html
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [LSNG] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [SIBN] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [SPBE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [IRKT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | capitalization_table.py:35 | logger.log | тикера OZON нет в таблице support_files/cap.html
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [NKNC] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [WTCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [ZAYM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | free_float_table.py:21 | logger.log | тикера [ELMT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:16 | INFO     | capitalization_table.py:35 | logger.log | тикера GLRX нет в таблице support_files/cap.html
+2025-12-10 21:21:43 | INFO     | free_float_table.py:21 | logger.log | тикера [ROLO] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [BANE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [OKEY] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | capitalization_table.py:35 | logger.log | тикера OKEY нет в таблице support_files/cap.html
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [PMSB] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [RBCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [GCHE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [NMTP] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [MGNT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | capitalization_table.py:35 | logger.log | тикера DOMRF нет в таблице support_files/cap.html
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [LSNG] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [SIBN] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [SPBE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [IRKT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | capitalization_table.py:35 | logger.log | тикера OZON нет в таблице support_files/cap.html
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [NKNC] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [WTCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [ZAYM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | free_float_table.py:21 | logger.log | тикера [ELMT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:21:44 | INFO     | capitalization_table.py:35 | logger.log | тикера GLRX нет в таблице support_files/cap.html
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [ROLO] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [BANE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [OKEY] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | capitalization_table.py:35 | logger.log | тикера OKEY нет в таблице support_files/cap.html
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [PMSB] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [RBCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [GCHE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [NMTP] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [MGNT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | capitalization_table.py:35 | logger.log | тикера DOMRF нет в таблице support_files/cap.html
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [LSNG] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [SIBN] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [SPBE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [IRKT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | capitalization_table.py:35 | logger.log | тикера OZON нет в таблице support_files/cap.html
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [NKNC] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [WTCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [ZAYM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | free_float_table.py:21 | logger.log | тикера [ELMT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:22:07 | INFO     | capitalization_table.py:35 | logger.log | тикера GLRX нет в таблице support_files/cap.html
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [ROLO] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [BANE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [OKEY] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | capitalization_table.py:35 | logger.log | тикера OKEY нет в таблице support_files/cap.html
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [PMSB] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [RBCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [GCHE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [NMTP] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [MGNT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | capitalization_table.py:35 | logger.log | тикера DOMRF нет в таблице support_files/cap.html
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [LSNG] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [SIBN] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [SPBE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [IRKT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | capitalization_table.py:35 | logger.log | тикера OZON нет в таблице support_files/cap.html
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [NKNC] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [WTCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [ZAYM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | free_float_table.py:21 | logger.log | тикера [ELMT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:26:12 | INFO     | capitalization_table.py:35 | logger.log | тикера GLRX нет в таблице support_files/cap.html
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [ROLO] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [BANE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [OKEY] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:10 | INFO     | capitalization_table.py:35 | logger.log | тикера OKEY нет в таблице support_files/cap.html
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [PMSB] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [RBCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [GCHE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [NMTP] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [MGNT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:10 | INFO     | capitalization_table.py:35 | logger.log | тикера DOMRF нет в таблице support_files/cap.html
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [LSNG] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [SIBN] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [SPBE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:10 | INFO     | free_float_table.py:21 | logger.log | тикера [IRKT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:11 | INFO     | capitalization_table.py:35 | logger.log | тикера OZON нет в таблице support_files/cap.html
+2025-12-10 21:27:11 | INFO     | free_float_table.py:21 | logger.log | тикера [NKNC] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:11 | INFO     | free_float_table.py:21 | logger.log | тикера [WTCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:11 | INFO     | free_float_table.py:21 | logger.log | тикера [ZAYM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:11 | INFO     | free_float_table.py:21 | logger.log | тикера [ELMT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:27:11 | INFO     | capitalization_table.py:35 | logger.log | тикера GLRX нет в таблице support_files/cap.html
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [ROLO] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [BANE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [OKEY] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | capitalization_table.py:35 | logger.log | тикера OKEY нет в таблице support_files/cap.html
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [PMSB] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [RBCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [GCHE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [NMTP] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [MGNT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | capitalization_table.py:35 | logger.log | тикера DOMRF нет в таблице support_files/cap.html
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [LSNG] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [SIBN] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [SPBE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [IRKT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | capitalization_table.py:35 | logger.log | тикера OZON нет в таблице support_files/cap.html
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [NKNC] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [WTCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [ZAYM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | free_float_table.py:21 | logger.log | тикера [ELMT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:04 | INFO     | capitalization_table.py:35 | logger.log | тикера GLRX нет в таблице support_files/cap.html
+2025-12-10 21:29:25 | INFO     | free_float_table.py:21 | logger.log | тикера [ROLO] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:25 | INFO     | free_float_table.py:21 | logger.log | тикера [BANE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:25 | INFO     | free_float_table.py:21 | logger.log | тикера [OKEY] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:25 | INFO     | capitalization_table.py:35 | logger.log | тикера OKEY нет в таблице support_files/cap.html
+2025-12-10 21:29:25 | INFO     | free_float_table.py:21 | logger.log | тикера [PMSB] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:25 | INFO     | free_float_table.py:21 | logger.log | тикера [RBCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:25 | INFO     | free_float_table.py:21 | logger.log | тикера [GCHE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:26 | INFO     | free_float_table.py:21 | logger.log | тикера [NMTP] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:26 | INFO     | free_float_table.py:21 | logger.log | тикера [MGNT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:26 | INFO     | capitalization_table.py:35 | logger.log | тикера DOMRF нет в таблице support_files/cap.html
+2025-12-10 21:29:26 | INFO     | free_float_table.py:21 | logger.log | тикера [LSNG] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:26 | INFO     | free_float_table.py:21 | logger.log | тикера [SIBN] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:26 | INFO     | free_float_table.py:21 | logger.log | тикера [SPBE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:26 | INFO     | free_float_table.py:21 | logger.log | тикера [IRKT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:26 | INFO     | capitalization_table.py:35 | logger.log | тикера OZON нет в таблице support_files/cap.html
+2025-12-10 21:29:26 | INFO     | free_float_table.py:21 | logger.log | тикера [NKNC] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:26 | INFO     | free_float_table.py:21 | logger.log | тикера [WTCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:26 | INFO     | free_float_table.py:21 | logger.log | тикера [ZAYM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:26 | INFO     | free_float_table.py:21 | logger.log | тикера [ELMT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:29:26 | INFO     | capitalization_table.py:35 | logger.log | тикера GLRX нет в таблице support_files/cap.html
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [ROLO] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [BANE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [OKEY] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | capitalization_table.py:35 | logger.log | тикера OKEY нет в таблице support_files/cap.html
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [PMSB] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [RBCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [GCHE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [NMTP] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [MGNT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | capitalization_table.py:35 | logger.log | тикера DOMRF нет в таблице support_files/cap.html
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [LSNG] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [SIBN] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [SPBE] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [IRKT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | capitalization_table.py:35 | logger.log | тикера OZON нет в таблице support_files/cap.html
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [NKNC] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [WTCM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [ZAYM] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | free_float_table.py:21 | logger.log | тикера [ELMT] нет в таблице [support_files/20251206-free-float.xlsx]
+2025-12-10 21:30:46 | INFO     | capitalization_table.py:35 | logger.log | тикера GLRX нет в таблице support_files/cap.html

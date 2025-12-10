@@ -38,7 +38,7 @@ class Company():
             except (ValueError, TypeError):
                 return False
 
-        def _extract_ticker(name: str) -> str:
+        def _extract_ticker(name: str) -> str|None:
             match = re.search(r'\(([^)]+)\)', name)
             return match.group(1) if match else None
          

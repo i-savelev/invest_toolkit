@@ -1,4 +1,6 @@
 from .company import Company
+from .capitalization_table import Cap
+from .free_float_table import Freefloat
 import re
 import pathlib
 import pandas as pd
@@ -24,24 +26,30 @@ class FinProcessor():
         return company
             
     @staticmethod
-    def rating_df(folder_path, ir_rating:pd.DataFrame, n:int, tickers:list[str] = [], ratio:float=1):
+    def rating_df(
+        folder_path, 
+        ir_rating:pd.DataFrame, 
+        n:int, 
+        cap_source_path:str,
+        free_float_source_path:str,
+        tickers:list[str] = [], 
+        ratio:float=1
+        ):
         data = []
         folder = pathlib.Path(folder_path)
         files = folder.glob('*.csv')
+        cap = Cap.from_html(cap_source_path)
+        free_float = Freefloat.from_excel(free_float_source_path)
         for file in files:
             score = 0
             com = Company.from_csv(file)
-            # if len(tickers)>0:
             ir_score = com.ir_score(ir_rating)
             profit_score = com.grow_score('Чистая прибыль, млрд руб', n)
             div_count_score = com.count_score('Див.выплата, млрд руб', n)
             div_grow_score = com.grow_score('Див.выплата, млрд руб', n)
-            free_float_df = pd.read_excel(r'support_files/20251206-free-float.xlsx').set_index('Код')
-            if com.ticker in free_float_df.index:
-                free_float = free_float_df.loc[com.ticker]['Коэффициент free-float, %']
-            else: free_float = 100
-            cap = com.cap()
-            
+            _free_float = free_float.by_ticker(com.ticker)
+            _cap = cap.by_ticker(com.ticker)
+            if _cap is None: _cap = com.cap()
             if ir_score is None:
                 score = (profit_score + div_count_score+ div_grow_score)/3
             else:
@@ -54,8 +62,8 @@ class FinProcessor():
                 'div_count_score':div_count_score,
                 'div_grow_score':div_grow_score,
                 'score':round(score, 2),
-                'cap':cap,
-                'free_float': free_float/100
+                'cap':round(_cap/1000000000, 2),
+                'free_float%': _free_float/100
                 }
             if len(tickers) > 0:
                 if com.ticker in tickers or com.ticker+'P' in tickers:
@@ -64,7 +72,9 @@ class FinProcessor():
                 data.append(row)
                 
         df = pd.DataFrame(data).set_index('ticker')
-        df['sqrt_cap'] = (df['cap']*df['free_float'])**ratio*df['score']
-        df['cap_share'] = df['sqrt_cap']/df['sqrt_cap'].sum()
-        df['part'] = ((df['cap_share']*100)).round(1)
+        df[f'sqrt_free_float({ratio.__round__(2)})'] = ((df['cap']*df['free_float%'])**ratio).round(2)
+        df['temp'] = (df['cap']*df['free_float%'])**ratio*df['score']
+        df['part'] = (df['temp']/df['temp'].sum()*100).round(2)
+        df = df.drop(columns='temp')
+        
         return df
