@@ -4,6 +4,7 @@ from .free_float_table import Freefloat
 import re
 import pathlib
 import pandas as pd
+from logger import log
 
 class FinProcessor():
     def __init__(self):
@@ -48,9 +49,15 @@ class FinProcessor():
             div_count_score = com.count_score('Див.выплата, млрд руб', n)
             div_grow_score = com.grow_score('Див.выплата, млрд руб', n)
             _free_float = free_float.by_ticker(com.ticker)
+            if _free_float is None:
+                _free_float = com.free_float()
+                log.debug(message=f'[FREE-FLOAT]: [{com.ticker}] нет в таблице')
             _cap = cap.by_ticker(com.ticker)
-            if _cap is None: _cap = com.cap()
+            if _cap is None or _cap == 0: 
+                _cap = com.cap()
+                log.debug(message=f'[CAP]: [{com.ticker}] нет в таблице')
             if ir_score is None:
+                log.debug(message=f'[IR]: [{com.ticker}] нет таблице')
                 score = (profit_score + div_count_score+ div_grow_score)/3
             else:
                 score = (ir_score + profit_score + div_count_score+ div_grow_score)/4

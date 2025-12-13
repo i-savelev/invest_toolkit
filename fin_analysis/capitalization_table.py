@@ -1,5 +1,4 @@
 import pandas as pd
-from logger import log
 
 class Cap:
     """
@@ -32,7 +31,7 @@ class Cap:
         if ticker.upper() in self.s.index:
             return self.s[ticker.upper()]
         else:
-            log.info(message=f'тикера {ticker} нет в таблице {self.path}')
+            return None
             
 
     

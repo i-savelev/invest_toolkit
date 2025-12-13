@@ -4,6 +4,7 @@ import numpy as np
 import pathlib
 import re
 from .utils import Plotter
+from logger import log
 
 
 class Company():
@@ -124,11 +125,20 @@ class Company():
         if self.ticker in df.index:
             rating = df.loc[self.ticker]['rating']
             return rating/100
-        else: return None
+        else: 
+            return None
 
     def cap(self):
-        cap = self.df.loc["Капитализация, млрд руб"].iloc[-1]
+        cap = self.df.loc["Капитализация, млрд руб"].dropna().iloc[-1]*1000000000
         return cap
+    
+    def free_float(self):
+        if 'Free Float, %' in self.get_metric_list():
+            ff = self.df.loc['Free Float, %'].dropna().iloc[-1]
+            if ff is not None:
+                return ff
+            else: return 100
+        else: return 100
 
     METRIC_LIST = [
         'Выручка, млрд руб',

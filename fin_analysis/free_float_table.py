@@ -18,8 +18,7 @@ class Freefloat:
         if ticker.upper() in self.df.index:
             return self.df.loc[ticker.upper()]['Коэффициент free-float, %']
         else:
-            log.info(message=f'тикера [{ticker}] нет в таблице [{self.path}]')
-            return 100
+            return None
             
 
     
