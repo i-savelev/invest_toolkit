@@ -45,9 +45,17 @@ class FinProcessor():
             score = 0
             com = Company.from_csv(file)
             ir_score = com.ir_score(ir_rating)
-            profit_score = com.grow_score('Чистая прибыль, млрд руб', n)
-            div_count_score = com.count_score('Див.выплата, млрд руб', n)
-            div_grow_score = com.grow_score('Див.выплата, млрд руб', n)
+            profit_score = com.grow_score('Чистая прибыль, млрд руб', n).value()
+            if profit_score == None:
+                profit_score = 0
+                log.debug(message=f'[Чистая прибыль, млрд руб]: [{com.ticker}] нет в таблице')
+            div_count_score = com.count_score('Див.выплата, млрд руб', n).value()
+            if div_count_score == None:
+                div_count_score = 0
+                log.debug(message=f'[Див.выплата, млрд руб]: [{com.ticker}] нет в таблице')
+            div_grow_score = com.grow_score('Див.выплата, млрд руб', n).value()
+            if div_grow_score is None:
+                div_grow_score = 0
             _free_float = free_float.by_ticker(com.ticker)
             if _free_float is None:
                 _free_float = com.free_float()
@@ -58,19 +66,19 @@ class FinProcessor():
                 log.debug(message=f'[CAP]: [{com.ticker}] нет в таблице')
             if ir_score is None:
                 log.debug(message=f'[IR]: [{com.ticker}] нет таблице')
-                score = (profit_score + div_count_score+ div_grow_score)/3
+                score = (profit_score + div_count_score + div_grow_score)/3
             else:
                 score = (ir_score + profit_score + div_count_score+ div_grow_score)/4
             row = {
-                'ticker':com.ticker,
-                'name': com.name,
-                'ir_score':ir_score,
-                'profit_score':profit_score,
-                'div_count_score':div_count_score,
-                'div_grow_score':div_grow_score,
-                'score':round(score, 2),
-                'cap':round(_cap/1000000000, 2),
-                'free_float%': _free_float/100
+                'Тикер':com.ticker,
+                'Название': com.name,
+                'IR':ir_score,
+                'Рост прибыли':profit_score,
+                'Выплата дивидендов':div_count_score,
+                'Рост дивидендов':div_grow_score,
+                'Рейтинг':round(score, 2),
+                'Капитализация':round(_cap/1000000000, 2),
+                'Free-float': _free_float/100
                 }
             if len(tickers) > 0:
                 if com.ticker in tickers or com.ticker+'P' in tickers:
@@ -78,10 +86,56 @@ class FinProcessor():
             else:
                 data.append(row)
                 
-        df = pd.DataFrame(data).set_index('ticker')
-        df[f'sqrt_free_float({ratio.__round__(2)})'] = ((df['cap']*df['free_float%'])**ratio).round(2)
-        df['temp'] = (df['cap']*df['free_float%'])**ratio*df['score']
-        df['part'] = (df['temp']/df['temp'].sum()*100).round(2)
+        df = pd.DataFrame(data).set_index('Тикер')
+        df[f'Корень({ratio}) free-float'] = ((df['Капитализация']*df['Free-float'])**(1/ratio)).round(2)
+        df['temp'] = (df['Капитализация, млрд. руб.']*df['Free-float'])**(1/ratio)*df['Рейтинг']
+        df['Вес, %'] = (df['temp']/df['temp'].sum()*100).round(2)
         df = df.drop(columns='temp')
         
         return df
+    
+    @staticmethod
+    def one_company_rating(
+        folder_path:str, 
+        ticker:str, 
+        ir_rating:pd.DataFrame, 
+        n:int, 
+        plot:bool=False,
+        ):
+        com = FinProcessor.by_ticker(folder_path=folder_path, ticker=ticker)
+        score = 0
+        if com is not None:
+            ir_score = com.ir_score(ir_rating)
+            profit_score = com.grow_score('Чистая прибыль, млрд руб', n)
+            div_count_score = com.count_score('Див.выплата, млрд руб', n)
+            div_grow_score = com.grow_score('Див.выплата, млрд руб', n)
+
+            _profit_score = profit_score.value()
+            _div_count_score = div_count_score.value()
+            _div_grow_score = div_grow_score.value()
+
+            if _profit_score == None:
+                _profit_score = 0
+                log.debug(message=f'[Чистая прибыль, млрд руб]: [{com.ticker}] нет в таблице')
+            if _div_count_score == None:
+                _div_count_score = 0
+                log.debug(message=f'[Див.выплата, млрд руб]: [{com.ticker}] нет в таблице')
+            if _div_grow_score is None:
+                _div_grow_score = 0
+
+            row = f'{profit_score.calc()}\n'+\
+            f'{div_count_score.calc()}\n'+\
+            f'{div_grow_score.calc()}\n'+\
+            f'IR = {ir_score}\n'
+
+            if ir_score is not None:
+                score = (ir_score + _profit_score + _div_count_score+ _div_grow_score)/4
+                row += f'Рейтинг = ({_profit_score}+{_div_count_score}+{_div_grow_score}+{ir_score})/4={round(score,2)}'
+            else:
+                score = (_profit_score + _div_count_score+ _div_grow_score)/4
+                row += f'Рейтинг = ({_profit_score}+{_div_count_score}+{_div_grow_score})/4 = {round(score, 2)}'
+            print(row)
+            if plot:
+                com.plot_multiple_chart(com.METRIC_LIST)
+            return row
+

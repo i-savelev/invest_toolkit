@@ -4,7 +4,7 @@ import numpy as np
 import pathlib
 import re
 from .utils import Plotter
-from logger import log
+from .result import Res
 
 
 class Company():
@@ -88,27 +88,31 @@ class Company():
                 last_n = pd.concat([padding, last_n]).iloc[-n:]
         return last_n
         
-    def grow_score(self, metric:str, n:int):
+    def grow_score(self, metric:str, n:int)->Res:
         s = self._processed_data(metric, n)
         if s is None:
-            return 0
+            calc = f'Рост [{metric}]: 0'
+            return Res(value=None, calc=calc)
         l = s.values.tolist()
         l.reverse()
         score = 0
         val = 0
         for i, value in enumerate(l):
             if i >= len(l)-1: break
-            if (value > l[i+1]) and (value > 0):
+            if (value >= l[i+1]) and (value > 0):
                 val += 1
             if (value < 0):
                 val -= 1
         score = val/n
-        return round(score, 2)
+        calc = f'Рост [{metric}]: {val}/{n} = {round(score, 2)}'
+        res = Res(value=round(score, 2), calc=calc)
+        return  res
 
-    def count_score(self, metric:str, n:int):
+    def count_score(self, metric:str, n:int)->Res:
         s = self._processed_data(metric, n)
         if s is None:
-            return 0
+            calc = f'Кол-во [{metric}]: 0'
+            return Res(value=None, calc=calc)
         l = s.values.tolist()
         l.reverse()
         score = 0
@@ -118,7 +122,9 @@ class Company():
             if value > 0:
                 val += 1
         score = val/n
-        return round(score, 2)
+        calc = f'Кол-во [{metric}]: {val}/{n} = {round(score, 2)}'
+        res = Res(value=round(score, 2), calc=calc)
+        return res
     
     def ir_score(self, ir_rating:pd.DataFrame):
         df = ir_rating.set_index('ticker')
