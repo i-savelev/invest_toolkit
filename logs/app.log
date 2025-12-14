@@ -1639,3 +1639,814 @@
 2025-12-14 12:40:56 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
 2025-12-14 12:40:56 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [GLRX] нет в таблице
 2025-12-14 12:40:56 | DEBUG    | fin_processor.py:33 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 16:54:27 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 16:54:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 16:54:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 16:54:28 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 16:54:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 16:54:28 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 16:54:28 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 16:54:29 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 16:55:39 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 16:56:51 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:22:28 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:23:52 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:24:04 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:33:01 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:33:02 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:33:12 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:37:21 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:39:43 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:39:49 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:63 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:52 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:56 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:67 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:47:49 | DEBUG    | fin_processor.py:69 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:16 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:51:04 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:16 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:52:09 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:16 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:52:31 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SIBN] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:16 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 17:52:36 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 18:03:40 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:16 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 18:03:41 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:16 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 18:03:42 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:16 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 18:07:11 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [GLRX] нет таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ROLO] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VSEH] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [BANE] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [OKEY] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OKEY] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [APRI] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [APRI] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [APRI] нет таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [UGLD] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [UGLD] нет таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [VKCO] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [PMSB] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [CNRU] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LMBZ] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [RBCM] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [GCHE] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NMTP] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGNT] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [DOMRF] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [DOMRF] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [DOMRF] нет таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [LSNG] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [MGKL] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [WUSH] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [SPBE] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [SPBE] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [IRKT] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [PRMD] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [OZON] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [OZON] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [NKNC] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [WTCM] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ZAYM] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:27 | logger.log | [FREE-FLOAT]: [ELMT] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:16 | logger.log | [Чистая прибыль, млрд руб]: [GLRX] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:20 | logger.log | [Див.выплата, млрд руб]: [GLRX] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:31 | logger.log | [CAP]: [GLRX] нет в таблице
+2025-12-14 18:37:13 | DEBUG    | fin_processor.py:35 | logger.log | [IR]: [GLRX] нет таблице

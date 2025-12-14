@@ -8,6 +8,7 @@ wheels/
 .output
 .reports
 *.ipynb
+logs
 
 # Virtual environments
 .venv

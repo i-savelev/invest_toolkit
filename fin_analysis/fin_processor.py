@@ -35,7 +35,8 @@ class FinProcessor():
         free_float_source_path:str,
         tickers:list[str] = [], 
         ratio:float=1,
-        only_rating = False
+        only_rating = False,
+        disable_ir = False
         ):
         data = []
         folder = pathlib.Path(folder_path)
@@ -65,11 +66,14 @@ class FinProcessor():
             if _cap is None or _cap == 0: 
                 _cap = com.cap()
                 log.debug(message=f'[CAP]: [{com.ticker}] нет в таблице')
-            if ir_score is None:
-                log.debug(message=f'[IR]: [{com.ticker}] нет таблице')
+            if disable_ir:
                 score = (profit_score + div_count_score + div_grow_score)/3
             else:
-                score = (ir_score + profit_score + div_count_score+ div_grow_score)/4
+                if ir_score is None:
+                    log.debug(message=f'[IR]: [{com.ticker}] нет таблице')
+                    score = (profit_score + div_count_score + div_grow_score)/3
+                else:
+                    score = (ir_score + profit_score + div_count_score+ div_grow_score)/4
             row = {
                 'Тикер':com.ticker,
                 'Название': com.name,
