@@ -34,7 +34,8 @@ class FinProcessor():
         cap_source_path:str,
         free_float_source_path:str,
         tickers:list[str] = [], 
-        ratio:float=1
+        ratio:float=1,
+        only_rating = False
         ):
         data = []
         folder = pathlib.Path(folder_path)
@@ -77,7 +78,7 @@ class FinProcessor():
                 'Выплата дивидендов':div_count_score,
                 'Рост дивидендов':div_grow_score,
                 'Рейтинг':round(score, 2),
-                'Капитализация':round(_cap/1000000000, 2),
+                'Капитализация, млрд. руб.':round(_cap/1000000000, 2),
                 'Free-float': _free_float/100
                 }
             if len(tickers) > 0:
@@ -87,11 +88,13 @@ class FinProcessor():
                 data.append(row)
                 
         df = pd.DataFrame(data).set_index('Тикер')
-        df[f'Корень({ratio}) free-float'] = ((df['Капитализация']*df['Free-float'])**(1/ratio)).round(2)
+        df[f'Корень({ratio}) free-float'] = ((df['Капитализация, млрд. руб.']*df['Free-float'])**(1/ratio)).round(2)
         df['temp'] = (df['Капитализация, млрд. руб.']*df['Free-float'])**(1/ratio)*df['Рейтинг']
-        df['Вес, %'] = (df['temp']/df['temp'].sum()*100).round(2)
+        if only_rating:
+            df['Вес, %'] = ((df['Рейтинг']**ratio)/((df['Рейтинг']**ratio).sum())*100).round(2)
+        else:
+            df['Вес, %'] = (df['temp']/df['temp'].sum()*100).round(2)
         df = df.drop(columns='temp')
-        
         return df
     
     @staticmethod
@@ -138,4 +141,42 @@ class FinProcessor():
             if plot:
                 com.plot_multiple_chart(com.METRIC_LIST)
             return row
+        
+    @staticmethod
+    def to_snowball(data:pd.DataFrame, out_path:str):
+        result = pd.DataFrame({
+            "Parent": ["" for _ in data.index],
+            "PieAsset": data.index.str.replace('.', '-', regex=False) + ".RUB.MCX",
+            "IsAsset": "true",          # ← строка 'true', не bool
+            "IsUnallocated": "false",
+            "IsLocked": "false",
+            "Allocation": [
+                f'"{float(w):.4f}".replace(".", ",")' if pd.notna(w) and w != "" else ""
+                for w in data.get("Вес, %", [""] * len(data))
+            ]
+        })
+        result["Allocation"] = [
+            f'"{float(w):.4f}".replace(".", ",")' if ... else ""
+            for w in data.get("Вес, %", [""] * len(data))
+        ]
+        def format_weight(w):
+            if pd.isna(w) or w == "" or w is None:
+                return ""
+            try:
+                num = float(w)
+                s = f"{num:.4f}"
+                s = s.replace(".", ",")
+                return f'{s}'
+            except:
+                return ""
+
+        weights = data.get("Вес, %", [""] * len(data))
+        result["Allocation"] = [format_weight(w) for w in weights]
+        result.to_csv(
+            out_path,
+            index=False,
+            encoding="utf-8-sig",
+            quotechar='"',
+            escapechar='\\'
+        )
 

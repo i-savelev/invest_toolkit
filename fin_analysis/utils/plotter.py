@@ -44,7 +44,7 @@ class Plotter:
         show:bool=True
         ):
         row:pd.Series = df.loc[title].copy()
-        row =  row.dropna()
+        # row =  row.dropna()
         ax = row.plot(
             kind='bar',
             ax=axes,
