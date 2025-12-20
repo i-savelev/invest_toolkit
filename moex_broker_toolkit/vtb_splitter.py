@@ -2,10 +2,48 @@ import pandas as pd
 from .table_splitter import TableSplitter
 
 class VtbSplitter(TableSplitter):
+    """
+    Класс для разделения отчёта ВТБ (Excel-файл) на отдельные логические таблицы.
+
+    Отчёт ожидается в виде одного листа ('brokerage_report') без заголовков (header=None),
+    где таблицы разделены пустыми строками. Первая ячейка каждой таблицы (после пропуска пустых строк)
+    интерпретируется как её название.
+
+    Пример структуры Excel:
+        [таблица_1_заголовок]
+        [данные]
+        [данные]
+        [пустая строка]
+        [таблица_2_заголовок]
+        ...
+
+    .. note::
+        Класс сохраняет результат в атрибут `self.df_dict` и возвращает его из метода `split`.
+
+    Пример использования:
+        splitter = VtbSplitter()
+        tables = splitter.split("report.xlsx")
+        splitter.save_excel("output.xlsx")  # если реализовано в TableSplitter
+    """
     def split(
-        self, 
-        excel_path:str,
-        ):
+            self, 
+            excel_path:str,
+        ) -> dict[int, pd.DataFrame]:
+        """
+        Разделяет Excel-файл отчёта ВТБ на отдельные таблицы по пустым строкам.
+
+        :param excel_path: Путь к Excel-файлу с отчётом.
+        :type excel_path: str
+
+        :returns: Словарь, где ключ — название таблицы (значение первой ячейки),
+                  значение — DataFrame этой таблицы без полностью пустых столбцов.
+        :rtype: Dict[str, pd.DataFrame]
+
+        :raises FileNotFoundError: Если файл по указанному пути не найден.
+        :raises ValueError: Если лист 'brokerage_report' отсутствует или пуст.
+        :raises IndexError: Если в какой-либо секции отсутствует строка с названием таблицы
+                            (например, пустая секция без данных).
+        """
         df = pd.read_excel(
             excel_path, 
             sheet_name="brokerage_report", 
