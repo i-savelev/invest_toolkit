@@ -4,14 +4,29 @@ from pathlib import Path
 
 
 class ReportGenerator:
-    """Генератор отчетов, использующий стратегию форматирования.
-    Разделяет логику получения данных и их представления.
+    """
+    Генератор отчётов, реализующий паттерн *Strategy*.
+
+    Позволяет:
+    - выбирать формат вывода (Markdown, HTML и др.) через стратегию,
+    - генерировать отчёт,
+    - сохранять его в файл.
+
+    Отделяет *что* генерировать (данные, логика в `ReportStrategy`) от *как* генерировать (формат).
+
+    Атрибуты:
+        _strategy: Текущая стратегия форматирования.
+        report: Последний сгенерированный отчёт (строка). Инициализируется пустой строкой.
     """
 
     def __init__(self, strategy: ReportStrategy) -> None:
-        """Инициализирует генератор с заданной стратегией.
-        :param strategy: Стратегия форматирования отчета.
-        :raises TypeError: Если strategy не реализует ReportStrategy.
+        """
+        Инициализирует генератор с заданной стратегией.
+
+        :param strategy: Объект, реализующий `ReportStrategy`.
+        :type strategy: ReportStrategy
+
+        :raises TypeError: Если `strategy` не является экземпляром `ReportStrategy`.
         """
         if not isinstance(strategy, ReportStrategy):
             raise TypeError("Стратегия должна быть экземпляром ReportStrategy.")
@@ -19,30 +34,46 @@ class ReportGenerator:
         self.report:str = ''
 
     def generate_report(self) -> str:
-        """Генерирует отчет с использованием текущей стратегии.
-        :param  Данные для генерации отчета.
-        :returns: Сформированный отчет в виде строки.
-        :raises TypeError: Если data не является pd.DataFrame.
+        """
+        Генерирует отчёт с использованием текущей стратегии.
+
+        Результат кэшируется в `self.report`.
+
+        :returns: Сформированный отчёт в виде строки.
+        :rtype: str
+
+        :raises NotImplementedError: Если `strategy.generate()` не реализован.
+        :raises ValueError / KeyError / OSError: В зависимости от реализации стратегии.
         """
         self.report = self._strategy.generate()
         return self.report
 
     def set_strategy(self, strategy: ReportStrategy) -> None:
-        """Изменяет стратегию форматирования отчета.
+        """
+        Изменяет текущую стратегию форматирования.
+
         :param strategy: Новая стратегия.
-        :raises TypeError: Если strategy не реализует ReportStrategy.
+        :type strategy: ReportStrategy
+
+        :raises TypeError: Если `strategy` не реализует `ReportStrategy`.
         """
         if not isinstance(strategy, ReportStrategy):
             raise TypeError("Стратегия должна быть экземпляром ReportStrategy.")
         self._strategy = strategy
 
     def save_report(self, path:str):
-        """Сохраняет последний сгенерированный отчет в файл.
-        Если отчет еще не был сгенерирован — выбрасывает исключение.
-        :param path: Путь к файлу, куда нужно сохранить отчет.
-        :raises ValueError: Если отчет еще не был сгенерирован.
-        :raises OSError: Если возникла ошибка при записи файла (например, нет прав, диск переполнен).
-        :raises TypeError: Если path не является строкой.
+        """
+        Сохраняет последний сгенерированный отчёт в файл.
+
+        Перед записью создаются родительские директории (закомментировано в оригинале,
+        но поведение сохранено — при необходимости можно раскомментировать).
+
+        :param path: Путь к файлу назначения (например, `"./reports/report.md"`).
+        :type path: str
+
+        :raises TypeError: Если `path` не является строкой.
+        :raises ValueError: Если `self.report` пуст (отчёт не генерировался).
+        :raises OSError: При ошибках файловой системы (нет прав, диск переполнен и т.д.).
         """
         if not isinstance(path, str):
             raise TypeError("Путь к файлу должен быть строкой.")

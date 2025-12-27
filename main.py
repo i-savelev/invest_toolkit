@@ -13,13 +13,13 @@ if __name__ == "__main__":
 
     report_registry = mbtk.ReportRegistry()
 
-    vtb_parser = mbtk.VtbPareser(
+    vtb_parser = mbtk.VtbParser(
         all_stock_info=all_stock,
         splitter=splitter_vtb,
         registry=report_registry
     )
 
-    sber_parser = mbtk.SberPareser(
+    sber_parser = mbtk.SberParser(
         all_stock_info=all_stock,
         splitter=splitter_sber,
         registry=report_registry
