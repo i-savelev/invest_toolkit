@@ -178,7 +178,7 @@ class TargetAllocator:
         buy_orders['cost_per_lot'] = buy_orders['Цена'] * buy_orders['Размер лота']
         
         # Сортируем по возрастанию стоимости лота — сначала дешёвые
-        buy_orders = buy_orders.sort_values('cost_per_lot')
+        buy_orders = buy_orders.sort_values('delt расчет')
 
         remaining_funds = available_funds
         total_spent = 0
