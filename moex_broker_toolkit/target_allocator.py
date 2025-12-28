@@ -41,7 +41,7 @@ class TargetAllocator:
             distribution_table: DistributionTable,
             deposit:float = 0,
             allow_sell:bool = False,
-            tickers_to_sell:list[str] = []
+            tickers_to_sell:list[str] | None = None
             ):
         """
         Инициализирует аллокатор.
