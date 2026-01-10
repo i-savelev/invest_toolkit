@@ -43,7 +43,7 @@ if __name__ == "__main__":
     ta = mbtk.TargetAllocator(
         distribution_table=ds,
         balance_report=br,
-        deposit=80000,
+        deposit=120000,
         allow_sell=False,
         tickers_to_sell=['SBMM', 'LQDT']
     )

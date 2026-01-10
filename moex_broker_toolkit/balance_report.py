@@ -78,7 +78,8 @@ class BalanceReport:
             {
             'name': 'first',
             'Кол-во (шт)': 'sum',
-            'Размер лота': 'first'
+            'Размер лота': 'first',
+            'category': 'first'
             }
         ) 
         balance_report['Цена'] = balance_report.apply(self.get_price, axis = 1)

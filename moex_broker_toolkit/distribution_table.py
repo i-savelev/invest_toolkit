@@ -103,7 +103,7 @@ class DistributionTable:
         :raises ValueError: Если `df[column].sum()` ≠ `val` (с точностью до float).
         :raises KeyError: Если столбец `column` отсутствует.
         """
-        sum = df[column].sum()
+        sum = df[column].sum().round(10)
         if sum != val:
             raise ValueError(f'сумма процентов {name} равна {sum}, а не равно 100%')
 
@@ -144,7 +144,7 @@ class DistributionTable:
                         categories_df['category'] == key, 
                         '%'
                         ].iloc[0]
-                    df_copy = df.copy()
+                    df_copy = df.copy()[['ticker', '%']]
                     df_copy['%'] = category_percent/100*df['%'].round(10)
                     df_copy['category'] = key
                     df_list.append(df_copy)
