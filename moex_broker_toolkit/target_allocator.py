@@ -181,7 +181,7 @@ class TargetAllocator:
     def group_by_value(
             df: pd.DataFrame,
             group_col: str,
-            group_value: st
+            group_value: str,
             group_dict: dict
         ) -> pd.DataFrame:
         """
