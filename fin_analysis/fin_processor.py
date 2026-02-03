@@ -12,8 +12,7 @@ class FinProcessor():
     
     @staticmethod
     def extract_ticker(name: str) -> str:
-        match = re.search(r'\(([^)]+)\)', name)
-        return match.group(1) if match else None
+        return name.replace('.csv', '')
     
     @staticmethod
     def by_ticker(folder_path:str, ticker:str)->Company|None:    

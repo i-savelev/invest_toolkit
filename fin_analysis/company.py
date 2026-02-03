@@ -40,8 +40,7 @@ class Company():
                 return False
 
         def _extract_ticker(name: str) -> str|None:
-            match = re.search(r'\(([^)]+)\)', name)
-            return match.group(1) if match else None
+            return name.replace('.csv', '')
          
         year_mask = df.columns.map(_is_year_label)
         columns_to_ceep = df.columns[year_mask]

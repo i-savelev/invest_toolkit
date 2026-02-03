@@ -11,5 +11,6 @@ dependencies = [
     "matplotlib>=3.10.7",
     "pandas[excel]>=2.3.2",
     "requests>=2.32.5",
+    "selenium>=4.40.0",
     "tabulate>=0.9.0",
 ]
