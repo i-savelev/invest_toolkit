@@ -9,7 +9,7 @@ if __name__ == "__main__":
     splitter_vtb = mbtk.VtbSplitter()
     splitter_vtb.split(r'.reports/vtb20251026_20251125.xlsx')
     splitter_sber = mbtk.SberSplitter()
-    splitter_sber.split(r'.reports/sber_14112025.html')
+    splitter_sber.split(r'.reports/sber_25122025.html')
 
     report_registry = mbtk.ReportRegistry()
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     ta = mbtk.TargetAllocator(
         distribution_table=ds,
         balance_report=br,
-        deposit=40000,
+        deposit=120000,
         allow_sell=False,
         tickers_to_sell=['SBMM', 'LQDT']
     )
