@@ -12,7 +12,7 @@ class Company():
 
     '''
     def __init__(self, df:pd.DataFrame, ticker, name) -> None:
-        self.ticker = ticker
+        self.ticker:str = ticker
         self.name = name
         self.df = df
         
@@ -126,10 +126,16 @@ class Company():
         return res
     
     def ir_score(self, ir_rating:pd.DataFrame):
-        df = ir_rating.set_index('ticker')
-        if self.ticker in df.index:
-            rating = df.loc[self.ticker]['rating']
-            return rating/100
+        df = ir_rating.dropna().set_index('ticker')
+        for ticker in df.index:
+            if len(ticker)>2:
+                if ticker in self.ticker:
+                    rating = df.loc[ticker]['rating']
+                    return rating/100
+            else:
+                if ticker==self.ticker:
+                    rating = df.loc[ticker]['rating']
+                    return rating/100
         else: 
             return None
 
