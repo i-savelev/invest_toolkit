@@ -29,7 +29,7 @@
 - `moex_api_utils` — API для получения цен с MOEX (не класс, а модуль утилит).
 """
 
-from .all_stock_info import AllStockInfo
+from .all_stock_info import all_instruments_df
 from .balance_report import BalanceReport
 from .broker_parser import BrokerParser
 from .distribution_table import DistributionTable

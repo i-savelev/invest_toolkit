@@ -1,76 +1,106 @@
 import pandas as pd
+import requests
 
+# URLs для разных типов инструментов
+URLS = {
+    'stock': 'https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json',
+    'etf': 'https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQTF/securities.json',  # ETF на TQTF
+    'bond': 'https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQCB/securities.json',  # Корпоративные
+    'ofz': 'https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQOB/securities.json',     # ОФЗ
+}
 
-class AllStockInfo:
+def all_instruments_df()->pd.DataFrame:
     """
-    Загрузчик справочной информации по ценным бумагам из CSV-файла.
+    Собирает все торгуемые инструменты с MOEX:
+    - Акции (TQBR)
+    - ETF (TQTF)
+    - Корпоративные облигации (TQCB)
+    - ОФЗ (TQOB)
 
-    Ожидается CSV-файл **без стандартного заголовка**, где:
-    - строки 0 и 1 — служебные (например, дата, источник),
-    - строка 2 — фактические названия столбцов,
-    - данные начинаются со строки 3.
-
-    Пример структуры файла:
-        Справочник ЦБ;ВТБ Капитал Торговля;2025-08-22
-        ;
-        ISIN;SECID;SHORTNAME;LOTSIZE;...
-        RU000A0JR2K7;SBER;Сбербанк ао;10;...
-        ...
-
-    После загрузки DataFrame сохраняется в `self.all_stock_df`.
-
-    Атрибуты:
-        all_stock_df: pandas.DataFrame со справочными данными по инструментам.
-                      Ожидается наличие ключевых столбцов: 'ISIN', 'SECID', 'SHORTNAME', 'LOTSIZE'.
+    Возвращает единый DataFrame с колонками:
+    - type: 'stock', 'etf', 'bond'
+    - ticker, isin, name, price, lot_size, currency, cap (для акций/ETF), coupon (для облигаций)
     """
-    def __init__(
-            self, 
-            path:str
-            ):
-        """
-        Инициализирует загрузчик и сразу читает CSV-файл.
+    all_data = []
 
-        :param path: Путь к CSV-файлу со справочником.
-        :type path: str
+    for instrument_type, url in URLS.items():
+        print(f"Загружаем данные: {instrument_type.upper()}...")
 
-        :raises FileNotFoundError: Если файл не найден.
-        :raises pd.errors.EmptyDataError: Если файл пуст.
-        :raises pd.errors.ParserError: При неверном формате CSV (например, несовпадение `sep=';'`).
-        :raises IndexError: Если в файле меньше 3 строк (нет строки с заголовками).
-        """
-        self.all_stock_df = self.get_all_stock_df(path)
+        # Параметры запроса
+        params = {
+            'iss.only': 'securities,marketdata',
+            'iss.meta': 'off',
+        }
 
-    def get_all_stock_df(
-            self, 
-            path_csv:str
-            ) -> pd.DataFrame:
-        """Читает и обрабатывает CSV-файл со справочником инструментов.
+        # Указываем нужные колонки в зависимости от типа
+        if instrument_type in ['stock', 'etf']:
+            params['securities.columns'] = 'SECID,SHORTNAME,ISIN,LOTSIZE,CURRENCYID'
+            params['marketdata.columns'] = 'SECID,LAST,ISSUECAPITALIZATION'
+        elif instrument_type in ['bond', 'ofz']:
+            params['securities.columns'] = 'SECID,SHORTNAME,ISIN,LOTSIZE,CURRENCYID,COUPONVALUE'
+            params['marketdata.columns'] = 'SECID,LAST'
 
-        1. Читает файл без заголовка (`header=None`).
-        2. Использует третью строку (`iloc[2]`) как заголовки.
-        3. Удаляет первые три строки (0, 1, 2).
-        4. Сбрасывает индекс.
+        # Выполняем запрос
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        data = response.json()
 
-        :param path_csv: Путь к CSV-файлу.
-        :type path_csv: str
+        # Проверка, есть ли данные
+        if not data['securities']['data']:
+            print(f"⚠️ Нет данных для {instrument_type}")
+            continue
 
-        :returns: Обработанный DataFrame со справочными данными.
-        :rtype: pd.DataFrame
+        # Создаём DataFrames
+        sec_df = pd.DataFrame(data['securities']['data'], columns=data['securities']['columns'])
+        mkt_df = pd.DataFrame(data['marketdata']['data'], columns=data['marketdata']['columns'])
 
-        :raises FileNotFoundError: Если файл не существует.
-        :raises pd.errors.ParserError: При ошибках парсинга (например, не тот разделитель).
-        :raises IndexError: Если файла < 3 строк.
-        :raises UnicodeDecodeError: При несовместимости кодировки (ожидается UTF-8).
-        """
-        source_df = pd.read_csv(
-            path_csv, 
-            header=None,
-            encoding='utf-8', 
-            sep=';'
-            )
-        header = source_df.iloc[2]
-        source_df.columns = header
-        source_df.drop([0, 1, 2], axis = 0, inplace=True)
-        df = source_df.reset_index(drop=True)
-        df = pd.DataFrame(df)
-        return df
+        # Объединяем
+        df = pd.merge(sec_df, mkt_df, on='SECID', how='left')
+
+        # Добавляем тип инструмента
+        df['type'] = instrument_type
+
+        all_data.append(df)
+
+    # Объединяем всё
+    full_df = pd.concat(all_data, ignore_index=True)
+
+    # Приводим к нужным именам
+    column_mapping = {
+        'SECID': 'ticker',
+        'SHORTNAME': 'name',
+        'ISIN': 'isin',
+        'LOTSIZE': 'lot_size',
+        'CURRENCYID': 'currency',
+        'LAST': 'price',
+        'ISSUECAPITALIZATION': 'cap',
+        'COUPONVALUE': 'coupon',
+    }
+    full_df = full_df[list(column_mapping.keys()) + ['type']].rename(columns=column_mapping)
+
+    # Приводим числовые поля
+    numeric_cols = ['price', 'cap', 'lot_size', 'coupon', 'accrued_interest']
+    for col in numeric_cols:
+        if col in full_df.columns:
+            full_df[col] = pd.to_numeric(full_df[col], errors='coerce')
+
+    # Дополнительно: валюту — как строку
+    full_df['currency'] = full_df['currency'].fillna('RUB').str.upper()
+
+    # Сортируем по капитализации (акции/ETF) или по цене (облигации)
+    full_df.sort_values(
+        by=['type', 'cap', 'price'],
+        ascending=[True, False, False],
+        inplace=True
+    )
+    full_df.reset_index(drop=True, inplace=True)
+
+    return full_df
+
+
+if __name__ == "__main__":
+    df = all_instruments_df()
+    print("\nВсе инструменты:")
+    print(df)
+    # print(f"\nВсего инструментов: {len(df)}")
+    print(f"Типы: \n{df['type'].value_counts()}")

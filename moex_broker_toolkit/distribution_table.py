@@ -1,6 +1,5 @@
 import pandas as pd
 from typing import Optional
-from .all_stock_info import AllStockInfo
 
 
 class DistributionTable:
@@ -37,7 +36,7 @@ class DistributionTable:
     def __init__(
             self,
             file_path:str,
-            all_stock_info: AllStockInfo,
+            all_stock_info: pd.DataFrame,
             ):
         """
         Инициализирует DistributionTable.
@@ -48,7 +47,7 @@ class DistributionTable:
         self.file_path = file_path
         self.df_dict:dict[str, pd.DataFrame]
         self.distribution_table:pd.DataFrame
-        self.all_stock_df = all_stock_info.all_stock_df
+        self.all_stock_df = all_stock_info
 
     def _get_df_dict(self) -> dict[str, pd.DataFrame]:
         """
@@ -153,16 +152,16 @@ class DistributionTable:
         for index, row,  in self.distribution_table.iterrows():
             id = row['ticker']
             isin = self.all_stock_df.loc[
-                self.all_stock_df['SECID'] == id, 
-                'ISIN'
+                self.all_stock_df['ticker'] == id, 
+                'isin'
                 ].iloc[0]
             lot_size = self.all_stock_df.loc[
-                self.all_stock_df['SECID'] == id, 
-                'LOTSIZE'
+                self.all_stock_df['ticker'] == id, 
+                'lot_size'
                 ].iloc[0]
             shortname = self.all_stock_df.loc[
-                self.all_stock_df['SECID'] == id, 
-                'SHORTNAME'
+                self.all_stock_df['ticker'] == id, 
+                'name'
                 ].iloc[0]
             self.distribution_table.at[index, "ISIN"] = isin
             self.distribution_table.at[index, "Размер лота"] = lot_size

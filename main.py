@@ -5,7 +5,7 @@ import datetime
 if __name__ == "__main__":
     date = datetime.date.today()
 
-    all_stock = mbtk.AllStockInfo(path=r'support_files/rates_all.csv')
+    all_stock = mbtk.all_instruments_df()
     splitter_vtb = mbtk.VtbSplitter()
     splitter_vtb.split(r'.reports/vtb20251026_20251125.xlsx')
     splitter_sber = mbtk.SberSplitter()

@@ -1,6 +1,5 @@
 from typing import Optional
 import pandas as pd
-from .all_stock_info import AllStockInfo
 from .table_splitter import TableSplitter
 from .report_registry import ReportRegistry 
 
@@ -28,7 +27,7 @@ class BrokerParser:
     """
     def __init__(
             self, 
-            all_stock_info: AllStockInfo,
+            all_stock_info: pd.DataFrame,
             splitter: TableSplitter,
             registry: ReportRegistry
             ) -> None:
@@ -39,7 +38,7 @@ class BrokerParser:
         :param splitter: Экземпляр TableSplitter с уже вызванным `.split()`.
         :param registry: Реестр для регистрации итогового отчёта.
         """
-        self.all_stock_df = all_stock_info.all_stock_df
+        self.all_stock_df = all_stock_info
         self.split_tables_dict: dict[str, pd.DataFrame] = splitter.df_dict
         self.balance_report: pd.DataFrame
         self.registry = registry
@@ -70,16 +69,16 @@ class BrokerParser:
         for index, row,  in df.iterrows():
             isin = row['ISIN']
             ticker = self.all_stock_df.loc[
-                self.all_stock_df['ISIN'] == isin, 
-                'SECID'
+                self.all_stock_df['isin'] == isin, 
+                'ticker'
                 ].iloc[0]
             lot_size = self.all_stock_df.loc[
-                self.all_stock_df['ISIN'] == isin, 
-                'LOTSIZE'
+                self.all_stock_df['isin'] == isin, 
+                'lot_size'
                 ].iloc[0]
             shortname = self.all_stock_df.loc[
-                self.all_stock_df['ISIN'] == isin, 
-                'SHORTNAME'
+                self.all_stock_df['isin'] == isin, 
+                'name'
                 ].iloc[0]
             df.at[index, "ticker"] = ticker
             df.at[index, "Размер лота"] = lot_size
