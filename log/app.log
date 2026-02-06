@@ -1,0 +1,174 @@
+==================================================
+СКРИПТ: # Пример использования moex.py
+ЗАПУСК: 2026-02-06 21:50:51
+==================================================
+2026-02-06 21:50:51 | INFO     | moex.py:30 | get_all_instruments_info | Начат сбор справочной информации по инструментам MOEX
+2026-02-06 21:50:51 | INFO     | moex.py:34 | get_all_instruments_info | Загрузка данных: STOCK...
+2026-02-06 21:50:51 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 21:50:52 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID&marketdata.columns=SECID%2CLAST%2CISSUECAPITALIZATION HTTP/1.1" 200 None
+2026-02-06 21:50:52 | DEBUG    | moex.py:55 | get_all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json выполнен успешно. Статус: 200
+2026-02-06 21:50:52 | DEBUG    | moex.py:73 | get_all_instruments_info | Данные для stock успешно загружены и объединены.
+2026-02-06 21:50:52 | INFO     | moex.py:34 | get_all_instruments_info | Загрузка данных: ETF...
+2026-02-06 21:50:52 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 21:50:53 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/shares/boards/TQTF/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID&marketdata.columns=SECID%2CLAST%2CISSUECAPITALIZATION HTTP/1.1" 200 None
+2026-02-06 21:50:53 | DEBUG    | moex.py:55 | get_all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQTF/securities.json выполнен успешно. Статус: 200
+2026-02-06 21:50:53 | DEBUG    | moex.py:73 | get_all_instruments_info | Данные для etf успешно загружены и объединены.
+2026-02-06 21:50:53 | INFO     | moex.py:34 | get_all_instruments_info | Загрузка данных: BOND...
+2026-02-06 21:50:53 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 21:50:54 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/bonds/boards/TQCB/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID%2CCOUPONVALUE&marketdata.columns=SECID%2CLAST HTTP/1.1" 200 None
+2026-02-06 21:50:54 | DEBUG    | moex.py:55 | get_all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQCB/securities.json выполнен успешно. Статус: 200
+2026-02-06 21:50:54 | DEBUG    | moex.py:73 | get_all_instruments_info | Данные для bond успешно загружены и объединены.
+2026-02-06 21:50:54 | INFO     | moex.py:34 | get_all_instruments_info | Загрузка данных: OFZ...
+2026-02-06 21:50:54 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 21:50:55 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/bonds/boards/TQOB/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID%2CCOUPONVALUE&marketdata.columns=SECID%2CLAST HTTP/1.1" 200 None
+2026-02-06 21:50:55 | DEBUG    | moex.py:55 | get_all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQOB/securities.json выполнен успешно. Статус: 200
+2026-02-06 21:50:55 | DEBUG    | moex.py:73 | get_all_instruments_info | Данные для ofz успешно загружены и объединены.
+2026-02-06 21:50:55 | INFO     | moex.py:88 | get_all_instruments_info | Сбор данных завершен. Загружено 3269 записей.
+2026-02-06 22:21:35 | INFO     | brokers.py:26 | io.brokers.sbersplit_sber_report | Начало обработки отчёта Сбербанка: ./.reports/sber_01012026_31012026.HTML
+2026-02-06 22:21:36 | DEBUG    | brokers.py:31 | io.brokers.sbersplit_sber_report | Файл отчёта успешно прочитан. Размер: 91301 символов
+2026-02-06 22:21:36 | INFO     | brokers.py:34 | io.brokers.sbersplit_sber_report | Найдено таблиц: 11
+2026-02-06 22:21:36 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 0: 6 строк, 10 столбцов
+2026-02-06 22:21:36 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 1: 10 строк, 3 столбцов
+2026-02-06 22:21:36 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 2: 33 строк, 18 столбцов
+2026-02-06 22:21:36 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 3: 8 строк, 9 столбцов
+2026-02-06 22:21:36 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 4: 14 строк, 6 столбцов
+2026-02-06 22:21:36 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 5: 22 строк, 16 столбцов
+2026-02-06 22:21:36 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 6: 3 строк, 7 столбцов
+2026-02-06 22:21:36 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 7: 3 строк, 9 столбцов
+2026-02-06 22:21:36 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 8: 7 строк, 8 столбцов
+2026-02-06 22:21:36 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 9: 54 строк, 6 столбцов
+2026-02-06 22:21:36 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 10: 1 строк, 3 столбцов
+2026-02-06 22:21:36 | INFO     | brokers.py:41 | io.brokers.sbersplit_sber_report | Обработка отчёта Сбербанка завершена.
+2026-02-06 22:21:36 | INFO     | moex.py:30 | all_instruments_info | Начат сбор справочной информации по инструментам MOEX
+2026-02-06 22:21:36 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: STOCK...
+2026-02-06 22:21:36 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:21:37 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID&marketdata.columns=SECID%2CLAST%2CISSUECAPITALIZATION HTTP/1.1" 200 None
+2026-02-06 22:21:37 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:21:37 | DEBUG    | moex.py:73 | all_instruments_info | Данные для stock успешно загружены и объединены.
+2026-02-06 22:21:37 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: ETF...
+2026-02-06 22:21:37 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:21:38 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/shares/boards/TQTF/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID&marketdata.columns=SECID%2CLAST%2CISSUECAPITALIZATION HTTP/1.1" 200 None
+2026-02-06 22:21:38 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQTF/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:21:38 | DEBUG    | moex.py:73 | all_instruments_info | Данные для etf успешно загружены и объединены.
+2026-02-06 22:21:38 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: BOND...
+2026-02-06 22:21:38 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:21:39 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/bonds/boards/TQCB/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID%2CCOUPONVALUE&marketdata.columns=SECID%2CLAST HTTP/1.1" 200 None
+2026-02-06 22:21:40 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQCB/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:21:40 | DEBUG    | moex.py:73 | all_instruments_info | Данные для bond успешно загружены и объединены.
+2026-02-06 22:21:40 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: OFZ...
+2026-02-06 22:21:40 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:21:41 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/bonds/boards/TQOB/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID%2CCOUPONVALUE&marketdata.columns=SECID%2CLAST HTTP/1.1" 200 None
+2026-02-06 22:21:41 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQOB/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:21:41 | DEBUG    | moex.py:73 | all_instruments_info | Данные для ofz успешно загружены и объединены.
+2026-02-06 22:21:41 | INFO     | moex.py:88 | all_instruments_info | Сбор данных завершен. Загружено 3269 записей.
+2026-02-06 22:22:30 | INFO     | brokers.py:26 | io.brokers.sbersplit_sber_report | Начало обработки отчёта Сбербанка: ./.reports/sber_01012026_31012026.HTML
+2026-02-06 22:22:30 | DEBUG    | brokers.py:31 | io.brokers.sbersplit_sber_report | Файл отчёта успешно прочитан. Размер: 91301 символов
+2026-02-06 22:22:30 | INFO     | brokers.py:34 | io.brokers.sbersplit_sber_report | Найдено таблиц: 11
+2026-02-06 22:22:30 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 0: 6 строк, 10 столбцов
+2026-02-06 22:22:30 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 1: 10 строк, 3 столбцов
+2026-02-06 22:22:30 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 2: 33 строк, 18 столбцов
+2026-02-06 22:22:30 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 3: 8 строк, 9 столбцов
+2026-02-06 22:22:30 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 4: 14 строк, 6 столбцов
+2026-02-06 22:22:30 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 5: 22 строк, 16 столбцов
+2026-02-06 22:22:30 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 6: 3 строк, 7 столбцов
+2026-02-06 22:22:30 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 7: 3 строк, 9 столбцов
+2026-02-06 22:22:30 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 8: 7 строк, 8 столбцов
+2026-02-06 22:22:30 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 9: 54 строк, 6 столбцов
+2026-02-06 22:22:30 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 10: 1 строк, 3 столбцов
+2026-02-06 22:22:30 | INFO     | brokers.py:41 | io.brokers.sbersplit_sber_report | Обработка отчёта Сбербанка завершена.
+2026-02-06 22:22:30 | INFO     | moex.py:30 | all_instruments_info | Начат сбор справочной информации по инструментам MOEX
+2026-02-06 22:22:30 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: STOCK...
+2026-02-06 22:22:30 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:22:31 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID&marketdata.columns=SECID%2CLAST%2CISSUECAPITALIZATION HTTP/1.1" 200 None
+2026-02-06 22:22:31 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:22:31 | DEBUG    | moex.py:73 | all_instruments_info | Данные для stock успешно загружены и объединены.
+2026-02-06 22:22:31 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: ETF...
+2026-02-06 22:22:31 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:22:31 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/shares/boards/TQTF/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID&marketdata.columns=SECID%2CLAST%2CISSUECAPITALIZATION HTTP/1.1" 200 None
+2026-02-06 22:22:31 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQTF/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:22:31 | DEBUG    | moex.py:73 | all_instruments_info | Данные для etf успешно загружены и объединены.
+2026-02-06 22:22:31 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: BOND...
+2026-02-06 22:22:31 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:22:32 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/bonds/boards/TQCB/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID%2CCOUPONVALUE&marketdata.columns=SECID%2CLAST HTTP/1.1" 200 None
+2026-02-06 22:22:32 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQCB/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:22:32 | DEBUG    | moex.py:73 | all_instruments_info | Данные для bond успешно загружены и объединены.
+2026-02-06 22:22:32 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: OFZ...
+2026-02-06 22:22:32 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:22:33 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/bonds/boards/TQOB/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID%2CCOUPONVALUE&marketdata.columns=SECID%2CLAST HTTP/1.1" 200 None
+2026-02-06 22:22:33 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQOB/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:22:33 | DEBUG    | moex.py:73 | all_instruments_info | Данные для ofz успешно загружены и объединены.
+2026-02-06 22:22:33 | INFO     | moex.py:88 | all_instruments_info | Сбор данных завершен. Загружено 3269 записей.
+2026-02-06 22:23:06 | INFO     | brokers.py:26 | io.brokers.sbersplit_sber_report | Начало обработки отчёта Сбербанка: ./.reports/sber_01012026_31012026.HTML
+2026-02-06 22:23:06 | DEBUG    | brokers.py:31 | io.brokers.sbersplit_sber_report | Файл отчёта успешно прочитан. Размер: 91301 символов
+2026-02-06 22:23:06 | INFO     | brokers.py:34 | io.brokers.sbersplit_sber_report | Найдено таблиц: 11
+2026-02-06 22:23:06 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 0: 6 строк, 10 столбцов
+2026-02-06 22:23:06 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 1: 10 строк, 3 столбцов
+2026-02-06 22:23:06 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 2: 33 строк, 18 столбцов
+2026-02-06 22:23:06 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 3: 8 строк, 9 столбцов
+2026-02-06 22:23:06 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 4: 14 строк, 6 столбцов
+2026-02-06 22:23:06 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 5: 22 строк, 16 столбцов
+2026-02-06 22:23:06 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 6: 3 строк, 7 столбцов
+2026-02-06 22:23:06 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 7: 3 строк, 9 столбцов
+2026-02-06 22:23:06 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 8: 7 строк, 8 столбцов
+2026-02-06 22:23:06 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 9: 54 строк, 6 столбцов
+2026-02-06 22:23:06 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 10: 1 строк, 3 столбцов
+2026-02-06 22:23:06 | INFO     | brokers.py:41 | io.brokers.sbersplit_sber_report | Обработка отчёта Сбербанка завершена.
+2026-02-06 22:23:06 | INFO     | moex.py:30 | all_instruments_info | Начат сбор справочной информации по инструментам MOEX
+2026-02-06 22:23:06 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: STOCK...
+2026-02-06 22:23:06 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:23:07 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID&marketdata.columns=SECID%2CLAST%2CISSUECAPITALIZATION HTTP/1.1" 200 None
+2026-02-06 22:23:07 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:23:07 | DEBUG    | moex.py:73 | all_instruments_info | Данные для stock успешно загружены и объединены.
+2026-02-06 22:23:07 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: ETF...
+2026-02-06 22:23:07 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:23:08 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/shares/boards/TQTF/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID&marketdata.columns=SECID%2CLAST%2CISSUECAPITALIZATION HTTP/1.1" 200 None
+2026-02-06 22:23:08 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQTF/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:23:08 | DEBUG    | moex.py:73 | all_instruments_info | Данные для etf успешно загружены и объединены.
+2026-02-06 22:23:08 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: BOND...
+2026-02-06 22:23:08 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:23:08 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/bonds/boards/TQCB/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID%2CCOUPONVALUE&marketdata.columns=SECID%2CLAST HTTP/1.1" 200 None
+2026-02-06 22:23:09 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQCB/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:23:09 | DEBUG    | moex.py:73 | all_instruments_info | Данные для bond успешно загружены и объединены.
+2026-02-06 22:23:09 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: OFZ...
+2026-02-06 22:23:09 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:23:09 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/bonds/boards/TQOB/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID%2CCOUPONVALUE&marketdata.columns=SECID%2CLAST HTTP/1.1" 200 None
+2026-02-06 22:23:09 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQOB/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:23:09 | DEBUG    | moex.py:73 | all_instruments_info | Данные для ofz успешно загружены и объединены.
+2026-02-06 22:23:09 | INFO     | moex.py:88 | all_instruments_info | Сбор данных завершен. Загружено 3269 записей.
+2026-02-06 22:23:17 | INFO     | brokers.py:26 | io.brokers.sbersplit_sber_report | Начало обработки отчёта Сбербанка: ./.reports/sber_01012026_31012026.HTML
+2026-02-06 22:23:17 | DEBUG    | brokers.py:31 | io.brokers.sbersplit_sber_report | Файл отчёта успешно прочитан. Размер: 91301 символов
+2026-02-06 22:23:17 | INFO     | brokers.py:34 | io.brokers.sbersplit_sber_report | Найдено таблиц: 11
+2026-02-06 22:23:17 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 0: 6 строк, 10 столбцов
+2026-02-06 22:23:17 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 1: 10 строк, 3 столбцов
+2026-02-06 22:23:17 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 2: 33 строк, 18 столбцов
+2026-02-06 22:23:17 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 3: 8 строк, 9 столбцов
+2026-02-06 22:23:17 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 4: 14 строк, 6 столбцов
+2026-02-06 22:23:17 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 5: 22 строк, 16 столбцов
+2026-02-06 22:23:17 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 6: 3 строк, 7 столбцов
+2026-02-06 22:23:17 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 7: 3 строк, 9 столбцов
+2026-02-06 22:23:17 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 8: 7 строк, 8 столбцов
+2026-02-06 22:23:17 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 9: 54 строк, 6 столбцов
+2026-02-06 22:23:17 | DEBUG    | brokers.py:39 | io.brokers.sbersplit_sber_report | Таблица 10: 1 строк, 3 столбцов
+2026-02-06 22:23:17 | INFO     | brokers.py:41 | io.brokers.sbersplit_sber_report | Обработка отчёта Сбербанка завершена.
+2026-02-06 22:23:17 | INFO     | moex.py:30 | all_instruments_info | Начат сбор справочной информации по инструментам MOEX
+2026-02-06 22:23:17 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: STOCK...
+2026-02-06 22:23:17 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:23:18 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID&marketdata.columns=SECID%2CLAST%2CISSUECAPITALIZATION HTTP/1.1" 200 None
+2026-02-06 22:23:18 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:23:18 | DEBUG    | moex.py:73 | all_instruments_info | Данные для stock успешно загружены и объединены.
+2026-02-06 22:23:18 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: ETF...
+2026-02-06 22:23:18 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:23:19 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/shares/boards/TQTF/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID&marketdata.columns=SECID%2CLAST%2CISSUECAPITALIZATION HTTP/1.1" 200 None
+2026-02-06 22:23:19 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQTF/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:23:19 | DEBUG    | moex.py:73 | all_instruments_info | Данные для etf успешно загружены и объединены.
+2026-02-06 22:23:19 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: BOND...
+2026-02-06 22:23:19 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:23:20 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/bonds/boards/TQCB/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID%2CCOUPONVALUE&marketdata.columns=SECID%2CLAST HTTP/1.1" 200 None
+2026-02-06 22:23:20 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQCB/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:23:20 | DEBUG    | moex.py:73 | all_instruments_info | Данные для bond успешно загружены и объединены.
+2026-02-06 22:23:20 | INFO     | moex.py:34 | all_instruments_info | Загрузка данных: OFZ...
+2026-02-06 22:23:20 | DEBUG    | connectionpool.py:1049 | urllib3.connectionpool_new_conn | Starting new HTTPS connection (1): iss.moex.com:443
+2026-02-06 22:23:21 | DEBUG    | connectionpool.py:544 | urllib3.connectionpool_make_request | https://iss.moex.com:443 "GET /iss/engines/stock/markets/bonds/boards/TQOB/securities.json?iss.only=securities%2Cmarketdata&iss.meta=off&securities.columns=SECID%2CSHORTNAME%2CISIN%2CLOTSIZE%2CCURRENCYID%2CCOUPONVALUE&marketdata.columns=SECID%2CLAST HTTP/1.1" 200 None
+2026-02-06 22:23:21 | DEBUG    | moex.py:55 | all_instruments_info | Запрос к https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQOB/securities.json выполнен успешно. Статус: 200
+2026-02-06 22:23:21 | DEBUG    | moex.py:73 | all_instruments_info | Данные для ofz успешно загружены и объединены.
+2026-02-06 22:23:21 | INFO     | moex.py:88 | all_instruments_info | Сбор данных завершен. Загружено 3269 записей.
