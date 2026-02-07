@@ -45,7 +45,7 @@ class Logger:
     """
 
     _initialized: bool = False
-    _log_file: str = "log/app.log"
+    _log_file: str = ".log/app.log"
     _level: int = logging.DEBUG
     _logger: Optional[logging.Logger] = None
 
@@ -102,7 +102,7 @@ class Logger:
 
 
     @classmethod
-    def configure(cls, log_file: str = "log/app.log", level: int = logging.INFO) -> None:
+    def configure(cls, log_file: str = ".log/app.log", level: int = logging.INFO) -> None:
         """
         Настраивает параметры логирования до первого использования.
 
@@ -325,7 +325,6 @@ class Logger:
         # Подготовка содержимого для записи
         lines = []
         if caption:
-            lines.append(f"\n{'=' * 80}")
             lines.append(f"ТАБЛИЦА: {caption}")
             lines.append(f"Размер: {df.shape[0]} строк × {df.shape[1]} столбцов")
             lines.append('=' * 80)

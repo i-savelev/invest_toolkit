@@ -9,8 +9,7 @@ wheels/
 .reports
 *.ipynb
 logs
-
-# Virtual environments
 .venv
 .DS_Store
 support_files/.~lock.index_fund.xlsx#
+.log
