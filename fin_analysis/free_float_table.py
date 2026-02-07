@@ -1,5 +1,5 @@
 import pandas as pd
-from logger import log
+from invest_toolkit.utils import log
 
 class Freefloat:
     """

@@ -91,7 +91,7 @@ class Logger:
         file_handler.setLevel(cls._level)
         file_handler.setFormatter(formatter)
 
-        cls._logger = logging.getLogger()
+        cls._logger = logging.getLogger("log")
         if cls._logger.hasHandlers():
             cls._logger.handlers.clear()
         cls._logger.setLevel(cls._level)
@@ -283,6 +283,70 @@ class Logger:
         else:
             cls._get_logger(name).debug(msg=f"Тип: {type(data).__name__}", stacklevel=2)
             cls._get_logger(name).debug(msg=f"  Значение: {data}", stacklevel=2)
+        
+    @classmethod
+    def raw_dataframe(cls, df, caption: str = "", max_rows: int = 50, max_cols: int = None) -> None:
+        """
+        Записывает pandas DataFrame в лог-файл «как есть» — без временных меток и форматтера.
+        
+        Таблица выглядит точно так же, как при выводе в консоль: с выравниванием столбцов,
+        заголовками и разделителями.
+        
+        :param df: pandas DataFrame
+        :param caption: Опциональная подпись над таблицей (например, "Портфель на 2026-02-07")
+        :param max_rows: Максимум строк для вывода
+        :param max_cols: Максимум столбцов для вывода (None = все)
+        
+        Пример:
+            Logger.raw_dataframe(portfolio_df, caption="Текущий портфель", max_rows=20)
+        """
+        try:
+            import pandas as pd
+        except ImportError:
+            cls.error("Pandas не установлен, невозможно записать DataFrame", name="logger")
+            return
+
+        if not isinstance(df, pd.DataFrame):
+            cls.error(f"Объект типа {type(df).__name__} не является DataFrame", name="logger")
+            return
+
+        cls._ensure_initialized()
+
+        # Формируем строковое представление таблицы
+        df_display = df.head(max_rows)
+        df_str = df_display.to_string(
+            max_rows=max_rows,
+            max_cols=max_cols,
+            show_dimensions=False,
+            line_width=180,  # ширина строки для корректного выравнивания
+            index=True
+        )
+
+        # Подготовка содержимого для записи
+        lines = []
+        if caption:
+            lines.append(f"\n{'=' * 80}")
+            lines.append(f"ТАБЛИЦА: {caption}")
+            lines.append(f"Размер: {df.shape[0]} строк × {df.shape[1]} столбцов")
+            lines.append('=' * 80)
+        else:
+            lines.append("")  # пустая строка перед таблицей
+        
+        lines.extend(df_str.split('\n'))
+        
+        if len(df) > max_rows:
+            lines.append(f"\n... (показаны первые {max_rows} из {len(df)} строк)")
+        
+        lines.append('=' * 80)
+        lines.append("")  # пустая строка после таблицы
+
+        # Записываем напрямую в файл — без форматтера и временных меток
+        try:
+            with open(cls._log_file, 'a', encoding='utf-8') as f:
+                for line in lines:
+                    f.write(line + '\n')
+        except OSError as e:
+            cls.error(f"Не удалось записать таблицу в лог: {e}", name="logger")
 
 if __name__ == '__main__':
     def run():

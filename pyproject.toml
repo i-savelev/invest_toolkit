@@ -1,5 +1,5 @@
 [project]
-name = "moex-broker-toolkit"
+name = "invest_toolkit"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -14,3 +14,5 @@ dependencies = [
     "selenium>=4.40.0",
     "tabulate>=0.9.0",
 ]
+[tool.setuptools.packages.find]
+where = ["src"]

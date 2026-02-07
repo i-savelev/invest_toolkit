@@ -4,7 +4,7 @@ from .free_float_table import Freefloat
 import re
 import pathlib
 import pandas as pd
-from logger import log
+from invest_toolkit.utils import log
 
 class FinProcessor():
     def __init__(self):

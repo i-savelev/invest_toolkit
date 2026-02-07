@@ -8,5 +8,5 @@
 """
 
 # Импортируем основные функции в пространство имён пакета для удобства
-from .brokers import split_sber_report, save_tables_to_excel
+from .brokers import read_vtb, read_sber
 from .moex import all_instruments_info, get_price
