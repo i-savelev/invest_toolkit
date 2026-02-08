@@ -1,28 +1,10 @@
 import pandas as pd
 from typing import List
-
+from invest_toolkit.utils import log
 
 def summary_report(df_list: List[pd.DataFrame], all_stock_df:pd.DataFrame) -> pd.DataFrame:
     """
-    Формирует итоговый отчёт о позициях портфеля с обогащёнными данными.
-
-    1. Получает "сырой" DataFrame через `self.get_source_df()`.
-    2. Для каждой строки по ISIN находит в `all_stock_df`:
-       - тикер (`SECID`),
-       - размер лота (`LOTSIZE`),
-       - краткое наименование (`SHORTNAME`).
-    3. Добавляет столбцы: 'ticker', 'Размер лота', 'name'.
-    4. Приводит числовые столбцы к `float`.
-    5. Сохраняет результат в `self.balance_report`.
-    6. При наличии `self.registry` — регистрирует отчёт.
-
-    :returns: Обогащённый DataFrame с позициями портфеля.
-    :rtype: pd.DataFrame
-
-    :raises KeyError: Если в `all_stock_df` отсутствует ISIN из отчёта.
-    :raises IndexError: Если по ISIN найдено 0 или >1 записей в `all_stock_df`.
-    :raises ValueError: При ошибке приведения к `float`.
-    :raises AttributeError: Если `get_source_df()` не переопределён или не возвращает ожидаемые столбцы.
+    
     """
     log.info("Начато формирование итогового балансового отчёта.")
     df_source = pd.concat(
@@ -32,79 +14,78 @@ def summary_report(df_list: List[pd.DataFrame], all_stock_df:pd.DataFrame) -> pd
     
     balance_report =  df_source.groupby('isin', as_index=False).agg(
             {
-            'count': 'sum',
+            'count_pieces': 'sum',
             }
         )
+    balance_report = _data_enrichment(
+            balance_report, 
+            all_stock_df
+            )
+    balance_report = _data_calc(balance_report)
+    
+    log.info("Итоговый балансовый отчёт сформирован.")
+    log.info(f"Всего позиций: {len(balance_report)}")
+    log.info(f"Всего стоимость: {balance_report['value'].sum()}")
+    
     
     return balance_report
 
-def _data_enrichment(df_source:pd.DataFrame,  all_stock_df:pd.DataFrame):
-    log.debug(f"Обогащение данных...")
-    for index, row,  in df_source.iterrows():
-        isin_source = row['isin']
-        log.debug(f"Обработка позиции {index}: ISIN = {isin_source}")
-        try:
-            ticker = all_stock_df.loc[
-                all_stock_df['isin'] == isin_source, 
-                'ticker'
-                ].iloc[0]
-            lot_size = all_stock_df.loc[
-                all_stock_df['isin'] == isin_source, 
-                'lot_size'
-                ].iloc[0]
-            shortname = all_stock_df.loc[
-                all_stock_df['isin'] == isin_source, 
-                'name'
-                ].iloc[0]
-            price = all_stock_df.loc[
-                all_stock_df['isin'] == isin_source, 
-                'price'
-                ].iloc[0]
-            cap = all_stock_df.loc[
-                all_stock_df['isin'] == isin_source, 
-                'cap'
-                ].iloc[0]
-            
-            df_source.at[index, "ticker"] = ticker
-            df_source.at[index, "lot_size"] = lot_size
-            df_source.at[index, "name"] = shortname
-            df_source.at[index, "price"] = price
-            df_source.at[index, "cap"] = cap
-            
-            log.debug(f"Позиция [{index}]: ticker=[{ticker}], lot_size=[{lot_size}], name=[{shortname}]")
-        
-        except IndexError:
-            log.error(f"Для ISIN [{isin_source}] не найдено данных в all_stock_df")
-        
+def _data_enrichment(df_source: pd.DataFrame, all_stock_df: pd.DataFrame) -> pd.DataFrame:
+    log.debug("Обогащение данных...")
     
+    # Выбираем нужные столбцы из all_stock_df
+    enrichment_columns = ['isin', 'ticker', 'lot_size', 'name', 'price', 'cap', 'type']
+    available_cols = [col for col in enrichment_columns if col in all_stock_df.columns]
     
-    df_source["lot_size"] = df_source["lot_size"].astype('float')
-    df_source['count'] = df_source['count'].astype('float')
-    df_source['price'] = df_source['price'].astype('float')
-    df_source['cap'] = df_source['cap'].astype('float')
+    # Оставляем только нужные колонки и убираем дубли по isin (на случай дублей)
+    enrich_df = all_stock_df[available_cols].drop_duplicates(subset=['isin'])
     
-    log.info(f"Обработано {len(df_source)} позиций.")
-    return df_source
+    # Объединяем по isin
+    merged = pd.merge(df_source, enrich_df, on='isin', how='left')
+    
+    # Логируем пропущенные ISIN
+    missing = merged[merged['ticker'].isna()]['isin'].unique()
+    if len(missing) > 0:
+        log.error(f"Для ISIN не найдены данные: {list(missing)}")
+    
+    # Явно указываем типы
+    float_cols = ['lot_size', 'price', 'cap', 'count_pieces']
+    for col in float_cols:
+        if col in merged.columns:
+            merged[col] = pd.to_numeric(merged[col], errors='coerce')
+    
+    log.info(f"Обработано {len(merged)} позиций.")
+    return merged
+
+def _data_calc(report_df:pd.DataFrame)->pd.DataFrame:
+    log.info('Расчет стоимости и весов акций...')
+    try:
+        df = report_df.copy()
+        df['value'] = (
+                df['price']*df['count_pieces']
+                ).round(2)
+        df['%'] = (
+            df['value']/df['value'].sum()*100
+            ).round(2)
+        return df
+    except Exception as e:
+        log.error(f'Ошибка{e}')
+        raise
+
+
 
 if __name__ == '__main__':
 
     from invest_toolkit.io import *
-    from invest_toolkit.utils import log
     log.init(f'Тест {__file__}')
     report_path_sber = r'./.reports/sber_09102025.HTML'  # Пример пути
     report_path_vtb = r'./.reports/vtb_20250917_20251012.xlsx'  # Пример пути
     all_info = all_instruments_info()
-
+    sber = read_sber(report_path_sber)
+    log.raw_dataframe(caption='Очищенные данные сбера', df=sber)
+    vtb = read_vtb(report_path_vtb)
+    log.raw_dataframe(caption='Очищенные данные ВТБ', df=vtb)
+    summary = summary_report([sber, vtb], all_info)
     log.separator()
+    log.raw_dataframe(caption='Общий отчет', df=summary)
     
-    tables_sber = split_sber_report(report_path_sber)
-    log.separator()
-
-    tables_vtb = split_vtb_report(report_path_vtb)
-    log.separator()
-    
-    df_sber = summary_report(source_sber(tables_sber), all_info)
-    print(df_sber)
-    print('=======================================')
-    df_vtb = summary_report(source_vtb(tables_vtb), all_info)
-    print(df_vtb)

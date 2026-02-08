@@ -115,6 +115,7 @@ def all_instruments_info() -> pd.DataFrame:
         ascending=[True, False, False],
         inplace=True
     )
+    full_df['price'] = full_df['price'].round(2)
     full_df.reset_index(drop=True, inplace=True)
 
     return full_df

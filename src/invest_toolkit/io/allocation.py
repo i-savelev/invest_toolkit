@@ -102,7 +102,7 @@ def allocatin_table(file_path:str):
                     '%'
                     ].iloc[0]
                 df_copy = df.copy()[['ticker', '%']]
-                df_copy['%'] = category_percent/100*df['%'].round(10)
+                df_copy['%'] = (category_percent/100*df['%']).round(2)
                 df_list.append(df_copy)
             else: raise Exception(f'листа {key} нет в категориях')
     distribution_table = pd.concat(df_list).reset_index(drop=True)

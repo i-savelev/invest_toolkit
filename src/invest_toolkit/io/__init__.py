@@ -10,3 +10,4 @@
 # Импортируем основные функции в пространство имён пакета для удобства
 from .brokers import read_vtb, read_sber
 from .moex import all_instruments_info, get_price
+from .allocation import allocatin_table

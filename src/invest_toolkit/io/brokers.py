@@ -6,7 +6,7 @@ import os
 
 COLUMNS_TO_KEEP = [
     'isin',
-    'count',
+    'count_pieces',
     ]
 
 def _split_vtb_report(excel_path:str) -> Dict[int, pd.DataFrame]:
@@ -124,7 +124,7 @@ def read_vtb(excel_path:str):
     
     df = df.rename(columns={
         'Наименование ценной бумаги, № гос. регистрации, ISIN': 'isin',
-        'Плановый исходящий остаток (шт)': 'count', 
+        'Плановый исходящий остаток (шт)': 'count_pieces', 
         })
     log.debug("Столбцы переименованы в 'isin' и 'count'.")
     
@@ -220,11 +220,11 @@ def read_sber(html_path: str)->pd.DataFrame:
     
     df = df.rename(columns={
         'ISIN ценной бумаги': 'isin',
-        'Количество, шт': 'count',
+        'Количество, шт': 'count_pieces',
     })
-    log.debug("Столбцы переименованы в 'isin' и 'count'.")
+    log.debug("Столбцы переименованы в 'isin' и 'count_pieces'.")
     
-    df['count'] = df['Плановый исходящий остаток, шт'].str.replace(' ', '').astype(float)
+    df['count_pieces'] = df['Плановый исходящий остаток, шт'].str.replace(' ', '').astype(float)
     log.debug("Столбец 'Плановый исходящий остаток, шт' преобразован в числовое значение.")
     
     df = df[COLUMNS_TO_KEEP]
