@@ -42,10 +42,10 @@ def all_instruments_info() -> pd.DataFrame:
         # Указываем нужные колонки в зависимости от типа
         if instrument_type in ['stock', 'etf']:
             params['securities.columns'] = 'SECID,SHORTNAME,ISIN,LOTSIZE,CURRENCYID'
-            params['marketdata.columns'] = 'SECID,LAST,ISSUECAPITALIZATION'
+            params['marketdata.columns'] = 'SECID,MARKETPRICE,ISSUECAPITALIZATION'
         elif instrument_type in ['bond', 'ofz']:
             params['securities.columns'] = 'SECID,SHORTNAME,ISIN,LOTSIZE,CURRENCYID,COUPONVALUE'
-            params['marketdata.columns'] = 'SECID,LAST'
+            params['marketdata.columns'] = 'SECID,MARKETPRICE'
 
         try:
             # Выполняем запрос
@@ -94,7 +94,7 @@ def all_instruments_info() -> pd.DataFrame:
         'ISIN': 'isin',
         'LOTSIZE': 'lot_size',
         'CURRENCYID': 'currency',
-        'LAST': 'price',
+        'MARKETPRICE': 'price',
         'ISSUECAPITALIZATION': 'cap',
         'COUPONVALUE': 'coupon',
     }
@@ -122,7 +122,7 @@ def all_instruments_info() -> pd.DataFrame:
 
 def get_price(ticker: str) -> float:
     """
-    Получает текущую цену актива по ег�� тикеру.
+    Получает текущую цену актива по его тикеру.
 
     :param ticker: Тикер актива (например, 'SBER', 'GAZP').
     :type ticker: str
@@ -159,3 +159,4 @@ if __name__ == "__main__":
     print(df)
     # print(f"\nВсего инструментов: {len(df)}")
     print(f"Типы: \n{df['type'].value_counts()}")
+    df.to_excel(r'.output/moex_instruments.xlsx', index=False)

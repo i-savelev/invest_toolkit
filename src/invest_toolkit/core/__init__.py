@@ -3,4 +3,4 @@
 
 Содержит модули, содержащие функции без побочных эффектов.
 """
-from .portfolio import source_sber, balance_report
+from .portfolio import source_sber, summary_report

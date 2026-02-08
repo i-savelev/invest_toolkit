@@ -168,6 +168,8 @@ class GitChangesPrompt:
         prompt.append("")
         prompt.append("Проанализируй изменения выше и:")
         prompt.append("- сформируй тект для пулл реквеста. Структурируй изменения по пунктам")
+        prompt.append("- делай описание кратким, без эмодзи")
+        prompt.append("- пункты отделяй простыми прочерками")
         
         return "\n".join(prompt)
 
@@ -181,34 +183,14 @@ class GitChangesPrompt:
             f.write(content)
         return path
 
-    def copy_to_clipboard(self) -> bool:
-        """Скопировать промпт в буфер обмена."""
-        try:
-            content = self.format_prompt()
-            if sys.platform == "darwin":
-                subprocess.run(["pbcopy"], input=content.encode("utf-8"), check=True)
-            elif sys.platform.startswith("linux"):
-                subprocess.run(["xclip", "-selection", "clipboard"], input=content.encode("utf-8"), check=True)
-            elif sys.platform == "win32":
-                subprocess.run(["clip"], input=content.encode("utf-8"), check=True)
-            else:
-                return False
-            return True
-        except Exception:
-            return False
 
 def main():
     collector = GitChangesPrompt()
     try:
         collector.collect_changes()
         path = collector.save_to_file()
-        copied = collector.copy_to_clipboard()
         
         print(f"✅ Промпт сохранён в: {path.absolute()}")
-        if copied:
-            print("📋 Промпт скопирован в буфер обмена")
-        else:
-            print("⚠️  Не удалось скопировать в буфер обмена (установите xclip для Linux)")
         
         # Показать статистику
         total_files = len(collector.changes)
