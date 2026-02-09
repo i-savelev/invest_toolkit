@@ -1,7 +1,9 @@
 import pandas as pd
 from typing import List
 from invest_toolkit.utils import log
+from invest_toolkit.utils import log_dataframe
 
+@log_dataframe
 def summary_report(df_list: List[pd.DataFrame], all_stock_df:pd.DataFrame) -> pd.DataFrame:
     """
     

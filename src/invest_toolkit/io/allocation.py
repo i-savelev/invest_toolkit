@@ -1,5 +1,6 @@
 import pandas as pd
 from invest_toolkit.utils import log
+from invest_toolkit.utils import log_dataframe
 
 def _get_df_dict(file_path:str) -> dict[str, pd.DataFrame]:
     """
@@ -57,6 +58,7 @@ def percent_error(df:pd.DataFrame, val: float, column:str, name:str):
     if sum != val:
         raise ValueError(f'сумма процентов {name} равна {sum}, а не равно 100%')
 
+@log_dataframe
 def allocatin_table(file_path:str):
     """
     Формирует итоговую таблицу распределения портфеля с обогащёнными данными.

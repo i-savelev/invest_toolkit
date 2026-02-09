@@ -2,6 +2,7 @@ import pandas as pd
 from io import StringIO
 from typing import Dict, Any
 from invest_toolkit.utils import log
+from invest_toolkit.utils import log_dataframe
 import os
 
 COLUMNS_TO_KEEP = [
@@ -75,6 +76,7 @@ def _split_vtb_report(excel_path:str) -> Dict[int, pd.DataFrame]:
     log.info(f"Разделение отчёта ВТБ завершено. Извлечено {len(df_dict)} таблиц.")
     return df_dict
 
+@log_dataframe
 def read_vtb(excel_path:str):
     """
     Переопределяет метод в BrokerParser. Далее используется в get_balance_report_df() базового класса BrokerParser
@@ -173,6 +175,7 @@ def _split_sber_report(html_path: str) -> Dict[int, pd.DataFrame]:
         log.critical(f"Неожиданная ошибка при обработке отчёта Сбербанка: {e}")
         raise
 
+@log_dataframe
 def read_sber(html_path: str)->pd.DataFrame:
     """
     Извлекает и преобразует таблицу позиций из отчёта Сбербанка.

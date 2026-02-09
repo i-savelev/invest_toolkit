@@ -2,8 +2,9 @@ import pandas as pd
 from typing import List
 from invest_toolkit.utils import log
 import numpy as np
+from invest_toolkit.utils import log_dataframe
 
-
+@log_dataframe
 def allocation_report(report_df:pd.DataFrame, allocation_df:pd.DataFrame, deposit:float)->pd.DataFrame:
     log.info('Объединение с таблицей целевых распределений...')
     money_count = report_df['value'].sum()+deposit
@@ -39,6 +40,7 @@ def allocation_report(report_df:pd.DataFrame, allocation_df:pd.DataFrame, deposi
     
     return merged_df
 
+@log_dataframe
 def group_by_category(
         df: pd.DataFrame,
         group_col: str,
@@ -78,6 +80,7 @@ def group_by_category(
     
     return df_final
 
+@log_dataframe
 def allow_sell(df:pd.DataFrame, allow_sell:bool, tickers_to_sell:List[str])->pd.DataFrame:
     # Применение политики продаж
     log.info('Применение политики продаж...')
@@ -94,6 +97,7 @@ def allow_sell(df:pd.DataFrame, allow_sell:bool, tickers_to_sell:List[str])->pd.
             df.loc[mask, 'd_rub_calc'] = 0
     return df
 
+@log_dataframe
 def adjust_for_deposit(deposit: float, df: pd.DataFrame)->pd.DataFrame:
     """
     Распределяет средства пропорционально целям, затем использует остатки для докупки лотов.
