@@ -3,8 +3,8 @@ from invest_toolkit.core import *
 from invest_toolkit.utils import *
 
 log.init(f'Тест {__file__}')
-report_path_sber = r'./.reports/sber_25122025.HTML'  # Пример пути
-report_path_vtb = r'./.reports/vtb20251026_20251125.xlsx'  # Пример пути
+report_path_sber = r'./.reports/sber_27012026.html'  # Пример пути
+report_path_vtb = r'./.reports/vtb20260208.xlsx'  # Пример пути
 all_info = all_instruments_info()
 sber = read_sber(report_path_sber)
 log.raw_dataframe(caption='Очищенные данные сбера', df=sber)

@@ -42,10 +42,10 @@ def all_instruments_info() -> pd.DataFrame:
         # Указываем нужные колонки в зависимости от типа
         if instrument_type in ['stock', 'etf']:
             params['securities.columns'] = 'SECID,SHORTNAME,ISIN,LOTSIZE,CURRENCYID'
-            params['marketdata.columns'] = 'SECID,MARKETPRICE,ISSUECAPITALIZATION'
+            params['marketdata.columns'] = 'SECID,LAST,ISSUECAPITALIZATION'
         elif instrument_type in ['bond', 'ofz']:
             params['securities.columns'] = 'SECID,SHORTNAME,ISIN,LOTSIZE,CURRENCYID,COUPONVALUE'
-            params['marketdata.columns'] = 'SECID,MARKETPRICE'
+            params['marketdata.columns'] = 'SECID,LAST'
 
         try:
             # Выполняем запрос
@@ -94,7 +94,7 @@ def all_instruments_info() -> pd.DataFrame:
         'ISIN': 'isin',
         'LOTSIZE': 'lot_size',
         'CURRENCYID': 'currency',
-        'MARKETPRICE': 'price',
+        'LAST': 'price',
         'ISSUECAPITALIZATION': 'cap',
         'COUPONVALUE': 'coupon',
     }

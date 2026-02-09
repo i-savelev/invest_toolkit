@@ -95,7 +95,7 @@ def read_vtb(excel_path:str):
     """
     log.info("Начата обработка отчёта ВТБ...")
     log.debug("Извлечение исходной таблицы по ключу 7.")
-    source_df = _split_vtb_report(excel_path)[7]
+    source_df = _split_vtb_report(excel_path)[6]
     log.debug(f"Исходная таблица получена. Форма: {source_df.shape}")
     
     df = source_df.iloc[1:-1].reset_index(drop=True)
