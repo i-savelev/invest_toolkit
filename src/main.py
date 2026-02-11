@@ -14,11 +14,11 @@ summary = summary_report([sber, vtb], all_info)
 
 at = allocatin_table(r'./support_files/index_fund.xlsx')
 
-allocation_df = allocation_report(summary, at, 100000)
+allocation_df = allocation_report(summary, at, 117000)
 
 allocation_grouped_df = group_by_category(df=allocation_df, group_col='ticker', tickers_list=['LQDT', 'SBMM'])
 
 allow_sell_df = allow_sell(allocation_grouped_df, allow_sell=True, tickers_to_sell=['LQDT, SBMM'])
 
-adjust_df = adjust_for_deposit(100000, allow_sell_df)
+adjust_df = adjust_for_deposit(117000, allow_sell_df)
 
