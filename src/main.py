@@ -1,6 +1,7 @@
 from invest_toolkit.io import *
 from invest_toolkit.core import *
 from invest_toolkit.utils import *
+from invest_toolkit.reports import *
 
 log.init(f'Тест {__file__}')
 report_path_sber = r'./.reports/sber_27012026.html'  # Пример пути
@@ -22,3 +23,8 @@ allow_sell_df = allow_sell(allocation_grouped_df, allow_sell=True, tickers_to_se
 
 adjust_df = adjust_for_deposit(117000, allow_sell_df)
 
+generate(
+    save_path=r'./.output',
+    deposit=117000,
+    adjust_df=adjust_df,
+)

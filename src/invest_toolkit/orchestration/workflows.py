@@ -1,0 +1,45 @@
+from invest_toolkit.io import *
+from invest_toolkit.core import *
+from invest_toolkit.utils import *
+from invest_toolkit.reports import *
+
+def portfolio_report(
+        report_path_sber:str,
+        report_path_vtb:str,
+        allocation_path:str,
+        deposit: float,
+        grouping_tickers:list = [],
+        sell:bool = True,
+        allow_sell_tickers:list = [],
+        report_save_path:str = r'./.output'
+):
+    log.init(f'Подготовка отчета по брокерским счетам')
+    all_info = all_instruments_info()
+    sber = read_sber(report_path_sber)
+    vtb = read_vtb(report_path_vtb)
+    summary = summary_report([sber, vtb], all_info)
+    at = allocatin_table(allocation_path)
+    allocation_df = allocation_report(summary, at, deposit)
+    allocation_grouped_df = group_by_category(df=allocation_df, group_col='ticker', tickers_list=grouping_tickers)
+    allow_sell_df = allow_sell(allocation_grouped_df, allow_sell=sell, tickers_to_sell=allow_sell_tickers)
+    adjust_df = adjust_for_deposit(deposit, allow_sell_df)
+    generate(
+        save_path=report_save_path,
+        deposit=deposit,
+        adjust_df=adjust_df,
+    )
+    print(f'Отчет сгенерирован в {report_save_path}')
+    print(f'лог файл: {log._log_file}')
+
+if __name__=='__main__':
+    portfolio_report(
+        report_path_sber = r'./.reports/sber_27012026.html' ,
+        report_path_vtb = r'./.reports/vtb20260208.xlsx' ,
+        allocation_path = r'./support_files/index_fund.xlsx',
+        deposit = 117000,
+        grouping_tickers=['LQDT', 'SBMM'],
+        allow_sell_tickers=['LQDT', 'SBMM'],
+        sell=True,
+        report_save_path = r'./.output'
+    )
+    
