@@ -208,18 +208,6 @@ def scrape_and_download(
     return downloaded_files
 
 
-def validate_url(url: str) -> bool:
-    """
-    Проверяет корректность URL.
-    
-    :param url: URL для проверки
-    :returns: True если URL корректный, иначе False
-    """
-    try:
-        result = urlparse(url)
-        return all([result.scheme, result.netloc])
-    except:
-        return False
 
 
 def clean_numeric(value: str) -> Optional[float]:
