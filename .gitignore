@@ -7,9 +7,9 @@ wheels/
 *.egg-info
 .output
 .reports
-*.ipynb
 logs
 .venv
 .DS_Store
 support_files/.~lock.index_fund.xlsx#
 .log
+personal_notebooks

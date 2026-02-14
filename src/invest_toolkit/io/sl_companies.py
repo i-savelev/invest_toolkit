@@ -126,7 +126,6 @@ def parse_financial_csv(file_path: Path) -> pd.DataFrame:
             if numeric_value is not None:
                 records.append({
                     'ticker': ticker,
-                    'filename': file_path.name,
                     'indicator': indicator,
                     'year': year,
                     'value': numeric_value
@@ -174,15 +173,15 @@ def merge_files(directory: str) -> pd.DataFrame:
     if not all_data:
         return pd.DataFrame(columns=['ticker', 'filename', 'indicator', 'year', 'value'])
     
-    merged_df = pd.concat(all_data, ignore_index=True)
+    merged_df:pd.DataFrame = pd.concat(all_data, ignore_index=True)
     
     # Преобразуем числовые значения где возможно
     merged_df['value'] = pd.to_numeric(merged_df['value'], errors='coerce')
+
     
     print(f"\n✅ Объединено: {len(merged_df)} записей из {len(all_data)} файлов")
     print(f"   Уникальных тикеров: {merged_df['ticker'].nunique()}")
     print(f"   Уникальных показателей: {merged_df['indicator'].nunique()}")
-    print(f"   Годы: {sorted(merged_df['year'].unique())}")
     log.info(f"✅ Объединено: {len(merged_df)} записей из {len(all_data)} файлов")
     log.info(f"Уникальных тикеров: {merged_df['ticker'].nunique()}")
     log.info(f"Уникальных показателей: {merged_df['indicator'].nunique()}")

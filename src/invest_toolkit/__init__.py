@@ -9,3 +9,4 @@ uv pip install -e .
 """
 from .orchestration import *
 from .io import merge_files
+from .utils import log
