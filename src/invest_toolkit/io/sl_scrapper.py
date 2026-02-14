@@ -6,12 +6,13 @@ import os
 import time
 import random
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from typing import Dict
 import time
+from invest_toolkit.utils import log
 
 
 HEADERS = {
@@ -26,52 +27,70 @@ def _get_tickers_with_selenium() -> Dict[str, str]:
     :returns: Словарь {тикер: ссылка}
     :raises Exception: При ошибках драйвера или таймауте
     """
+    log.info("Starting Selenium scraping...")
     options = Options()
-    options.add_argument('--headless')  # Запуск без открытия браузера
+    # Отключаем детект автоматизации
+    options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-blink-features=AutomationControlled')
+    options.set_preference("dom.webdriver.enabled", False)
+    options.set_preference("useAutomationExtension", False)
     
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Firefox(options=options)
     
     try:
         driver.get('https://smart-lab.ru/q/shares/')
         
-        # Ждём загрузки таблицы (появления строк с атрибутом ticker)
+        # Ждём загрузки таблицы по появлению ячеек с тикерами
         WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, 'tr[ticker]'))
+            EC.presence_of_element_located((By.CSS_SELECTOR, '.trades-table__ticker'))
         )
         
         # Дополнительная пауза для полной загрузки данных
-        time.sleep(5)
+        time.sleep(3)
         
         ticker_links = {}
         
-        # Извлекаем все строки таблицы
-        rows = driver.find_elements(By.CSS_SELECTOR, 'tr[ticker]')
+        # Извлекаем все ячейки с тикерами
+        ticker_cells = driver.find_elements(By.CSS_SELECTOR, '.trades-table__ticker')
         
-        for row in rows:
-            ticker = row.get_attribute('ticker')
-            if ticker:
-                # Находим ссылку на фундаментальный анализ
+        for cell in ticker_cells:
+            try:
+                # Получаем тикер из текста ячейки
+                ticker_text = cell.text.strip()
+                if not ticker_text:
+                    continue
+                
+                # Находим родительскую строку таблицы
+                row = cell.find_element(By.XPATH, './ancestor::tr')
+                
+                # Ищем ссылку на фундаментальный анализ в строке
                 try:
                     link_element = row.find_element(By.CSS_SELECTOR, 'a.charticon2')
                     href = link_element.get_attribute('href')
                     if href:
-                        ticker_links[ticker] = href
+                        ticker_links[ticker_text] = href
                 except:
                     continue
+                    
+            except Exception as e:
+                print(f"⚠ Ошибка при обработке ячейки: {e}")
+                continue
         
         print(f"✅ Получено {len(ticker_links)} тикеров через Selenium")
+        log.info(f"✅ Получено {len(ticker_links)} тикеров через Selenium")
         return ticker_links
     
     finally:
         driver.quit()
 
 
-def _download_file_from_page(page_url: str, 
+def _download_file_from_page(
+        page_url: str, 
+        save_directory: str,
         download_selector: str = 'a.download-table',
-        save_directory: str = './support_files/scrapper_reports',
         file_name:str = '',
         timeout: int = 30) -> Optional[str]:
     """
@@ -118,7 +137,7 @@ def _download_file_from_page(page_url: str,
         filename = f"{file_name}.csv"
 
         file_path = os.path.join(save_directory, filename)
-        
+    
         with open(file_path, 'wb') as f:
             for chunk in file_response.iter_content(chunk_size=8192):
                 f.write(chunk)
@@ -158,6 +177,7 @@ def _apply_delay(min_delay: float = 1.5, max_delay: float = 4.0) -> None:
 
 
 def scrape_and_download(
+        save_directory:str,
         min_delay: float = 5,
         max_delay: float = 10) -> Set[str]:
     """
@@ -178,8 +198,10 @@ def scrape_and_download(
     for link in links:
         try:
             print(f"[{i}/{len(links)}] Processing: {link} - {links[link]}")
+            log.info(f"[{i}/{len(links)}] Processing: {link} - {links[link]}")
             
             file_path = _download_file_from_page(
+                save_directory=save_directory,
                 page_url=links[link],
                 file_name=link
             )
@@ -187,8 +209,10 @@ def scrape_and_download(
             if file_path:
                 downloaded_files.add(file_path)
                 print(f"  ✓ Downloaded: {os.path.basename(file_path)}")
+                log.info(f"  ✓ Downloaded: {os.path.basename(file_path)}")
             else:
                 print(f"  ⚠ No download button found")
+                log.info(f"  ⚠ No download button found")
             
             # Рандомизированная задержка между страницами
             if i < len(links):  # Не ждать после последней страницы
@@ -197,21 +221,19 @@ def scrape_and_download(
         except requests.exceptions.HTTPError as e:
             if e.response.status_code == 429:
                 print(f"  ⚠ Rate limited (429). Pausing for 10s...")
+                log.error(f"  ⚠ Rate limited (429). Pausing for 10s...")
                 time.sleep(10)
             else:
                 print(f"  ✗ HTTP error {e.response.status_code}: {e}")
+                log.error(f"  ✗ HTTP error {e.response.status_code}: {e}")
         i+=1
     
     return downloaded_files
 
 
 
-
-
-
-  
-
-
 if __name__=='__main__':
-    scrape_and_download()
+    scrape_and_download(
+        save_directory= r'./.output/test_scrapper'
+    )
     # print(download_file_from_page(page_url='https://smart-lab.ru/q/VTBR/f/y/'))
