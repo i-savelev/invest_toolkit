@@ -12,4 +12,4 @@ from .brokers import read_vtb, read_sber
 from .moex import all_instruments_info, get_price
 from .allocation import allocatin_table
 from.sl_scrapper import scrape_and_download
-from .sl_companies import merge_files
+from .sl_stocks import merge_files
