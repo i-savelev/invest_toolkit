@@ -120,38 +120,6 @@ def all_instruments_info() -> pd.DataFrame:
 
     return full_df
 
-
-def get_price(ticker: str) -> float:
-    """
-    Получает текущую цену актива по его тикеру.
-
-    :param ticker: Тикер актива (например, 'SBER', 'GAZP').
-    :type ticker: str
-    :returns: Текущая цена.
-    :rtype: float
-    :raises ValueError: Если тикер не найден.
-    """
-    Logger.info(f"Запрос цены для тикера: {ticker}", name="io.moex.price")
-    url = f"https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities/{ticker}/securities.json"
-    params = {
-        'iss.only': 'marketdata',
-        'marketdata.columns': 'SECID,LAST'
-    }
-    try:
-        response = requests.get(url, params=params, timeout=5)
-        response.raise_for_status()
-        data = response.json()
-        
-        last_price = data['marketdata']['data'][0][1]
-        if last_price is None:
-            raise ValueError(f"Цена для {ticker} недоступна (получено None)")
-        
-        Logger.info(f"Получена цена для {ticker}: {last_price}", name="io.moex.price")
-        return float(last_price)
-        
-    except (requests.RequestException, IndexError, KeyError) as e:
-        Logger.error(f"Ошибка при получении цены для {ticker}: {e}", name="io.moex.price")
-        raise ValueError(f"Не удалось получить цену для {ticker}") from e
     
 if __name__ == "__main__":
     Logger.init('# Пример использования moex.py')

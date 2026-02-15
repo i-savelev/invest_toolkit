@@ -31,6 +31,27 @@ def portfolio_report(
     print(f'Отчет сгенерирован в {report_save_path}')
     print(f'лог файл: {log._log_file}')
 
+@log_dataframe
+def all_stock_info(
+       free_dloat_path:str,
+       ir_path:str, 
+       sl_stock_folder:str
+    ):
+    log.init(f'Получение всех данных по акциям...')
+    sl_stock_df = merge_csv_files(sl_stock_folder)
+    ff_df = free_float(free_dloat_path)
+    ir_df = ir_rating(ir_path)
+    all_moex_df = all_instruments_info()
+    df = get_stock_info(
+        moex_api_df=all_moex_df,
+        sl_stock_df=sl_stock_df,
+        ir_df=ir_df,
+        free_float_df=ff_df
+    )
+    return df
+
+
+
 if __name__=='__main__':
     portfolio_report(
         report_path_sber = r'./.reports/sber_27012026.html' ,

@@ -82,7 +82,7 @@ class Logger:
             os.makedirs(log_dir, exist_ok=True)
 
         formatter = logging.Formatter(
-            fmt='%(asctime)s | %(levelname)-8s | %(filename)s:%(lineno)d | %(name)s%(funcName)s | %(message)s',
+            fmt='%(asctime)s | %(levelname)-8s | %(filename)s:%(lineno)d | %(funcName)s | %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )
 

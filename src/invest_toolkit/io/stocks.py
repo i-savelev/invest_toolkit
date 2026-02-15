@@ -133,7 +133,7 @@ def parse_financial_csv(file_path: Path) -> pd.DataFrame:
     return pd.DataFrame(records)
 
 @log_dataframe
-def merge_files(directory: str) -> pd.DataFrame:
+def merge_csv_files(directory: str) -> pd.DataFrame:
     """
     Объединяет все CSV файлы из директории в единый DataFrame.
     
@@ -188,9 +188,51 @@ def merge_files(directory: str) -> pd.DataFrame:
     log.info(f"Годы: {sorted(merged_df['year'].unique())}")
     return merged_df
 
+@log_dataframe
+def free_float(path:str):
+    """
+    Источник данных для free-float:
+    https://www.moex.com/ru/listing/free-float.aspx
+
+    В таблцу вручную добавляется SIBN = 0.045
+
+    :param path: Описание
+    :type path: str
+    """
+    log.info(f'Получение free-float из {path}...')
+    df = pd.read_excel(path)
+    df.rename(columns={
+        'Код':'ticker',
+        'Коэффициент free-float, %':'value',
+    }, inplace=True)
+    df.drop(columns=[
+        'Полное наименование организации',
+        'ИНН организации',
+        'Тип инструмента',
+        'Регистрационный номер выпуска / ISIN',
+        'Уровень листинга',
+    ], inplace=True)
+    df['indicator'] ='free_float'
+    df['value'] = df['value']/100
+    return df
+
+@log_dataframe
+def ir_rating(path:str):
+    """
+    Источник данных:
+    https://sl-rating.ru/?rating
+
+    """
+    log.info(f'Получение free-float из {path}...')
+    df = pd.read_excel(path)
+    df.drop(columns=[
+        'name',
+    ], inplace=True)
+    return df
+
 if __name__=='__main__':
     log.init(f'TEST {__file__}')
     df = parse_financial_csv(file_path=Path(r'./.output/test_scrapper/SBER.csv'))
     print(df)
-    merge_files(directory=r'./support_files/scrapper_reports')
+    merge_csv_files(directory=r'./support_files/scrapper_reports')
 

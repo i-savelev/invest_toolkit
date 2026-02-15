@@ -9,7 +9,7 @@
 
 # Импортируем основные функции в пространство имён пакета для удобства
 from .brokers import read_vtb, read_sber
-from .moex import all_instruments_info, get_price
+from .moex import all_instruments_info
 from .allocation import allocatin_table
 from.sl_scrapper import scrape_and_download
-from .sl_stocks import merge_files
+from .stocks import merge_csv_files, free_float, ir_rating
