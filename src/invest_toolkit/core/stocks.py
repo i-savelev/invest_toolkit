@@ -106,13 +106,12 @@ def count_score(ticker:str, metric:str, df:pd.DataFrame, n:int)->tuple:
 def ir_score(ticker:str, df:pd.DataFrame):
     filtered_ir = df[(df['indicator'] == 'ir')]
     filtered_ir = filtered_ir.set_index('ticker')
-    for _ticker in filtered_ir.index:
-        if len(_ticker)>2:
+    for _ticker in filtered_ir.index.to_list():
+        if len(str(_ticker))>2:
             if _ticker in ticker:
                 rating = filtered_ir.loc[_ticker]['value']
                 return rating
         elif _ticker==ticker:
             rating = filtered_ir.loc[_ticker]['value']
             return rating
-        else: 
-            return 0
+    return 0
