@@ -120,7 +120,7 @@ def parse_financial_csv(file_path: Path) -> pd.DataFrame:
             
             raw_value = row[col_idx]
             if pd.isna(raw_value) or raw_value == '':
-                continue
+                raw_value = '0'
             
             numeric_value = _clean_numeric(raw_value)
             if numeric_value is not None:
@@ -228,6 +228,7 @@ def ir_rating(path:str):
     df.drop(columns=[
         'name',
     ], inplace=True)
+    df['value'] = df['value']/100
     return df
 
 if __name__=='__main__':

@@ -35,6 +35,7 @@ class GitChangesPrompt:
         r'node_modules',
         r'\.ipynb_checkpoints',
         r'\.output',
+        r'\.csv'
     ]
 
     def __init__(self, repo_path: str = "."):

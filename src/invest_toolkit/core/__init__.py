@@ -5,4 +5,4 @@
 """
 from .portfolio import summary_report
 from .target_allocation import allocation_report, group_by_category, allow_sell, adjust_for_deposit
-from .stocks import get_stock_info
+from .stocks import get_stock_info, grow_score, count_score, ir_score

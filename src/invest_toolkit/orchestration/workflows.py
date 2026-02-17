@@ -2,6 +2,7 @@ from invest_toolkit.io import *
 from invest_toolkit.core import *
 from invest_toolkit.utils import *
 from invest_toolkit.reports import *
+import pandas as pd
 
 def portfolio_report(
         report_path_sber:str,
@@ -50,7 +51,93 @@ def all_stock_info(
     )
     return df
 
+@log_dataframe
+def rating_df(df:pd.DataFrame, n:int):
+    tickers = df['ticker'].unique()
+    data = []
+    for ticker in tickers:
+        ir_rating = ir_score(ticker, df)
+        div_count_res = count_score(ticker, 'Див.выплата, млрд руб', df, n)
+        div_grow_res = grow_score(ticker, 'Див.выплата, млрд руб', df, n)
+        profit_score_res = grow_score(ticker, 'Чистая прибыль, млрд руб', df, n)
+        
+        data.append({
+            'ticker': ticker,
+            'type': 'rating',
+            'indicator': 'IR',
+            'year': None,
+            'value': ir_rating
+        })
 
+        data.append({
+            'ticker': ticker,
+            'type': 'rating',
+            'indicator': 'Выплата див-в',
+            'year': None,
+            'value': div_count_res[0]
+        })
+        data.append({
+            'ticker': ticker,
+            'type': 'rating_string',
+            'indicator': 'Выплата див-в',
+            'year': None,
+            'value': div_count_res[1]
+        })
+
+        data.append({
+            'ticker': ticker,
+            'type': 'rating',
+            'indicator': 'Рост див-в',
+            'year': None,
+            'value': div_grow_res[0]
+        })
+        data.append({
+            'ticker': ticker,
+            'type': 'rating_string',
+            'indicator': 'Рост див-в',
+            'year': None,
+            'value': div_grow_res[1]
+        })
+        
+        data.append({
+            'ticker': ticker,
+            'type': 'rating',
+            'indicator': 'Рост прибыли',
+            'year': None,
+            'value': profit_score_res[0]
+        })
+        data.append({
+            'ticker': ticker,
+            'type': 'rating_string',
+            'indicator': 'Рост прибыли',
+            'year': None,
+            'value': profit_score_res[1]
+        })
+            
+        score = 0
+        score_string = ''
+        if ir_rating is not None:   
+            score = (ir_rating + div_count_res[0] + div_grow_res[0] + profit_score_res[0])/4
+            score_string = f'Рейтинг = ({div_count_res[0]}+{div_grow_res[0]}+{profit_score_res[0]}+{ir_rating})/4={round(score,2)}'
+        else:
+            score = (div_count_res[0] + div_grow_res[0] + profit_score_res[0])/3
+            score_string = f'Рейтинг = ({div_count_res[0]}+{div_grow_res[0]}+{profit_score_res[0]})/3={round(score,2)}'
+        data.append({
+            'ticker': ticker,
+            'type': 'rating',
+            'indicator': f'rating',
+            'year': None,
+            'value': round(score,2)
+        })
+        data.append({
+            'ticker': ticker,
+            'type': 'rating_string',
+            'indicator': f'rating',
+            'year': None,
+            'value': score_string
+        })
+    df = pd.DataFrame(data)
+    return df
 
 if __name__=='__main__':
     portfolio_report(
