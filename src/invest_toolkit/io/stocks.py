@@ -68,7 +68,6 @@ def parse_financial_csv(file_path: Path) -> pd.DataFrame:
     :returns: DataFrame с колонками: [ticker, filename, показатель, год, значение]
     :raises ValueError: При ошибках чтения или парсинга
     """
-    log.info(f'Извлечение датафрейма из {file_path}')
     if not file_path.exists():
         raise ValueError(f"Файл не найден: {file_path}")
     
@@ -102,7 +101,6 @@ def parse_financial_csv(file_path: Path) -> pd.DataFrame:
     # Собираем данные
     records = []
     ticker = _extract_ticker_from_filename(file_path.name)
-    log.info(f'Тикер {ticker}')
     
     # Обрабатываем строки ниже строки с годами
     for row_idx in range(year_row_idx + 1, len(df_raw)):
@@ -163,7 +161,6 @@ def merge_csv_files(directory: str) -> pd.DataFrame:
             df = parse_financial_csv(file_path)
             if not df.empty:
                 all_data.append(df)
-                log.info(f"✓ {file_path.name:20s} → {len(df)} записей")
             else:
                 log.warning(f"⚠ {file_path.name:20s} → пустой")
         except Exception as e:
@@ -186,6 +183,7 @@ def merge_csv_files(directory: str) -> pd.DataFrame:
     log.info(f"Уникальных тикеров: {merged_df['ticker'].nunique()}")
     log.info(f"Уникальных показателей: {merged_df['indicator'].nunique()}")
     log.info(f"Годы: {sorted(merged_df['year'].unique())}")
+    log.info(f"Уникальные показатели: {merged_df['indicator'].unique().tolist()}")
     return merged_df
 
 @log_dataframe

@@ -13,3 +13,4 @@ logs
 support_files/.~lock.index_fund.xlsx#
 .log
 personal_notebooks
+.ipynb_checkpoints

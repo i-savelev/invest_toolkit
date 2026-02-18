@@ -46,6 +46,7 @@ def plot_one_chart(
         ].copy().set_index('year')
     
     if not _df.empty:
+        _df['value'] = pd.to_numeric(_df['value'], errors='coerce')
         row:pd.Series = _df['value']
         # row =  row.dropna()
         ax = row.plot(
@@ -116,16 +117,18 @@ def plot_one_chart(
 def plot_multiple_chart(
         df:pd.DataFrame,
         ticker:str,
-        title:str,
         metric_list:list[str], 
         window:int=3, 
         rows:int=3, 
         cols:int= 2, 
         figsize = (12, 9.5)
         ):
-    log.info(f'Построение графиков для {ticker}: {title}...')
+    log.info(f'Построение графиков для {ticker}...')
     log.data(data = metric_list, label='Список показалей')
-    main_title = title
+    main_title = df[
+            (df['ticker']==ticker) & 
+            (df['indicator']=='name')
+        ]['value'].iloc[0]
     fig, axes = plt.subplots(nrows=rows, ncols=cols, figsize=figsize)
     fig.suptitle(main_title, fontsize=25, fontweight='black', y = 0.95)
     axes = axes.flatten()
