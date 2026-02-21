@@ -53,7 +53,7 @@ def all_stock_info(
 
 @log_dataframe
 def rating_df(df:pd.DataFrame, n:int):
-    tickers = df['ticker'].unique()
+    tickers = df[df['type'] == 'smartlab']['ticker'].unique()
     data = []
     for ticker in tickers:
         ir_rating = ir_score(ticker, df)
@@ -118,10 +118,10 @@ def rating_df(df:pd.DataFrame, n:int):
         score_string = ''
         if ir_rating is not None:   
             score = (ir_rating + div_count_res[0] + div_grow_res[0] + profit_score_res[0])/4
-            score_string = f'Рейтинг = ({div_count_res[0]}+{div_grow_res[0]}+{profit_score_res[0]}+{ir_rating})/4={round(score,2)}'
+            score_string = f'Рейтинг = ({div_count_res[0]} + {div_grow_res[0]} + {profit_score_res[0]} + {ir_rating})/4 = {round(score,2)}'
         else:
             score = (div_count_res[0] + div_grow_res[0] + profit_score_res[0])/3
-            score_string = f'Рейтинг = ({div_count_res[0]}+{div_grow_res[0]}+{profit_score_res[0]})/3={round(score,2)}'
+            score_string = f'Рейтинг = ({div_count_res[0]} + {div_grow_res[0]} + {profit_score_res[0]})/3 = {round(score,2)}'
         data.append({
             'ticker': ticker,
             'type': 'rating',
