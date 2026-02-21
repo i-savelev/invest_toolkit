@@ -184,9 +184,15 @@ def adjust_for_deposit(deposit: float, df: pd.DataFrame)->pd.DataFrame:
             remaining_funds -= cost
             improved_spent += cost
 
+    # === Этап 4: Применяем продажи (если они были разрешены) ===
+    # Продажи не требуют бюджета — они его создают, поэтому применяем их "как есть"
+    sell_mask = df['d_rub_calc'] < 0
+    df.loc[sell_mask, 'd_lot_adjust'] = df.loc[sell_mask, 'd_lot']
+    df.loc[sell_mask, 'd_rub_adjust'] = df.loc[sell_mask, 'd_rub_calc']
     total_spent += improved_spent
     df['value_res'] = df['value_src'] + df['d_rub_adjust']
     df['%_res'] = round(df['value_res']/df['value_res'].sum()*100, 2)
+    
 
     log.info(f"Бюджет на покупки: {available_funds:.0f}")
     log.info(f"израсходовано: {total_spent:.0f}")

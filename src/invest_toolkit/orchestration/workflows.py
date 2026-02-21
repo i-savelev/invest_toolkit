@@ -79,7 +79,7 @@ def rating_df(df:pd.DataFrame, n:int):
         data.append({
             'ticker': ticker,
             'type': 'rating_string',
-            'indicator': 'Выплата див-в',
+            'indicator': 'Выплата див-в, расчет',
             'year': None,
             'value': div_count_res[1]
         })
@@ -94,7 +94,7 @@ def rating_df(df:pd.DataFrame, n:int):
         data.append({
             'ticker': ticker,
             'type': 'rating_string',
-            'indicator': 'Рост див-в',
+            'indicator': 'Рост див-в, расчет',
             'year': None,
             'value': div_grow_res[1]
         })
@@ -109,7 +109,7 @@ def rating_df(df:pd.DataFrame, n:int):
         data.append({
             'ticker': ticker,
             'type': 'rating_string',
-            'indicator': 'Рост прибыли',
+            'indicator': 'Рост прибыли, расчет',
             'year': None,
             'value': profit_score_res[1]
         })
@@ -132,7 +132,7 @@ def rating_df(df:pd.DataFrame, n:int):
         data.append({
             'ticker': ticker,
             'type': 'rating_string',
-            'indicator': f'rating',
+            'indicator': f'rating, расчет',
             'year': None,
             'value': score_string
         })

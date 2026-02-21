@@ -128,6 +128,12 @@ def parse_financial_csv(file_path: Path) -> pd.DataFrame:
                     'year': year,
                     'value': numeric_value
                 })
+    records.append({
+            'ticker': ticker,
+            'indicator': 'url',
+            'year': None,
+            'value': f'https://smart-lab.ru/q/{ticker}/f/y/'
+        })
     return pd.DataFrame(records)
 
 @log_dataframe
@@ -171,18 +177,14 @@ def merge_csv_files(directory: str) -> pd.DataFrame:
         return pd.DataFrame(columns=['ticker', 'filename', 'indicator', 'year', 'value'])
     
     merged_df:pd.DataFrame = pd.concat(all_data, ignore_index=True)
-    
-    # Преобразуем числовые значения где возможно
-    merged_df['value'] = pd.to_numeric(merged_df['value'], errors='coerce')
-
-    
+ 
     print(f"\n✅ Объединено: {len(merged_df)} записей из {len(all_data)} файлов")
     print(f"   Уникальных тикеров: {merged_df['ticker'].nunique()}")
     print(f"   Уникальных показателей: {merged_df['indicator'].nunique()}")
     log.info(f"✅ Объединено: {len(merged_df)} записей из {len(all_data)} файлов")
     log.info(f"Уникальных тикеров: {merged_df['ticker'].nunique()}")
     log.info(f"Уникальных показателей: {merged_df['indicator'].nunique()}")
-    log.info(f"Годы: {sorted(merged_df['year'].unique())}")
+    log.info(f"Годы: {merged_df['year'].unique()}")
     log.info(f"Уникальные показатели: {merged_df['indicator'].unique().tolist()}")
     return merged_df
 
