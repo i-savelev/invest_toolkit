@@ -26,7 +26,7 @@ def _get_df_dict(file_path:str) -> dict[str, pd.DataFrame]:
     for key in df_dict:
         if key == 'categories':
             df_dict[key].dropna(subset=['category'], inplace=True)
-            percent_error(
+            _percent_error(
                 df_dict[key],
                 100,
                 '%',
@@ -34,7 +34,7 @@ def _get_df_dict(file_path:str) -> dict[str, pd.DataFrame]:
             )
         else:
             df_dict[key].dropna(subset=['ticker'], inplace=True)
-            percent_error(
+            _percent_error(
                 df_dict[key],
                 100,
                 '%',
@@ -43,7 +43,7 @@ def _get_df_dict(file_path:str) -> dict[str, pd.DataFrame]:
     return df_dict
     
 
-def percent_error(df:pd.DataFrame, val: float, column:str, name:str):
+def _percent_error(df:pd.DataFrame, val: float, column:str, name:str):
     """Проверяет, что сумма значений в столбце равна ожидаемому значению.
 
     :param df: DataFrame для проверки.
