@@ -181,16 +181,12 @@ def scrape_and_download(
         min_delay: float = 5,
         max_delay: float = 10) -> Set[str]:
     """
-    Обходит ссылки и скачивает файлы с рандомизированными задержками.
-    
-    :param base_url: URL базовой страницы
-    :param link_selector: CSS селектор для фильтрации ссылок
-    :param download_selector: CSS селектор кнопки скачивания
-    :param save_directory: Директория для сохранения файлов
-    :param request_timeout: Таймаут одного HTTP-запроса (сек)
-    :param min_delay: Минимальная задержка между запросами (сек)
-    :param max_delay: Максимальная задержка между запросами (сек)
-    :returns: Множество путей к скачанным файлам
+    Обходит ссылки на тикеры и скачивает файлы финансовой отчётности.
+
+    :param save_directory: Директория для сохранения CSV файлов.
+    :param min_delay: Минимальная задержка между запросами.
+    :param max_delay: Максимальная задержка между запросами.
+    :returns: Множество путей к скачанным файлам.
     """
     downloaded_files = set()
     links = _get_tickers_with_selenium()

@@ -6,6 +6,14 @@ from invest_toolkit.utils import log_dataframe
 
 @log_dataframe
 def allocation_report(report_df:pd.DataFrame, allocation_df:pd.DataFrame, deposit:float)->pd.DataFrame:
+    """
+    Сравнивает текущее распределение портфеля с целевым.
+
+    :param report_df: Текущий портфель (получается через `core.portfolio.summary_report`).
+    :param allocation_df: Целевое распределение (получается через `io.allocation.allocatin_table`).
+    :param deposit: Сумма дополнительного депозита.
+    :returns: DataFrame с дельтами (d_rub, d_lot) для ребалансировки.
+    """
     log.info('Объединение с таблицей целевых распределений...')
     money_count = report_df['value'].sum()+deposit
     allocation_df['value'] = (money_count*allocation_df['%']/100).round(2)
@@ -46,6 +54,14 @@ def group_by_category(
         group_col: str,
         tickers_list: List[str],
         )->pd.DataFrame:
+    """
+    Группирует указанные тикеры в одну категорию.
+
+    :param df: DataFrame с данными о распределении (получается через `allocation_report`).
+    :param group_col: Имя столбца для группировки (обычно 'ticker').
+    :param tickers_list: Список тикеров для объединения.
+    :returns: DataFrame с агрегированными строками для указанных тикеров.
+    """
     log.info('Группировка по категориям...')
     # Проверка наличия столбца
     if group_col not in df.columns:
@@ -82,6 +98,14 @@ def group_by_category(
 
 @log_dataframe
 def allow_sell(df:pd.DataFrame, allow_sell:bool, tickers_to_sell:List[str])->pd.DataFrame:
+    """
+    Применяет политику продаж (запрет или разрешение продажи конкретных инструментов).
+
+    :param df: DataFrame с данными о распределении (получается через `allocation_report`).
+    :param allow_sell: Флаг разрешения продаж.
+    :param tickers_to_sell: Список тикеров, которые разрешено продавать.
+    :returns: DataFrame с скорректированными значениями d_rub_calc.
+    """
     # Применение политики продаж
     log.info('Применение политики продаж...')
     if not allow_sell:
@@ -107,6 +131,10 @@ def adjust_for_deposit(deposit: float, df: pd.DataFrame)->pd.DataFrame:
     2. Округление до целых лотов (вниз).
     3. Повторная закупка за остатки — по одному лоту, пока хватает средств.
     Покупка идёт тем, кто больше всего "отстаёт" от цели (по относительной недостаче).
+    
+    :param deposit: Сумма нового депозита.
+    :param df: DataFrame с планом ребалансировки (получается через `allow_sell`).
+    :returns: DataFrame с финальным планом операций (d_lot_adjust, d_rub_adjust).
     """
     log.info('Корректировка распределения под депозит...')
     sell_needed = abs(df[df['d_rub_calc'] < 0]['d_rub_calc'].sum())

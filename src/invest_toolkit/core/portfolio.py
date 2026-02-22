@@ -6,7 +6,16 @@ from invest_toolkit.utils import log_dataframe
 @log_dataframe
 def summary_report(df_list: List[pd.DataFrame], all_stock_df:pd.DataFrame) -> pd.DataFrame:
     """
-    
+    Формирует итоговый балансовый отчёт по портфелю.
+
+    Объединяет данные о позициях из нескольких брокерских отчётов, обогащает их
+    справочной информацией и рассчитывает стоимость позиций.
+
+    :param df_list: Список датафреймов с позициями клиентов (получается через функции 
+        `io.brokers.read_sber`, `io.brokers.read_vtb`).
+    :param all_stock_df: Справочник всех инструментов MOEX (получается через 
+        `io.moex.all_instruments_info`).
+    :returns: DataFrame с колонками: isin, ticker, count_pieces, price, value, %.
     """
     log.info("Начато формирование итогового балансового отчёта.")
     df_source = pd.concat(
@@ -33,6 +42,13 @@ def summary_report(df_list: List[pd.DataFrame], all_stock_df:pd.DataFrame) -> pd
     return balance_report
 
 def _data_enrichment(df_source: pd.DataFrame, all_stock_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Обогащает данные о позициях справочной информацией.
+
+    :param df_source: DataFrame с позициями (ISIN, количество).
+    :param all_stock_df: Справочник инструментов (получается через `io.moex.all_instruments_info`).
+    :returns: DataFrame с добавленными колонками ticker, lot_size, name, price, cap, type.
+    """
     log.debug("Обогащение данных...")
     
     # Выбираем нужные столбцы из all_stock_df
@@ -60,6 +76,12 @@ def _data_enrichment(df_source: pd.DataFrame, all_stock_df: pd.DataFrame) -> pd.
     return merged
 
 def _data_calc(report_df:pd.DataFrame)->pd.DataFrame:
+    """
+    Рассчитывает стоимость позиций и их вес в портфеле.
+
+    :param report_df: DataFrame с позициями и ценами.
+    :returns: DataFrame с добавленными колонками value (стоимость) и % (доля).
+    """
     log.info('Расчет стоимости и весов акций...')
     try:
         df = report_df.copy()

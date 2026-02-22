@@ -8,6 +8,15 @@ def get_stock_info(
     ir_df: pd.DataFrame | None = None,
     free_float_df: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
+    """
+    Объединяет данные из различных источников в единый длинный формат.
+
+    :param moex_api_df: Данные с MOEX API (получается через `io.moex.all_instruments_info`).
+    :param sl_stock_df: Финансовые показатели со SmartLab (получается через `io.stocks.merge_csv_files`).
+    :param ir_df: Рейтинг IR (получается через `io.stocks.ir_rating`).
+    :param free_float_df: Данные Free Float (получается через `io.stocks.free_float`).
+    :returns: DataFrame в длинном формате (ticker, indicator, value, type).
+    """
     df_list = []
 
     if moex_api_df is not None and not moex_api_df.empty:
@@ -50,6 +59,15 @@ def get_stock_info(
 
 
 def _metric_to_series(ticker:str, metric:str, df:pd.DataFrame, n:int) -> pd.Series:
+    """
+    Извлекает последние N значений метрики для тикера.
+
+    :param ticker: Тикер инструмента.
+    :param metric: Название показателя.
+    :param df: DataFrame с финансовыми данными (получается через `get_stock_info`).
+    :param n: Количество последних лет для анализа.
+    :returns: Series со значениями метрики по годам.
+    """
     n = n+1
     last_n:pd.Series = pd.Series()
     if metric in df['indicator'].unique().tolist():
@@ -66,6 +84,15 @@ def _metric_to_series(ticker:str, metric:str, df:pd.DataFrame, n:int) -> pd.Seri
 
 
 def grow_score(ticker:str, metric:str, df:pd.DataFrame, n:int)->tuple:
+    """
+    Рассчитывает показатель роста метрики за последние N лет.
+
+    :param ticker: Тикер инструмента.
+    :param metric: Название показателя (например, 'Чистая прибыль, млрд руб').
+    :param df: DataFrame с финансовыми данными (получается через `get_stock_info`).
+    :param n: Количество лет для анализа.
+    :returns: Кортеж (оценка от 0 до 1, строка с описанием расчета).
+    """
     s = _metric_to_series(ticker, metric, df, n)
     if s is None:
         calc = f'Рост [{metric}]: 0'
@@ -86,6 +113,15 @@ def grow_score(ticker:str, metric:str, df:pd.DataFrame, n:int)->tuple:
     return  res
 
 def count_score(ticker:str, metric:str, df:pd.DataFrame, n:int)->tuple:
+    """
+    Рассчитывает оценку частоты положительного значения метрики.
+
+    :param ticker: Тикер инструмента.
+    :param metric: Название показателя (например, 'Див.выплата, млрд руб').
+    :param df: DataFrame с финансовыми данными (получается через `get_stock_info`).
+    :param n: Количество лет для анализа.
+    :returns: Кортеж (оценка от 0 до 1, строка с описанием расчета).
+    """
     s = _metric_to_series(ticker, metric, df, n)
     if s is None:
         calc = f'Кол-во [{metric}]: 0'
@@ -104,6 +140,13 @@ def count_score(ticker:str, metric:str, df:pd.DataFrame, n:int)->tuple:
     return res
 
 def ir_score(ticker:str, df:pd.DataFrame):
+    """
+    Получает рейтинг IR для тикера.
+
+    :param ticker: Тикер инструмента.
+    :param df: DataFrame с рейтингами (получается через `get_stock_info` -> источник `io.stocks.ir_rating`).
+    :returns: Значение рейтинга (0, если не найдено).
+    """
     filtered_ir = df[(df['indicator'] == 'ir')]
     filtered_ir = filtered_ir.set_index('ticker')
     for _ticker in filtered_ir.index.to_list():

@@ -65,7 +65,7 @@ def parse_financial_csv(file_path: Path) -> pd.DataFrame:
     Парсит CSV файл с финансовой отчётностью в структурированный формат.
     
     :param file_path: Путь к CSV файлу
-    :returns: DataFrame с колонками: [ticker, filename, показатель, год, значение]
+    :returns: длинный DataFrame с колонками: 'ticker', 'indicator', 'year', 'value'
     :raises ValueError: При ошибках чтения или парсинга
     """
     if not file_path.exists():
@@ -140,12 +140,9 @@ def parse_financial_csv(file_path: Path) -> pd.DataFrame:
 def merge_csv_files(directory: str) -> pd.DataFrame:
     """
     Объединяет все CSV файлы из директории в единый DataFrame.
-    
-    :param directory: Путь к директории с CSV файлами
-    :param pattern: Шаблон поиска файлов (по умолчанию '*.csv')
-    :returns: Объединённый DataFrame с колонками:
-              [ticker, filename, indicator, year, value]
-    :raises ValueError: При ошибках обработки
+
+    :param directory: Путь к директории с CSV файлами.
+    :returns: DataFrame с колонками: ticker, indicator, year, value.
     """
     log.info(f'Объединение данных из папки {directory}...')
     dir_path = Path(directory)
@@ -196,8 +193,10 @@ def free_float(path:str):
 
     В таблцу вручную добавляется SIBN = 0.045
 
-    :param path: Описание
-    :type path: str
+    агружает данные о free-float из Excel файла.
+
+    :param path: Путь к файлу (напирмер, support_files/20251206-free-float.xlsx).
+    :returns: DataFrame с колонками: ticker, indicator, value.
     """
     log.info(f'Получение free-float из {path}...')
     df = pd.read_excel(path)
@@ -221,6 +220,11 @@ def ir_rating(path:str):
     """
     Источник данных:
     https://sl-rating.ru/?rating
+
+    Загружает рейтинг IR из Excel файла.
+
+    :param path: Путь к файлу (support_files/ir_rating.xlsx).
+    :returns: DataFrame с колонками: ticker, value.
 
     """
     log.info(f'Получение free-float из {path}...')

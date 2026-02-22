@@ -11,20 +11,10 @@ COLUMNS_TO_KEEP = [
     ]
 
 def _split_vtb_report(excel_path:str) -> Dict[int, pd.DataFrame]:
-    """
-    Разделяет Excel-файл отчёта ВТБ на отдельные таблицы по пустым строкам.
+    """Разделяет Excel-файл отчёта ВТБ на отдельные таблицы по пустым строкам.
 
     :param excel_path: Путь к Excel-файлу с отчётом.
-    :type excel_path: str
-
-    :returns: Словарь, где ключ — название таблицы (значение первой ячейки),
-                значение — DataFrame этой таблицы без полностью пустых столбцов.
-    :rtype: Dict[str, pd.DataFrame]
-
-    :raises FileNotFoundError: Если файл по указанному пути не найден.
-    :raises ValueError: Если лист 'brokerage_report' отсутствует или пуст.
-    :raises IndexError: Если в какой-либо секции отсутствует строка с названием таблицы
-                        (например, пустая секция без данных).
+    :returns: Словарь {индекс_секции: DataFrame}.
     """
     log.info(f"Начало обработки исходного отчёта ВТБ: {excel_path}...")
     try:
@@ -78,25 +68,13 @@ def _split_vtb_report(excel_path:str) -> Dict[int, pd.DataFrame]:
 
 @log_dataframe
 def read_vtb(excel_path:str):
-    """
-    Переопределяет метод в BrokerParser. Далее используется в get_balance_report_df() базового класса BrokerParser
-    Извлекает и преобразует таблицу позиций из отчёта ВТБ.
+    """Извлекает и преобразует таблицу позиций из отчёта ВТБ.
 
-    :returns: DataFrame с колонками, указанными в `COLUMNS_TO_KEEP` (обычно `['ISIN', 'Кол-во (шт)']`).
-    :rtype: pd.DataFrame
-
-    :raises KeyError: Если таблица `'Отчёт об остатках ценных бумаг'` отсутствует в `split_tables_dict`.
-    :raises IndexError: 
-        - Если после `iloc[1:-1]` таблица пуста,
-        - Если `df.columns[0]` недоступен (пустые колонки),
-        - Если `s.split(', ')` возвращает < 3 элементов в ISIN-колонке.
-    :raises ValueError: 
-        - Если `'Плановый исходящий остаток (шт)'` содержит нечисловые значения,
-        - При ошибке приведения к числу после фильтра.
-    :raises AttributeError: Если `COLUMNS_TO_KEEP` не определён или `RENAME_DICT_VTB` некорректен.
+    :param excel_path: Путь к Excel-файлу отчёта ВТБ.
+    :returns: DataFrame с колонками: isin, count_pieces.
     """
     log.info("Начата обработка отчёта ВТБ...")
-    log.debug("Извлечение исходной таблицы по ключу 7.")
+    log.debug("Извлечение исходной таблицы по ключу 6.")
     source_df = _split_vtb_report(excel_path)[6]
     log.debug(f"Исходная таблица получена. Форма: {source_df.shape}")
     
@@ -139,19 +117,10 @@ def read_vtb(excel_path:str):
     return df
 
 def _split_sber_report(html_path: str) -> Dict[int, pd.DataFrame]:
-    """
-    Извлекает все HTML-таблицы из отчёта Сбербанка и возвращает их в виде словаря.
+    """Извлекает все HTML-таблицы из отчёта Сбербанка.
 
-    :param html_path: Путь к HTML-файлу с отчётом Сбербанка.
-    :type html_path: str
-
-    :returns: Словарь, где ключ — индекс таблицы (начиная с 0),
-              значение — pandas.DataFrame с содержимым таблицы.
-    :rtype: Dict[int, pd.DataFrame]
-
-    :raises FileNotFoundError: Если файл по указанному пути не найден.
-    :raises UnicodeDecodeError: Если файл не может быть прочитан в кодировке UTF-8.
-    :raises ValueError: Если в HTML-файле не найдено ни одной таблицы.
+    :param html_path: Путь к HTML-файлу с отчётом.
+    :returns: Словарь {индекс_таблицы: DataFrame}.
     """
     log.info(f"Начало обработки исходного отчёта Сбербанка: {html_path}...")
     
@@ -177,26 +146,10 @@ def _split_sber_report(html_path: str) -> Dict[int, pd.DataFrame]:
 
 @log_dataframe
 def read_sber(html_path: str)->pd.DataFrame:
-    """
-    Извлекает и преобразует таблицу позиций из отчёта Сбербанка.
+    """Извлекает и преобразует таблицу позиций из отчёта Сбербанка.
 
-    Таблица берётся из `self.split_tables_dict[2]` и проходит следующие этапы:
-    - установка первой строки как временных имён столбцов,
-    - фильтрация по двум ключевым колонкам,
-    - установка второй строки как финальных имён столбцов,
-    - обрезка "служебных" строк (первые 4 и последние 3),
-    - переименование согласно `RENAME_DICT_SBER`,
-    - преобразование колонки `'Кол-во (шт)'` в `float` (удаление пробелов в числах),
-    - отбор только нужных колонок (`self.COLUMNS_TO_KEEP`).
-
-    :returns: Обработанный DataFrame с позициями портфеля.
-    :rtype: pd.DataFrame
-
-    :raises KeyError: Если в `split_tables_dict` нет ключа `2`,
-                      или отсутствуют ожидаемые колонки (`'Основной рынок'`, `'Плановые показатели'`).
-    :raises IndexError: Если в таблице недостаточно строк (например, < 5 строк после фильтрации).
-    :raises AttributeError: Если `self.COLUMNS_TO_KEEP` не определён в подклассе или экземпляре.
-    :raises ValueError: При ошибке приведения `'Плановый исходящий остаток, шт'` к `float`.
+    :param html_path: Путь к HTML-файлу отчёта Сбербанка.
+    :returns: DataFrame с колонками: isin, count_pieces.
     """
     log.info("Начата обработка отчёта Сбербанка...")
     log.debug("Извлечение исходной таблицы по ключу 2.")
@@ -235,7 +188,7 @@ def read_sber(html_path: str)->pd.DataFrame:
     log.info("Обработка отчёта Сбербанка завершена.")
     return df
 
-def _save_tables_to_excel(tables: Dict[int, pd.DataFrame], output_path: str) -> None:
+def save_tables_to_excel(tables: Dict[int, pd.DataFrame], output_path: str) -> None:
     """
     Сохраняет словарь таблиц в Excel-файл (по одной таблице на лист).
 
@@ -243,10 +196,6 @@ def _save_tables_to_excel(tables: Dict[int, pd.DataFrame], output_path: str) -> 
     :type tables: Dict[int, pd.DataFrame]
     :param output_path: Путь к выходному Excel-файлу (.xlsx).
     :type output_path: str
-
-    :raises OSError: Если невозможно записать файл (нет прав, путь некорректен).
-    :raises ValueError: Если движок 'openpyxl' недоступен или файл повреждён.
-    :raises AttributeError: Если `tables` не является словарём.
     """
     log.info(f"Сохранение таблиц в Excel: {output_path}")
     

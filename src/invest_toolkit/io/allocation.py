@@ -10,14 +10,9 @@ def _get_df_dict(file_path:str) -> dict[str, pd.DataFrame]:
     - Для остальных листов: проверяет, что сумма `'%'` = 100 и есть колонка `'ticker'`.
     - Удаляет строки с `NaN` в ключевых колонках.
 
-    :returns: Словарь: имя листа → DataFrame.
-    :rtype: Dict[str, pd.DataFrame]
-
-    :raises ValueError: 
-        - Если сумма `'%'` ≠ 100 на каком-либо листе,
-        - Если отсутствует колонка `'%'` или `'ticker'`/`'category'`.
-    :raises FileNotFoundError: Если файл не найден.
-    :raises KeyError: Если отсутствует лист `'categories'`.
+    :param file_path: Путь к Excel-файлу с настройками распределения.
+    :returns: Словарь {имя_листа: DataFrame}.
+    :raises ValueError: Если сумма процентов не равна 100.
     """
     df_dict = pd.read_excel(
         io=file_path,
@@ -61,28 +56,10 @@ def _percent_error(df:pd.DataFrame, val: float, column:str, name:str):
 @log_dataframe
 def allocatin_table(file_path:str):
     """
-    Формирует итоговую таблицу распределения портфеля с обогащёнными данными.
+    Формирует итоговую таблицу целевого распределения портфеля.
 
-    1. Загружает и валидирует листы через `_get_df_dict()`.
-    2. Для каждого листа (кроме `'categories'`):
-        - находит его долю в `categories`,
-        - масштабирует внутренние `%` до абсолютной доли портфеля,
-        - добавляет колонку `category`.
-    3. Объединяет все таблицы.
-    4. Для каждого тикера добавляет:
-        - `ISIN`, `Размер лота`, `name` — из `all_stock_df`.
-
-    :returns: Итоговый DataFrame с колонками:
-                `ticker`, `%`, `category`, `ISIN`, `Размер лота`, `name`.
-    :rtype: pd.DataFrame
-
-    :raises KeyError: 
-        - Если лист отсутствует в `categories`,
-        - Если `'categories'` не содержит колонку `'%'` или `'category'`.
-    :raises IndexError: 
-        - Если тикер не найден в `all_stock_df`,
-        - Если по категории найдено ≠1 записи в `categories_df`.
-    :raises ValueError: При ошибке приведения `'Размер лота'` к `float`.
+    :param file_path: Путь к Excel-файлу с настройками (support_files/index_fund.xlsx).
+    :returns: DataFrame с колонками: ticker, %, category, ISIN, Размер лота, name.
     """
     log.info(f"Начало обработки таблицы распределения: {file_path}...")
     df_dict = _get_df_dict(file_path=file_path)

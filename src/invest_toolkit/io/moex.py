@@ -18,14 +18,8 @@ def all_instruments_info() -> pd.DataFrame:
     """
     Собирает справочную информацию по всем торгуемым инструментам на MOEX.
 
-    Загружает данные для акций, ETF, корпоративных облигаций и ОФЗ,
-    объединяет их в один DataFrame и возвращает.
-
-    :returns: DataFrame с информацией по инструментам (ticker, isin, name, lot_size, currency, и др.)
-    :rtype: pd.DataFrame
-    
-    :raises requests.RequestException: Если не удалось выполнить HTTP-запрос.
-    :raises KeyError: Если в ответе API отсутствуют ожидаемые ключи.
+    Загружает данные для акций, ETF, корпоративных облигаций и ОФЗ через API MOEX.
+    :returns: DataFrame с информацией (ticker, isin, name, lot_size, price, cap, type).
     """
     Logger.info("Начат сбор справочной информации по инструментам MOEX")
     all_data = []

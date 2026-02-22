@@ -11,6 +11,15 @@ def _add_figure_watermark(
         color='gray', 
         alpha=0.8
         ):
+    """Добавляет водяной знак на фигуру matplotlib.
+
+    :param fig: Объект фигуры.
+    :param text: Текст водяного знака.
+    :param position: Позиция (bottom-right, top-left, etc.).
+    :param fontsize: Размер шрифта.
+    :param color: Цвет текста.
+    :param alpha: Прозрачность.
+    """
     pos_map = {
         'bottom-right': (0.98, 0.02, 'right', 'bottom'),
         'bottom-left':  (0.02, 0.02, 'left',  'bottom'),
@@ -39,6 +48,16 @@ def plot_one_chart(
     axes=None, 
     show:bool=True
     ):
+    """Строит одиночный барчарт с скользящей средней.
+
+    :param df: DataFrame с финансовыми данными (получается через `orchestration.workflows.gall_stock_info`).
+    :param ticker: Тикер инструмента.
+    :param title: Название показателя для отображения.
+    :param window: Окно для скользящей средней.
+    :param axes: Объект Axes для рисования (опционально).
+    :param show: Флаг отображения графика.
+    :returns: Объект Axes или None.
+    """
     log.info(f'Построение графика {ticker}: {title}...')
     _df:pd.DataFrame = df[
             (df['ticker']==ticker) & 
@@ -123,6 +142,16 @@ def plot_multiple_chart(
         cols:int= 2, 
         figsize = (12, 9.5)
         ):
+    """Строит сетку графиков для нескольких показателей одного тикера.
+
+    :param df: DataFrame с финансовыми данными (получается через `orchestration.workflows.gall_stock_info`).
+    :param ticker: Тикер инструмента.
+    :param metric_list: Список показателей для отображения.
+    :param window: Окно для скользящей средней.
+    :param rows: Количество строк в сетке.
+    :param cols: Количество столбцов в сетке.
+    :param figsize: Размер фигуры.
+    """
     log.info(f'Построение графиков для {ticker}...')
     log.data(data = metric_list, label='Список показалей')
     main_title = df[

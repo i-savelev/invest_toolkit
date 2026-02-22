@@ -13,7 +13,19 @@ def portfolio_report(
         sell:bool = True,
         allow_sell_tickers:list = [],
         report_save_path:str = r'./.output'
-):
+)->None:
+    """Основной workflow формирования отчёта по брокерским счетам.
+
+    Последовательно вызывает функции парсинга, расчёта баланса, распределения и генерации отчёта.
+    :param report_path_sber: Путь к HTML отчёту Сбербанка.
+    :param report_path_vtb: Путь к Excel отчёту ВТБ.
+    :param allocation_path: Путь к файлу целевого распределения.
+    :param deposit: Сумма пополнения.
+    :param grouping_tickers: Список тикеров для группировки.
+    :param sell: Флаг разрешения продаж.
+    :param allow_sell_tickers: Список тикеров, разрешённых к продаже.
+    :param report_save_path: Путь для сохранения итогового отчёта.
+    """
     log.init(f'Подготовка отчета по брокерским счетам')
     all_info = all_instruments_info()
     sber = read_sber(report_path_sber)
@@ -37,7 +49,14 @@ def all_stock_info(
        free_dloat_path:str,
        ir_path:str, 
        sl_stock_folder:str
-    ):
+    )-> pd.DataFrame:
+    """Собирает всю доступную информацию по акциям в единый DataFrame.
+
+    :param free_dloat_path: Путь к файлу free-float.
+    :param ir_path: Путь к файлу IR рейтинга.
+    :param sl_stock_folder: Путь к папке с CSV отчётами SmartLab.
+    :returns: DataFrame с объединёнными данными (получается через `core.stocks.get_stock_info`).
+    """
     log.init(f'Получение всех данных по акциям...')
     sl_stock_df = merge_csv_files(sl_stock_folder)
     ff_df = free_float(free_dloat_path)
@@ -52,7 +71,13 @@ def all_stock_info(
     return df
 
 @log_dataframe
-def rating_df(df:pd.DataFrame, n:int):
+def rating_df(df:pd.DataFrame, n:int)->pd.DataFrame:
+    """Рассчитывает инвестиционный рейтинг для каждого тикера.
+
+    :param df: DataFrame с данными по акциям (получается через `all_stock_info`).
+    :param n: Количество лет для анализа показателей.
+    :returns: DataFrame с рассчитанными рейтингами и компонентами scores.
+    """
     tickers = df[df['type'] == 'smartlab']['ticker'].unique()
     data = []
     for ticker in tickers:
