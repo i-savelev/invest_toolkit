@@ -1,5 +1,8 @@
 # invest_toolkit
 
+<img width="2088" height="1166" alt="изображение" src="https://github.com/user-attachments/assets/8ac44afb-0cbb-49f7-a754-079145ee814a" />
+
+
 Инструментарий для анализа инвестиционного портфеля, расчёта рейтингов и визуализации данных по акциям MOEX.
 
 ---
