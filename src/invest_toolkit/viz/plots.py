@@ -62,8 +62,10 @@ def plot_one_chart(
     _df:pd.DataFrame = df[
             (df['ticker']==ticker) & 
             (df['indicator']==title)
-        ].copy().set_index('year')
-    
+        ].copy()
+    _df['year'] = pd.to_numeric(_df['year'], errors='coerce')
+    _df['year'] = _df['year'].astype('Int64') 
+    _df = _df.set_index('year')
     if not _df.empty:
         _df['value'] = pd.to_numeric(_df['value'], errors='coerce')
         row:pd.Series = _df['value']
