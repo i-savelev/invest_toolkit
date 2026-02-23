@@ -97,7 +97,7 @@ it.plot_multiple_chart(
 ```
 Примеры графиков
 
-
+<img width="600" height="500" alt="изображение" src="https://github.com/user-attachments/assets/54ae2ca0-c26b-421b-9437-40b097be9f77" />
 
 ### Рейтинг
 
@@ -172,19 +172,12 @@ it.portfolio_report(
 | LQDT, SBMM | sell 27910 шт. (-55131 руб.) | 44.12 |    40 |    40 |
 
 AQUA: buy 11 шт. (5380 руб.)
-
 BSPB: buy 2 шт. (6843 руб.)
-
 HEAD: buy 5 шт. (14560 руб.)
-
 ...
-
 WTCMP: buy 2 шт. (2584 руб.)
-
 X5: buy 5 шт. (12132 руб.)
-
 LQDT, SBMM: sell 27910 шт. (-55131 руб.)
-
 ```
 
 
