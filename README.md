@@ -97,7 +97,8 @@ it.plot_multiple_chart(
 ```
 Примеры графиков
 
-<img width="600" height="500" alt="изображение" src="https://github.com/user-attachments/assets/54ae2ca0-c26b-421b-9437-40b097be9f77" />
+<img width="600" height="500" alt="изображение" src="https://github.com/user-attachments/assets/fcb99a0d-c69f-4383-8396-f53373b951bf" />
+
 
 ### Рейтинг
 
