@@ -33,9 +33,9 @@ def portfolio_report(
     summary = summary_report([sber, vtb], all_info)
     at = allocatin_table(allocation_path)
     allocation_df = allocation_report(summary, at, deposit)
+    allow_sell_df = allow_sell(allocation_df, allow_sell=sell, tickers_to_sell=allow_sell_tickers)
     allocation_grouped_df = group_by_category(df=allocation_df, group_col='ticker', tickers_list=grouping_tickers)
-    allow_sell_df = allow_sell(allocation_grouped_df, allow_sell=sell, tickers_to_sell=allow_sell_tickers)
-    adjust_df = adjust_for_deposit(deposit, allow_sell_df)
+    adjust_df = adjust_for_deposit(deposit, allocation_grouped_df)
     generate(
         save_path=report_save_path,
         deposit=deposit,
