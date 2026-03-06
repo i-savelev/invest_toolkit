@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List, Dict, Optional
 
 
-def get_directory_structure(start_path: Path, exclude_folders: Optional[List[str]] = None) -> str:
+def _get_directory_structure(start_path: Path, exclude_folders: Optional[List[str]] = None) -> str:
     """
     Формирует строковое представление дерева файлов и папок.
 
@@ -54,7 +54,7 @@ def get_directory_structure(start_path: Path, exclude_folders: Optional[List[str
     return "\n".join(lines)
 
 
-def is_file_included(
+def _is_file_included(
     file_path: Path,
     include_extensions: List[str],
     exclude_filenames: List[str],
@@ -91,7 +91,7 @@ def is_file_included(
     return True
 
 
-def get_language_hint(file_path: Path, lang_mapping: Dict[str, str]) -> str:
+def _get_language_hint(file_path: Path, lang_mapping: Dict[str, str]) -> str:
     """
     Определяет подсказку языка для блока кода в Markdown.
 
@@ -110,7 +110,7 @@ def get_language_hint(file_path: Path, lang_mapping: Dict[str, str]) -> str:
     return lang_mapping.get(file_path.suffix, "")
 
 
-def read_file_content(file_path: Path) -> str:
+def _read_file_content(file_path: Path) -> str:
     """
     Читает содержимое файла с обработкой ошибок кодировки.
 
@@ -130,7 +130,7 @@ def read_file_content(file_path: Path) -> str:
         return "# Ошибка чтения файла"
 
 
-def collect_files_content(
+def _collect_files_content(
     start_path: Path,
     include_extensions: List[str],
     exclude_filenames: List[str],
@@ -160,7 +160,7 @@ def collect_files_content(
         if not file_path.is_file():
             continue
             
-        if not is_file_included(file_path, include_extensions, exclude_filenames, exclude_folders):
+        if not _is_file_included(file_path, include_extensions, exclude_filenames, exclude_folders):
             continue
 
         try:
@@ -169,8 +169,8 @@ def collect_files_content(
             relative_path = file_path.name
             
         header = f"## {relative_path}"
-        lang = get_language_hint(file_path, lang_mapping)
-        content = read_file_content(file_path)
+        lang = _get_language_hint(file_path, lang_mapping)
+        content = _read_file_content(file_path)
         code_block = f"```{lang}\n{content}\n```"
         
         sections.append(f"{header}\n{code_block}")
@@ -221,10 +221,10 @@ def generate_project_documentation(
     output_path = Path(output_file).resolve()
 
     # 1. Формируем структуру (с исключениями папок)
-    structure_text = get_directory_structure(source_path, exclude_folders)
+    structure_text = _get_directory_structure(source_path, exclude_folders)
 
     # 2. Формируем содержимое (с фильтрами)
-    content_text = collect_files_content(
+    content_text = _collect_files_content(
         source_path,
         include_extensions,
         exclude_filenames,
