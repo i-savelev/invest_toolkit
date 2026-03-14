@@ -10,7 +10,7 @@ COLUMNS_TO_KEEP = [
     'count_pieces',
     ]
 
-def _split_vtb_report(excel_path:str) -> Dict[int, pd.DataFrame]:
+def _split_vtb_report(excel_path:str) -> Dict[str, pd.DataFrame]:
     """Разделяет Excel-файл отчёта ВТБ на отдельные таблицы по пустым строкам.
 
     :param excel_path: Путь к Excel-файлу с отчётом.
@@ -25,46 +25,47 @@ def _split_vtb_report(excel_path:str) -> Dict[int, pd.DataFrame]:
             header=None
         )
         log.debug(f"Файл Excel успешно прочитан. Форма данных: {df.shape}")
+        log.debug(f"Начало разбора строк отчёта. Всего строк: {len(df)}")
         if df.empty:
             log.error("Лист 'brokerage_report' пуст.")
+        df_dict = {}
+        current_table = []
+        section_count = 0
+        
+        
+        for index, row in df.iterrows():
+            if row.isna().all():
+                if current_table:
+                    df_section = pd.DataFrame(current_table)
+                    df_cleaned = df_section.dropna(axis=1, how='all')
+                    table_name = df_cleaned.iloc[0, 0]
+                    if df_cleaned.empty:
+                        log.warning(f"Секция [{section_count}] пуста после удаления пустых столбцов.")
+                    else:   
+                        df_dict[table_name] = df_cleaned
+                        log.debug(f"Секция [{section_count}] - [{table_name}] сохранена")       
+                    current_table = []
+                    section_count += 1
+            else:
+                current_table.append(row.values)
+        
+        # Обработка последней секции, если она не закончилась пустой строкой
+        if current_table:
+            log.debug(f"Обработка последней секции [{section_count}] (без завершающей пустой строки)")
+            df_section = pd.DataFrame(current_table)
+            df_cleaned = df_section.dropna(axis=1, how='all')
+            
+            if df_cleaned.empty:
+                log.warning(f"Последняя секция {section_count} пуста после удаления пустых столбцов.")
+            else:
+                df_dict[section_count] = df_cleaned
+                log.debug(f"Последняя секция [{section_count}] сохранена")
+                
+        
+        log.info(f"Разделение отчёта ВТБ завершено. Извлечено {len(df_dict)} таблиц.")
+        return df_dict
     except Exception as e:
         log.error(f"Ошибка при чтении файла: {e}")
-    df_dict = {}
-    current_table = []
-    section_count = 0
-    log.debug(f"Начало разбора строк отчёта. Всего строк: {len(df)}")
-    
-    for index, row in df.iterrows():
-        if row.isna().all():
-            if current_table:
-                df_section = pd.DataFrame(current_table)
-                df_cleaned = df_section.dropna(axis=1, how='all')
-                
-                if df_cleaned.empty:
-                    log.warning(f"Секция {section_count} пуста после удаления пустых столбцов.")
-                else:   
-                    df_dict[section_count] = df_cleaned
-                    log.debug(f"Секция {section_count} сохранена")       
-                current_table = []
-                section_count += 1
-        else:
-            current_table.append(row.values)
-    
-    # Обработка последней секции, если она не закончилась пустой строкой
-    if current_table:
-        log.debug(f"Обработка последней секции {section_count} (без завершающей пустой строки)")
-        df_section = pd.DataFrame(current_table)
-        df_cleaned = df_section.dropna(axis=1, how='all')
-        
-        if df_cleaned.empty:
-            log.warning(f"Последняя секция {section_count} пуста после удаления пустых столбцов.")
-        else:
-            df_dict[section_count] = df_cleaned
-            log.debug(f"Последняя секция {section_count} сохранена")
-            
-    
-    log.info(f"Разделение отчёта ВТБ завершено. Извлечено {len(df_dict)} таблиц.")
-    return df_dict
 
 @log_dataframe
 def read_vtb(excel_path:str):
@@ -75,7 +76,7 @@ def read_vtb(excel_path:str):
     """
     log.info("Начата обработка отчёта ВТБ...")
     log.debug("Извлечение исходной таблицы по ключу 6.")
-    source_df = _split_vtb_report(excel_path)[6]
+    source_df = _split_vtb_report(excel_path)['Отчёт об остатках ценных бумаг']
     log.debug(f"Исходная таблица получена. Форма: {source_df.shape}")
     
     df = source_df.iloc[1:-1].reset_index(drop=True)
@@ -232,13 +233,8 @@ if __name__ == '__main__':
     report_path_vtb = r'./.reports/vtb_20250917_20251012.xlsx'  # Пример пути
     output_excel_vtb = r'./.output/vtb_tables.xlsx'
     
-    # tables_sber = _split_sber_report(report_path_sber)
-    # _save_tables_to_excel(tables_sber, output_excel_sber)
-    # log.separator()
-    # tables_vtb = _split_vtb_report(report_path_vtb)
-    # _save_tables_to_excel(tables_vtb, output_excel_vtb)
+
     
-    sber = read_sber(report_path_sber)
-    log.raw_dataframe(caption='Очищенные данные сбера', df=sber)
-    vtb = read_vtb(report_path_vtb)
-    log.raw_dataframe(caption='Очищенные данные ВТБ', df=vtb)
+    vtb_dict = _split_vtb_report(r'.reports/vtb20260211_20260310.xlsx')
+    # print(vtb_dict)
+    save_tables_to_excel(vtb_dict, output_excel_vtb)
