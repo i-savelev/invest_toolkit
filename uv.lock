@@ -360,6 +360,33 @@ wheels = [
 ]
 
 [[package]]
+name = "invest-toolkit"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "bs4" },
+    { name = "ipykernel" },
+    { name = "lxml" },
+    { name = "matplotlib" },
+    { name = "pandas", extra = ["excel", "html"] },
+    { name = "requests" },
+    { name = "selenium" },
+    { name = "tabulate" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "bs4", specifier = ">=0.0.2" },
+    { name = "ipykernel", specifier = ">=7.1.0" },
+    { name = "lxml", specifier = ">=6.0.1" },
+    { name = "matplotlib", specifier = ">=3.10.7" },
+    { name = "pandas", extras = ["excel", "html"], specifier = ">=2.3.2" },
+    { name = "requests", specifier = ">=2.32.5" },
+    { name = "selenium", specifier = ">=4.40.0" },
+    { name = "tabulate", specifier = ">=0.9.0" },
+]
+
+[[package]]
 name = "ipykernel"
 version = "7.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -617,33 +644,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c7/74/97e72a36efd4ae2bccb3463284300f8953f199b5ffbc04cbbb0ec78f74b1/matplotlib_inline-0.2.1.tar.gz", hash = "sha256:e1ee949c340d771fc39e241ea75683deb94762c8fa5f2927ec57c83c4dffa9fe", size = 8110, upload-time = "2025-10-23T09:00:22.126Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/af/33/ee4519fa02ed11a94aef9559552f3b17bb863f2ecfe1a35dc7f548cde231/matplotlib_inline-0.2.1-py3-none-any.whl", hash = "sha256:d56ce5156ba6085e00a9d54fead6ed29a9c47e215cd1bba2e976ef39f5710a76", size = 9516, upload-time = "2025-10-23T09:00:20.675Z" },
-]
-
-[[package]]
-name = "moex-broker-toolkit"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "bs4" },
-    { name = "ipykernel" },
-    { name = "lxml" },
-    { name = "matplotlib" },
-    { name = "pandas", extra = ["excel", "html"] },
-    { name = "requests" },
-    { name = "selenium" },
-    { name = "tabulate" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "bs4", specifier = ">=0.0.2" },
-    { name = "ipykernel", specifier = ">=7.1.0" },
-    { name = "lxml", specifier = ">=6.0.1" },
-    { name = "matplotlib", specifier = ">=3.10.7" },
-    { name = "pandas", extras = ["excel", "html"], specifier = ">=2.3.2" },
-    { name = "requests", specifier = ">=2.32.5" },
-    { name = "selenium", specifier = ">=4.40.0" },
-    { name = "tabulate", specifier = ">=0.9.0" },
 ]
 
 [[package]]
