@@ -681,6 +681,6 @@ def scrape_and_download(
 if __name__ == "__main__":
     log.init("Обновление локальных CSV SmartLab")
     scrape_and_download(
-        min_delay=2,
-        max_delay=5,
+        min_delay=5,
+        max_delay=10,
         save_directory=r"./support_files/scrapper_reports")
