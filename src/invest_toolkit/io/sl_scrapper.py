@@ -97,6 +97,38 @@ def _is_year_column(column_name: str) -> bool:
     return bool(YEAR_PATTERN.fullmatch(_normalize_text(column_name)))
 
 
+def _is_ltm_column(column_name: str) -> bool:
+    """
+    Проверяет, соответствует ли имя столбца периоду LTM.
+
+    SmartLab иногда добавляет к заголовку `LTM` служебный символ `?` из tooltip,
+    поэтому проверка не должна опираться только на точное совпадение строки.
+
+    :param column_name: Имя столбца или текст ячейки.
+    :returns: ``True``, если столбец соответствует LTM.
+    """
+    normalized = _normalize_text(column_name).upper()
+    return normalized == LTM_COLUMN or normalized.startswith(f"{LTM_COLUMN} ")
+
+
+def _normalize_period_name(period_name: str) -> str:
+    """
+    Нормализует имя периода к каноническому виду.
+
+    :param period_name: Имя периода, переданное пользователем или прочитанное из HTML.
+    :returns: Каноническое имя периода.
+    :raises ValueError: Если имя периода пустое или не поддерживается.
+    """
+    normalized = _normalize_text(period_name).upper()
+    if not normalized:
+        raise ValueError("Список периодов содержит пустое значение.")
+    if _is_year_column(normalized):
+        return normalized
+    if _is_ltm_column(normalized):
+        return LTM_COLUMN
+    raise ValueError(f"Неподдерживаемый период SmartLab: {period_name}")
+
+
 def _get_random_delay(min_delay: float = 1.5, max_delay: float = 4.0) -> float:
     """
     Генерирует случайную задержку в указанном диапазоне.
@@ -307,18 +339,21 @@ def _resolve_family_page(
     raise ValueError(f"Не удалось найти рабочую страницу SmartLab для семейства {family_key}.")
 
 
-def _extract_periods_from_row(row: Iterable[str]) -> list[str]:
+def _extract_period_columns_from_row(row: Iterable[str]) -> list[tuple[int, str]]:
     """
-    Извлекает из строки заголовка набор периодов (годы и LTM).
+    Извлекает из строки заголовка позиции колонок периодов (годы и LTM).
 
     :param row: Последовательность текстов ячеек.
-    :returns: Список периодов в исходном порядке.
+    :returns: Список кортежей ``(index, period)`` в исходном порядке.
     """
     periods = []
-    for cell in row:
+    for idx, cell in enumerate(row):
         text = _normalize_text(cell)
-        if _is_year_column(text) or text == LTM_COLUMN:
-            periods.append(text)
+        if _is_year_column(text):
+            periods.append((idx, text))
+            continue
+        if _is_ltm_column(text):
+            periods.append((idx, LTM_COLUMN))
     return periods
 
 
@@ -361,7 +396,11 @@ def _parse_table_with_bs4(html: str) -> pd.DataFrame:
             if not cells:
                 continue
 
-            row = [_normalize_text(cell.get_text(" ", strip=True)) for cell in cells]
+            row: list[str] = []
+            for cell in cells:
+                text = _normalize_text(cell.get_text(" ", strip=True))
+                colspan = int(cell.get("colspan", 1) or 1)
+                row.extend([text] * colspan)
             if any(cell for cell in row):
                 rows.append(row)
 
@@ -369,12 +408,12 @@ def _parse_table_with_bs4(html: str) -> pd.DataFrame:
             continue
 
         header_row_idx = None
-        periods: list[str] = []
+        period_columns: list[tuple[int, str]] = []
         for idx, row in enumerate(rows):
-            row_periods = _extract_periods_from_row(row)
+            row_periods = _extract_period_columns_from_row(row)
             if len(row_periods) >= 2:
                 header_row_idx = idx
-                periods = row_periods
+                period_columns = row_periods
                 break
 
         if header_row_idx is None:
@@ -384,22 +423,30 @@ def _parse_table_with_bs4(html: str) -> pd.DataFrame:
         if "Дата отчета" not in indicators or "Валюта отчета" not in indicators:
             continue
 
+        periods = [period for _, period in period_columns]
+        period_indexes = [column_idx for column_idx, _ in period_columns]
+        first_period_idx = period_indexes[0]
         records: list[dict[str, str]] = []
         skip_rows = {"Финансовый отчет", "Годовой отчет", "Презентация"}
 
         for row in rows[header_row_idx + 1:]:
-            if len(row) <= len(periods):
+            if len(row) <= first_period_idx:
                 continue
 
-            leading_cells = row[:-len(periods)]
-            value_cells = row[-len(periods):]
+            leading_cells = row[:first_period_idx]
             indicator = _build_indicator_name(leading_cells)
 
             if not indicator or indicator in skip_rows:
                 continue
 
             record = {INDICATOR_COLUMN: indicator}
-            record.update({period: _normalize_text(value) for period, value in zip(periods, value_cells)})
+            for column_idx, period in period_columns:
+                value = row[column_idx] if column_idx < len(row) else ""
+                record[period] = _normalize_text(value)
+
+            non_empty_values = [record.get(period, "") for period in periods if record.get(period, "")]
+            if non_empty_values and all(value == indicator for value in non_empty_values):
+                continue
 
             if any(record.get(period, "") for period in periods):
                 records.append(record)
@@ -420,6 +467,11 @@ def _extract_financial_table(html: str) -> pd.DataFrame:
     :returns: DataFrame с показателями и периодами.
     """
     try:
+        return _parse_table_with_bs4(html)
+    except ValueError:
+        pass
+
+    try:
         tables = pd.read_html(StringIO(html), keep_default_na=False)
     except ValueError:
         tables = []
@@ -434,7 +486,13 @@ def _extract_financial_table(html: str) -> pd.DataFrame:
             columns = candidate.columns.tolist()
             if columns:
                 indicator_column = columns[0]
-                periods = [column for column in columns[1:] if _is_year_column(column) or column == LTM_COLUMN]
+                periods = []
+                for column in columns[1:]:
+                    if _is_year_column(column):
+                        periods.append(column)
+                        continue
+                    if _is_ltm_column(column):
+                        periods.append(LTM_COLUMN)
                 if len(periods) >= 2:
                     normalized = candidate.rename(columns={indicator_column: INDICATOR_COLUMN})
                     normalized = normalized[[INDICATOR_COLUMN, *periods]]
@@ -442,7 +500,7 @@ def _extract_financial_table(html: str) -> pd.DataFrame:
                     if "Дата отчета" in indicators and "Валюта отчета" in indicators:
                         return normalized.fillna("")
 
-    return _parse_table_with_bs4(html)
+    raise ValueError("На странице SmartLab не найдена таблица с годовой отчётностью.")
 
 
 def _load_local_report(csv_path: Path) -> pd.DataFrame:
@@ -501,27 +559,59 @@ def _align_page_indicators(page_df: pd.DataFrame, local_df: pd.DataFrame) -> pd.
     return result
 
 
-def _get_new_years(page_df: pd.DataFrame, local_df: pd.DataFrame) -> list[str]:
+def _sort_periods(periods: Iterable[str]) -> list[str]:
     """
-    Находит годовые столбцы, которых ещё нет в локальном CSV.
+    Сортирует периоды в привычном порядке SmartLab: годы по возрастанию, затем LTM.
+
+    :param periods: Набор периодов.
+    :returns: Отсортированный список периодов без дублей.
+    """
+    normalized_periods = []
+    seen = set()
+    for period in periods:
+        normalized = _normalize_period_name(period)
+        if normalized in seen:
+            continue
+        seen.add(normalized)
+        normalized_periods.append(normalized)
+
+    year_periods = sorted([period for period in normalized_periods if _is_year_column(period)], key=int)
+    if LTM_COLUMN in normalized_periods:
+        year_periods.append(LTM_COLUMN)
+    return year_periods
+
+
+def _resolve_requested_periods(
+    page_df: pd.DataFrame,
+    period_columns: list[str],
+) -> list[str]:
+    """
+    Определяет, какие периоды нужно добавить или обновить в локальном CSV.
+
+    В итоговый список попадают только периоды, которые явно запросил пользователь
+    и которые реально присутствуют на странице SmartLab.
 
     :param page_df: Таблица, полученная со страницы SmartLab.
-    :param local_df: Локальный CSV.
-    :returns: Список новых годов в порядке возрастания.
+    :param period_columns: Список периодов, которые нужно синхронизировать.
+    :returns: Список периодов для записи в локальный CSV.
     """
-    local_years = {column for column in local_df.columns if _is_year_column(column)}
-    page_years = [column for column in page_df.columns if _is_year_column(column)]
-    new_years = [year for year in page_years if year not in local_years]
-    return sorted(new_years, key=int)
+    requested_periods = _sort_periods(period_columns)
+    page_periods = {_normalize_period_name(column) for column in page_df.columns if _is_year_column(column) or _is_ltm_column(column)}
+    available_periods = [period for period in requested_periods if period in page_periods]
+    return available_periods
 
 
-def _merge_new_years(local_df: pd.DataFrame, page_df: pd.DataFrame, new_years: list[str]) -> tuple[pd.DataFrame, list[str]]:
+def _merge_periods(
+    local_df: pd.DataFrame,
+    page_df: pd.DataFrame,
+    periods_to_sync: list[str],
+) -> tuple[pd.DataFrame, list[str]]:
     """
-    Добавляет в локальный CSV только отсутствующие годовые колонки со страницы.
+    Добавляет или обновляет указанные периоды в локальном CSV.
 
     :param local_df: Локальный CSV с полной историей.
     :param page_df: Таблица, полученная со страницы SmartLab.
-    :param new_years: Список новых годов для добавления.
+    :param periods_to_sync: Список периодов для добавления или обновления.
     :returns: Кортеж ``(updated_df, new_indicators)``.
     """
     local_order = local_df[INDICATOR_COLUMN].tolist()
@@ -535,19 +625,16 @@ def _merge_new_years(local_df: pd.DataFrame, page_df: pd.DataFrame, new_years: l
         extra_rows = pd.DataFrame("", index=new_indicators, columns=local_indexed.columns)
         local_indexed = pd.concat([local_indexed, extra_rows], axis=0)
 
-    for year in new_years:
-        local_indexed[year] = ""
-        if year in page_indexed.columns:
-            local_indexed.loc[page_indexed.index, year] = page_indexed[year]
+    for period in _sort_periods(periods_to_sync):
+        local_indexed[period] = ""
+        if period in page_indexed.columns:
+            local_indexed.loc[page_indexed.index, period] = page_indexed[period]
 
     ordered_indicators = [indicator for indicator in local_order if indicator in local_indexed.index]
     ordered_indicators.extend(indicator for indicator in page_order if indicator in new_indicators)
     local_indexed = local_indexed.reindex(ordered_indicators)
 
-    ordered_years = sorted([column for column in local_indexed.columns if _is_year_column(column)], key=int)
-    ordered_columns = ordered_years
-    if LTM_COLUMN in local_indexed.columns:
-        ordered_columns.append(LTM_COLUMN)
+    ordered_columns = _sort_periods(local_indexed.columns)
     local_indexed = local_indexed.reindex(columns=ordered_columns, fill_value="")
     local_indexed.index.name = INDICATOR_COLUMN
 
@@ -566,38 +653,47 @@ def _save_local_report(csv_path: Path, df: pd.DataFrame) -> None:
     save_df.to_csv(csv_path, sep=";", index=False, encoding="utf-8-sig")
 
 
-def _update_one_report(csv_path: Path, page_df: pd.DataFrame) -> Optional[dict[str, object]]:
+def _update_one_report(
+    csv_path: Path,
+    page_df: pd.DataFrame,
+    period_columns: list[str],
+) -> Optional[dict[str, object]]:
     """
     Обновляет один локальный CSV отчёт по данным со страницы SmartLab.
 
     :param csv_path: Путь к существующему CSV тикера.
     :param page_df: Таблица со страницы канонического тикера семейства.
+    :param period_columns: Список периодов для добавления или обновления.
     :returns: Словарь с результатом обновления или ``None``, если обновление не потребовалось.
     """
     ticker = csv_path.stem
     local_df = _load_local_report(csv_path)
     page_df = _align_page_indicators(page_df=page_df, local_df=local_df)
-    new_years = _get_new_years(page_df=page_df, local_df=local_df)
+    periods_to_sync = _resolve_requested_periods(
+        page_df=page_df,
+        period_columns=period_columns,
+    )
 
-    if not new_years:
+    if not periods_to_sync:
         return None
 
-    updated_df, new_indicators = _merge_new_years(
+    updated_df, new_indicators = _merge_periods(
         local_df=local_df,
         page_df=page_df,
-        new_years=new_years,
+        periods_to_sync=periods_to_sync,
     )
     _save_local_report(csv_path=csv_path, df=updated_df)
     return {
         "ticker": ticker,
         "path": str(csv_path),
-        "new_years": new_years,
+        "updated_periods": periods_to_sync,
         "new_indicators": new_indicators,
     }
 
 
 def scrape_and_download(
     save_directory: str,
+    period_columns: list[str],
     min_delay: float = 5,
     max_delay: float = 10,
     tickers: Optional[list[str]] = None,
@@ -608,14 +704,21 @@ def scrape_and_download(
     Источником тикеров служат имена CSV-файлов в ``save_directory``. Тикеры объединяются
     в семейства эмитента, например ``SBER/SBERP`` или ``RTKM/RTKMP``. Для семейства
     ищется одна каноническая страница SmartLab, таблица с неё используется для обновления
-    всех локальных CSV этого семейства. Уже существующие годы не перезаписываются.
+    всех локальных CSV этого семейства. Какие именно периоды нужно добавить или
+    обновить, пользователь задаёт явно через ``period_columns``.
 
     :param save_directory: Директория с локальными CSV SmartLab.
+    :param period_columns: Список периодов SmartLab для добавления или обновления,
+        например ``["2025"]`` или ``["2025", "LTM"]``.
     :param min_delay: Минимальная задержка между запросами к страницам компаний.
     :param max_delay: Максимальная задержка между запросами к страницам компаний.
     :param tickers: Необязательный список тикеров для выборочного запуска.
     :returns: Множество путей к обновлённым CSV файлам.
     """
+    requested_periods = _sort_periods(period_columns)
+    if not requested_periods:
+        raise ValueError("Нужно передать хотя бы один период в period_columns.")
+
     report_paths = _get_existing_report_paths(save_directory)
     families = _build_ticker_families(report_paths=report_paths, tickers=tickers)
     updated_files: Set[str] = set()
@@ -640,17 +743,22 @@ def scrape_and_download(
 
             family_has_updates = False
             for ticker, csv_path in members:
-                result = _update_one_report(csv_path=csv_path, page_df=page_df.copy())
+                result = _update_one_report(
+                    csv_path=csv_path,
+                    page_df=page_df.copy(),
+                    period_columns=requested_periods,
+                )
                 if result is None:
-                    log.info(f"    - Новых годовых колонок нет: {ticker}")
-                    print(f"    - Новых годовых колонок нет: {ticker}")
+                    periods_string = ", ".join(requested_periods)
+                    log.info(f"    - Запрошенных периодов нет на странице или в обновлении не требуется: {ticker} [{periods_string}]")
+                    print(f"    - Запрошенных периодов нет на странице или в обновлении не требуется: {ticker} [{periods_string}]")
                     continue
 
                 family_has_updates = True
                 updated_files.add(result["path"])
-                years_string = ", ".join(result["new_years"])
-                log.info(f"    + Добавлены годы [{years_string}] в {ticker}")
-                print(f"    + Добавлены годы [{years_string}] в {ticker}")
+                periods_string = ", ".join(result["updated_periods"])
+                log.info(f"    + Обновлены периоды [{periods_string}] в {ticker}")
+                print(f"    + Обновлены периоды [{periods_string}] в {ticker}")
 
                 if result["new_indicators"]:
                     indicators_string = ", ".join(result["new_indicators"])
@@ -681,6 +789,7 @@ def scrape_and_download(
 if __name__ == "__main__":
     log.init("Обновление локальных CSV SmartLab")
     scrape_and_download(
+        period_columns=["2025"],
         min_delay=5,
         max_delay=10,
         save_directory=r"./support_files/scrapper_reports")

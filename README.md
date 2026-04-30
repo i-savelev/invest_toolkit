@@ -42,7 +42,8 @@ pip install -e .
 import invest_toolkit as it
 
 it.scrape_and_download(
-  save_directory= r'support_files/scrapper_reports'
+  save_directory=r'support_files/scrapper_reports',
+  period_columns=['2025', 'LTM'],
 )
 ```
 Данные по финансовым показателям каждоый компании с сайта smartlab в формате csv будут сохранены в указанную папку
