@@ -18,9 +18,11 @@ HEADERS = {
 }
 
 YEAR_PATTERN = re.compile(r"^\d{4}$")
+SHARE_TICKER_PATTERN = re.compile(r"^[A-Z0-9]+P?$")
 LTM_COLUMN = "LTM"
 INDICATOR_COLUMN = "__indicator__"
 SMARTLAB_YEARLY_REPORT_URL = "https://smart-lab.ru/q/{ticker}/f/y/"
+SMARTLAB_SHARES_URL = "https://smart-lab.ru/q/shares/"
 
 INDICATOR_ALIASES = {
     "оперденежныйпотокмлрдруб": "операционныйденежныйпотокмлрдруб",
@@ -40,7 +42,8 @@ def _normalize_text(value: object) -> str:
     if value is None:
         return ""
     text = str(value).replace("\xa0", " ").replace("\ufeff", "").strip()
-    return re.sub(r"\s+", " ", text)
+    text = re.sub(r"\s+", " ", text)
+    return re.sub(r"\s+([,.;:])", r"\1", text)
 
 
 def _normalize_header_value(value: object) -> str:
@@ -160,49 +163,107 @@ def _get_existing_report_paths(save_directory: str) -> Dict[str, Path]:
 
     :param save_directory: Путь к директории с локальными CSV SmartLab.
     :returns: Словарь вида ``{ticker: path_to_csv}``.
-    :raises ValueError: Если директория не существует или не содержит CSV.
+    :raises ValueError: Если директория не существует.
     """
     directory = Path(save_directory)
     if not directory.exists() or not directory.is_dir():
         raise ValueError(f"Директория не найдена: {save_directory}")
 
     csv_paths = sorted(directory.glob("*.csv"))
-    if not csv_paths:
-        raise ValueError(f"В директории нет CSV файлов: {save_directory}")
-
     reports = {_normalize_ticker(path.stem): path for path in csv_paths}
     log.info(f"Найдено локальных отчётов SmartLab: {len(reports)}")
     return reports
 
 
-def _get_family_key(ticker: str, report_paths: Dict[str, Path]) -> str:
+def _fetch_share_tickers(timeout: int = 30) -> list[str]:
+    """
+    Загружает список тикеров акций со страницы SmartLab ``/q/shares/``.
+
+    :param timeout: Таймаут HTTP-запроса в секундах.
+    :returns: Упорядоченный список тикеров без дублей.
+    :raises ValueError: Если на странице не удалось найти таблицу с тикерами.
+    """
+    html = _fetch_company_page(page_url=SMARTLAB_SHARES_URL, timeout=timeout)
+    soup = BeautifulSoup(html, "html.parser")
+
+    for table in soup.find_all("table"):
+        rows = table.find_all("tr")
+        if not rows:
+            continue
+
+        ticker_idx = None
+        data_rows = []
+        for row in rows:
+            header_cells = row.find_all(["th", "td"])
+            headers = [_normalize_text(cell.get_text(" ", strip=True)) for cell in header_cells]
+            if "Тикер" in headers:
+                ticker_idx = headers.index("Тикер")
+                continue
+
+            if ticker_idx is not None:
+                data_rows.append(row)
+
+        if ticker_idx is None:
+            continue
+
+        tickers: list[str] = []
+        seen: set[str] = set()
+
+        for row in data_rows:
+            cells = row.find_all(["th", "td"])
+            if ticker_idx >= len(cells):
+                continue
+
+            ticker = _normalize_ticker(cells[ticker_idx].get_text(" ", strip=True))
+            if not ticker or ticker == "IMOEX":
+                continue
+            if not SHARE_TICKER_PATTERN.fullmatch(ticker):
+                continue
+            if ticker in seen:
+                continue
+
+            seen.add(ticker)
+            tickers.append(ticker)
+
+        if tickers:
+            log.info(f"Получено тикеров со страницы SmartLab shares: {len(tickers)}")
+            return tickers
+
+    raise ValueError("На странице SmartLab shares не найдена таблица с тикерами.")
+
+
+def _get_family_key(ticker: str, available_tickers: Set[str]) -> str:
     """
     Возвращает ключ семейства тикера для обычки и префов.
 
     :param ticker: Исходный тикер.
-    :param report_paths: Все доступные локальные CSV.
+    :param available_tickers: Все доступные тикеры для текущего запуска.
     :returns: Ключ семейства.
     """
     normalized_ticker = _normalize_ticker(ticker)
     if normalized_ticker.endswith("P"):
         base_ticker = normalized_ticker[:-1]
-        if base_ticker in report_paths:
+        if base_ticker in available_tickers:
             return base_ticker
 
     pref_ticker = f"{normalized_ticker}P"
-    if pref_ticker in report_paths:
+    if pref_ticker in available_tickers:
         return normalized_ticker
     return normalized_ticker
 
 
 def _build_ticker_families(
+    save_directory: str,
     report_paths: Dict[str, Path],
+    source_tickers: list[str],
     tickers: Optional[list[str]] = None,
 ) -> list[dict[str, object]]:
     """
     Строит семейства тикеров для обновления с одной страницы эмитента.
 
+    :param save_directory: Директория для локальных CSV SmartLab.
     :param report_paths: Словарь локальных CSV.
+    :param source_tickers: Список тикеров со страницы SmartLab shares.
     :param tickers: Необязательный список тикеров для выборочного запуска.
     :returns: Список словарей с описанием семейств.
     """
@@ -210,9 +271,11 @@ def _build_ticker_families(
     if tickers is not None:
         requested_tickers = {_normalize_ticker(ticker) for ticker in tickers}
 
+    output_directory = Path(save_directory)
+    available_tickers = {_normalize_ticker(ticker) for ticker in source_tickers}
     families: dict[str, dict[str, object]] = {}
-    for ticker, csv_path in sorted(report_paths.items()):
-        family_key = _get_family_key(ticker=ticker, report_paths=report_paths)
+    for ticker in sorted(available_tickers):
+        family_key = _get_family_key(ticker=ticker, available_tickers=available_tickers)
         family = families.setdefault(
             family_key,
             {
@@ -220,6 +283,7 @@ def _build_ticker_families(
                 "members": [],
             },
         )
+        csv_path = report_paths.get(ticker, output_directory / f"{ticker}.csv")
         family["members"].append((ticker, csv_path))
 
     family_list = []
@@ -653,6 +717,18 @@ def _save_local_report(csv_path: Path, df: pd.DataFrame) -> None:
     save_df.to_csv(csv_path, sep=";", index=False, encoding="utf-8-sig")
 
 
+def _build_new_local_report(page_df: pd.DataFrame, periods_to_sync: list[str]) -> pd.DataFrame:
+    """
+    Собирает новый локальный CSV из страницы SmartLab для тикера, которого ещё нет локально.
+
+    :param page_df: Таблица, полученная со страницы SmartLab.
+    :param periods_to_sync: Периоды, которые нужно сохранить в CSV.
+    :returns: DataFrame в формате локального CSV.
+    """
+    ordered_columns = [INDICATOR_COLUMN, *_sort_periods(periods_to_sync)]
+    return page_df.reindex(columns=ordered_columns).fillna("")
+
+
 def _update_one_report(
     csv_path: Path,
     page_df: pd.DataFrame,
@@ -667,8 +743,6 @@ def _update_one_report(
     :returns: Словарь с результатом обновления или ``None``, если обновление не потребовалось.
     """
     ticker = csv_path.stem
-    local_df = _load_local_report(csv_path)
-    page_df = _align_page_indicators(page_df=page_df, local_df=local_df)
     periods_to_sync = _resolve_requested_periods(
         page_df=page_df,
         period_columns=period_columns,
@@ -676,6 +750,20 @@ def _update_one_report(
 
     if not periods_to_sync:
         return None
+
+    if not csv_path.exists():
+        created_df = _build_new_local_report(page_df=page_df, periods_to_sync=periods_to_sync)
+        _save_local_report(csv_path=csv_path, df=created_df)
+        return {
+            "ticker": ticker,
+            "path": str(csv_path),
+            "updated_periods": periods_to_sync,
+            "new_indicators": created_df[INDICATOR_COLUMN].tolist(),
+            "created": True,
+        }
+
+    local_df = _load_local_report(csv_path)
+    page_df = _align_page_indicators(page_df=page_df, local_df=local_df)
 
     updated_df, new_indicators = _merge_periods(
         local_df=local_df,
@@ -688,6 +776,7 @@ def _update_one_report(
         "path": str(csv_path),
         "updated_periods": periods_to_sync,
         "new_indicators": new_indicators,
+        "created": False,
     }
 
 
@@ -699,13 +788,14 @@ def scrape_and_download(
     tickers: Optional[list[str]] = None,
 ) -> Set[str]:
     """
-    Инкрементально обновляет локальные CSV SmartLab по уже скачанным тикерам.
+    Инкрементально обновляет локальные CSV SmartLab по списку бумаг со страницы shares.
 
-    Источником тикеров служат имена CSV-файлов в ``save_directory``. Тикеры объединяются
-    в семейства эмитента, например ``SBER/SBERP`` или ``RTKM/RTKMP``. Для семейства
-    ищется одна каноническая страница SmartLab, таблица с неё используется для обновления
-    всех локальных CSV этого семейства. Какие именно периоды нужно добавить или
-    обновить, пользователь задаёт явно через ``period_columns``.
+    Источником тикеров служит таблица на странице ``https://smart-lab.ru/q/shares/``.
+    Тикеры объединяются в семейства эмитента, например ``SBER/SBERP`` или
+    ``RTKM/RTKMP``. Для семейства ищется одна каноническая страница SmartLab,
+    таблица с неё используется для обновления всех локальных CSV этого семейства.
+    Если для тикера ещё нет локального CSV, он будет создан. Какие именно периоды
+    нужно добавить или обновить, пользователь задаёт явно через ``period_columns``.
 
     :param save_directory: Директория с локальными CSV SmartLab.
     :param period_columns: Список периодов SmartLab для добавления или обновления,
@@ -720,7 +810,13 @@ def scrape_and_download(
         raise ValueError("Нужно передать хотя бы один период в period_columns.")
 
     report_paths = _get_existing_report_paths(save_directory)
-    families = _build_ticker_families(report_paths=report_paths, tickers=tickers)
+    source_tickers = _fetch_share_tickers()
+    families = _build_ticker_families(
+        save_directory=save_directory,
+        report_paths=report_paths,
+        source_tickers=source_tickers,
+        tickers=tickers,
+    )
     updated_files: Set[str] = set()
 
     for idx, family in enumerate(families, start=1):
@@ -757,10 +853,14 @@ def scrape_and_download(
                 family_has_updates = True
                 updated_files.add(result["path"])
                 periods_string = ", ".join(result["updated_periods"])
-                log.info(f"    + Обновлены периоды [{periods_string}] в {ticker}")
-                print(f"    + Обновлены периоды [{periods_string}] в {ticker}")
+                if result["created"]:
+                    log.info(f"    + Создан CSV и записаны периоды [{periods_string}] для {ticker}")
+                    print(f"    + Создан CSV и записаны периоды [{periods_string}] для {ticker}")
+                else:
+                    log.info(f"    + Обновлены периоды [{periods_string}] в {ticker}")
+                    print(f"    + Обновлены периоды [{periods_string}] в {ticker}")
 
-                if result["new_indicators"]:
+                if not result["created"] and result["new_indicators"]:
                     indicators_string = ", ".join(result["new_indicators"])
                     log.info(f"    + Добавлены новые показатели: {indicators_string}")
 
