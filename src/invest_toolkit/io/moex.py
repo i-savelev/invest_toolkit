@@ -5,6 +5,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from invest_toolkit.utils.logger import Logger
+TRACKED_TICKERS = ('LQDT', 'SBMM')
 
 # URLs для разных типов инструментов
 URLS = {
@@ -62,6 +63,16 @@ def all_instruments_info() -> pd.DataFrame:
 
             # Добавляем тип инструмента
             df['type'] = instrument_type
+            tracked_rows = df[df['SECID'].isin(TRACKED_TICKERS)]
+            if tracked_rows.empty:
+                Logger.debug(
+                    f"Tracked tickers absent in {instrument_type} MOEX payload: {list(TRACKED_TICKERS)}"
+                )
+            else:
+                Logger.info(
+                    "Tracked tickers found in MOEX payload: "
+                    f"{tracked_rows[['SECID', 'ISIN', 'LOTSIZE', 'type']].to_dict(orient='records')}"
+                )
 
             all_data.append(df)
             Logger.debug(f"Данные для {instrument_type} успешно загружены и объединены.")
@@ -111,6 +122,15 @@ def all_instruments_info() -> pd.DataFrame:
     )
     full_df['price'] = full_df['price'].round(2)
     full_df.reset_index(drop=True, inplace=True)
+    Logger.info(f"MOEX instrument type distribution: {full_df['type'].value_counts().to_dict()}")
+    tracked_rows = full_df[full_df['ticker'].isin(TRACKED_TICKERS)]
+    if tracked_rows.empty:
+        Logger.warning(f"Tracked tickers missing in final MOEX dataset: {list(TRACKED_TICKERS)}")
+    else:
+        Logger.info(
+            "Final MOEX rows for tracked tickers: "
+            f"{tracked_rows[['ticker', 'isin', 'lot_size', 'price', 'type']].to_dict(orient='records')}"
+        )
 
     return full_df
 

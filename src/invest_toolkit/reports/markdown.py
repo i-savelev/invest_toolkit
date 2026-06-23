@@ -3,6 +3,21 @@ from invest_toolkit.utils import log
 import pandas as pd
 from pathlib import Path
 import datetime
+TRACKED_TICKERS = ('LQDT', 'SBMM')
+
+
+def _money_market_mask(df: pd.DataFrame) -> pd.Series:
+    """Возвращает маску строк денежного рынка по конфигурационной категории или типу.
+
+    :param df: DataFrame с портфельными данными.
+    :returns: Булева маска строк денежного рынка.
+    """
+    category_series = df['category'].astype(str).str.lower() if 'category' in df.columns else pd.Series('', index=df.index)
+    type_series = df['type'].astype(str).str.lower() if 'type' in df.columns else pd.Series('', index=df.index)
+    return (
+        category_series.str.contains('bond|облиг|денеж|fund|etf', regex=True, na=False)
+        | type_series.isin(['bond', 'etf'])
+    )
 
 
 
@@ -38,10 +53,22 @@ def generate(save_path: str, deposit:float, adjust_df:pd.DataFrame)->None:
     stock_percent = round(stock_sum/all_money_sum*100, 1)
     bonds_percent = round(bonds_sum/all_money_sum*100, 1)
     date = datetime.date.today()
-    target_stock = adjust_df[adjust_df['type']=='stock']['%_tgt'].sum()
-    target_bonds = adjust_df[adjust_df['type']=='etf']['%_tgt'].sum()
+    money_market_mask = _money_market_mask(adjust_df)
+    target_bonds = adjust_df.loc[money_market_mask, '%_tgt'].sum()
+    target_stock = adjust_df.loc[~money_market_mask, '%_tgt'].sum()
+    tracked_rows = adjust_df[
+        adjust_df['ticker'].isin(TRACKED_TICKERS)
+        | adjust_df['ticker'].astype(str).str.contains('LQDT|SBMM', regex=True, na=False)
+    ]
+    if tracked_rows.empty:
+        log.warning(f"Tracked tickers not found in markdown input: {list(TRACKED_TICKERS)}")
+    else:
+        log.info(
+            "Tracked ticker rows in markdown input: "
+            f"{tracked_rows[['ticker', 'type', 'value_src', 'value_tgt', 'd_lot_adjust', 'd_rub_adjust', '%_src', '%_tgt', '%_res']].to_dict(orient='records')}"
+        )
     log.info(f'Общее количество денег: {all_money_sum}')
-    log.info(f'Сумма в акциях: {bonds_sum}')
+    log.info(f'Сумма в акциях: {stock_sum}')
     log.info(f'Сума в фондах: {bonds_sum}')
     log.info(f'Процент акций: {stock_percent}')
     log.info(f'Процент фондов: {bonds_percent}')
@@ -117,7 +144,7 @@ def _stock_sum(df:pd.DataFrame)-> float:
     :param df: DataFrame с данными портфеля.
     :returns: Сумма стоимости акций.
     """
-    df = df[df['type'] == 'stock']
+    df = df[~_money_market_mask(df)]
     return df['value_src'].sum()
 
 def _bonds_sum(df:pd.DataFrame)-> float:
@@ -126,7 +153,7 @@ def _bonds_sum(df:pd.DataFrame)-> float:
     :param df: DataFrame с данными портфеля.
     :returns: Сумма стоимости фондов.
     """
-    df = df[df['type'] == 'etf']
+    df = df[_money_market_mask(df)]
     return df['value_src'].sum()
 
 

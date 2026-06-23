@@ -2,6 +2,24 @@ import pandas as pd
 from invest_toolkit.utils import log
 from invest_toolkit.utils import log_dataframe
 
+
+def _normalize_category_type(category_name: str) -> str:
+    """Преобразует имя категории из конфигурации в канонический тип инструмента.
+
+    :param category_name: Имя листа/категории из конфигурационного Excel.
+    :returns: Канонический тип (`stock`, `etf`, `bond`, `ofz`) или исходное имя в lower-case.
+    """
+    normalized_name = str(category_name).strip().lower()
+    if ('etf' in normalized_name) or ('fund' in normalized_name) or ('денеж' in normalized_name):
+        return 'etf'
+    if ('stock' in normalized_name) or ('share' in normalized_name) or ('акц' in normalized_name):
+        return 'stock'
+    if ('ofz' in normalized_name) or ('офз' in normalized_name):
+        return 'ofz'
+    if ('bond' in normalized_name) or ('облиг' in normalized_name):
+        return 'bond'
+    return normalized_name
+
 def _get_df_dict(file_path:str) -> dict[str, pd.DataFrame]:
     """
     Читает все листы Excel-файла и валидирует процентные суммы.
@@ -82,6 +100,8 @@ def allocatin_table(file_path:str):
                     ].iloc[0]
                 df_copy = df.copy()[['ticker', '%']]
                 df_copy['%'] = (category_percent/100*df['%']).round(2)
+                df_copy['category'] = key
+                df_copy['type'] = _normalize_category_type(key)
                 df_list.append(df_copy)
             else: raise Exception(f'листа {key} нет в категориях')
     distribution_table = pd.concat(df_list).reset_index(drop=True)

@@ -3,6 +3,7 @@ from invest_toolkit.core import *
 from invest_toolkit.utils import *
 from invest_toolkit.reports import *
 import pandas as pd
+TRACKED_TICKERS = ('LQDT', 'SBMM')
 
 def portfolio_report(
         report_path_sber:str,
@@ -34,7 +35,13 @@ def portfolio_report(
     at = allocatin_table(allocation_path)
     allocation_df = allocation_report(summary, at, deposit)
     allow_sell_df = allow_sell(allocation_df, allow_sell=sell, tickers_to_sell=allow_sell_tickers)
-    allocation_grouped_df = group_by_category(df=allocation_df, group_col='ticker', tickers_list=grouping_tickers)
+    tracked_rows = allow_sell_df[allow_sell_df['ticker'].isin(TRACKED_TICKERS)]
+    if not tracked_rows.empty:
+        log.info(
+            "Tracked ticker rows produced by allow_sell: "
+            f"{tracked_rows[['ticker', 'type', 'd_rub', 'd_lot', 'd_rub_calc']].to_dict(orient='records')}"
+        )
+    allocation_grouped_df = group_by_category(df=allow_sell_df, group_col='ticker', tickers_list=grouping_tickers)
     adjust_df = adjust_for_deposit(deposit, allocation_grouped_df)
     generate(
         save_path=report_save_path,

@@ -2,6 +2,7 @@ import pandas as pd
 from typing import List
 from invest_toolkit.utils import log
 from invest_toolkit.utils import log_dataframe
+TRACKED_TICKERS = ('LQDT', 'SBMM')
 
 @log_dataframe
 def summary_report(df_list: List[pd.DataFrame], all_stock_df:pd.DataFrame) -> pd.DataFrame:
@@ -73,6 +74,14 @@ def _data_enrichment(df_source: pd.DataFrame, all_stock_df: pd.DataFrame) -> pd.
             merged[col] = pd.to_numeric(merged[col], errors='coerce')
     
     log.info(f"Обработано {len(merged)} позиций.")
+    tracked_rows = merged[merged['ticker'].isin(TRACKED_TICKERS)]
+    if tracked_rows.empty:
+        log.warning(f"Tracked tickers not found after enrichment: {list(TRACKED_TICKERS)}")
+    else:
+        log.info(
+            "Tracked ticker enrichment rows: "
+            f"{tracked_rows[['isin', 'ticker', 'count_pieces', 'price', 'type']].to_dict(orient='records')}"
+        )
     return merged
 
 def _data_calc(report_df:pd.DataFrame)->pd.DataFrame:

@@ -3,6 +3,7 @@ from typing import List
 from invest_toolkit.utils import log
 import numpy as np
 from invest_toolkit.utils import log_dataframe
+TRACKED_TICKERS = ('LQDT', 'SBMM')
 
 @log_dataframe
 def allocation_report(report_df:pd.DataFrame, allocation_df:pd.DataFrame, deposit:float)->pd.DataFrame:
@@ -23,13 +24,23 @@ def allocation_report(report_df:pd.DataFrame, allocation_df:pd.DataFrame, deposi
         on=['ticker'],
         suffixes=('_src', '_tgt'),
         how='outer'
-        ).fillna(0)
+        )
+    if 'type_tgt' in merged_df.columns:
+        merged_df['type'] = merged_df['type_tgt'].where(
+            merged_df['type_tgt'].notna(),
+            merged_df.get('type_src')
+        )
+    numeric_columns = merged_df.select_dtypes(include='number').columns
+    merged_df[numeric_columns] = merged_df[numeric_columns].fillna(0)
     merged_df['d_rub'] = (
         merged_df['value_tgt'] - merged_df['value_src']
         )
-    merged_df = merged_df[merged_df.columns.drop(
-        ['isin', 'name', 'cap']
-        )]
+    columns_to_drop = [
+        column_name
+        for column_name in ['isin', 'name', 'cap', 'type_src', 'type_tgt']
+        if column_name in merged_df.columns
+    ]
+    merged_df = merged_df[merged_df.columns.drop(columns_to_drop)]
     
     merged_df['d_lot'] = (
         merged_df['d_rub']/merged_df['price']/merged_df['lot_size']
@@ -71,6 +82,14 @@ def group_by_category(
     mask = df[group_col].isin(tickers_list)
     df_group = df[mask].copy()
     df_others = df[~mask].copy()
+    tracked_rows = df[df[group_col].isin(TRACKED_TICKERS)]
+    if tracked_rows.empty:
+        log.warning(f"Tracked tickers not found before grouping: {list(TRACKED_TICKERS)}")
+    else:
+        log.info(
+            "Tracked ticker rows before grouping: "
+            f"{tracked_rows[['ticker', 'type', 'count_pieces', 'value_src', 'value_tgt', 'd_rub', 'd_lot', 'd_rub_calc']].to_dict(orient='records')}"
+        )
 
     # Если нет строк для группировки — возвращаем как есть
     if df_group.empty:
@@ -91,6 +110,26 @@ def group_by_category(
             'd_lot': 'sum',
             'd_rub_calc': 'sum',
             }
+        )
+    grouped['d_lot'] = grouped.apply(
+        lambda row: (
+            abs(row['d_lot']) if row['d_rub_calc'] > 0
+            else (-abs(row['d_lot']) if row['d_rub_calc'] < 0 else 0)
+        ),
+        axis=1
+    )
+    log.info(
+        "Tracked ticker grouping result: "
+        f"{grouped[['ticker', 'type', 'count_pieces', 'value_src', 'value_tgt', 'd_rub', 'd_lot', 'd_rub_calc']].to_dict(orient='records')}"
+    )
+    inconsistent_signs = grouped[
+        ((grouped['d_lot'] > 0) & (grouped['d_rub_calc'] < 0))
+        | ((grouped['d_lot'] < 0) & (grouped['d_rub_calc'] > 0))
+    ]
+    if not inconsistent_signs.empty:
+        log.warning(
+            "Found lot/cash sign mismatch after grouping: "
+            f"{inconsistent_signs[['ticker', 'type', 'd_lot', 'd_rub_calc']].to_dict(orient='records')}"
         )
     df_final = pd.concat([df_others, grouped], ignore_index=True)
     
@@ -119,6 +158,12 @@ def allow_sell(df:pd.DataFrame, allow_sell:bool, tickers_to_sell:List[str])->pd.
                 & (~df['ticker'].isin(tickers_to_sell))
             )
             df.loc[mask, 'd_rub_calc'] = 0
+    tracked_rows = df[df['ticker'].isin(TRACKED_TICKERS)]
+    if not tracked_rows.empty:
+        log.info(
+            "Tracked ticker rows after allow_sell: "
+            f"{tracked_rows[['ticker', 'd_rub', 'd_lot', 'd_rub_calc']].to_dict(orient='records')}"
+        )
     return df
 
 @log_dataframe
