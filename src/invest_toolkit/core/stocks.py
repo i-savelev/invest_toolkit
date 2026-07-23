@@ -20,7 +20,7 @@ def get_stock_info(
     df_list = []
 
     if moex_api_df is not None and not moex_api_df.empty:
-        _moex_api_df = moex_api_df[moex_api_df['type'] == 'stock']
+        _moex_api_df = moex_api_df[moex_api_df['cap'] > 0]
         # Дополнительно: пропустить, если после фильтрации стало пусто
         if not _moex_api_df.empty:
             _moex_api_d_long = _moex_api_df.melt(
