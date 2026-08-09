@@ -1,43 +1,37 @@
 import logging
 import os
-from typing import Optional  # type: ignore
+import queue
+import datetime
+from typing import Optional
 import inspect
 
 
 class NonLockingFileHandler(logging.FileHandler):
     """
     FileHandler который открывает файл только на время записи.
-
     После каждой записи файл закрывается, что позволяет удалять/перемещать
     файл лога без ошибок блокировки.
     """
 
     def emit(self, record):
         """Записать лог-сообщение, открывая и закрывая файл для каждой записи."""
-        # Открываем файл
         if self.stream is None:
             self.stream = self._open()
-
         try:
-            # Записываем
             logging.StreamHandler.emit(self, record)
-            # Сбрасываем буфер
             self.flush()
         finally:
-            # Закрываем файл после записи
             self.close()
 
 
 class Logger:
     """
     Фасад для удобного статического логирования без необходимости создания экземпляров.
-
     Использует модуль `logging` и автоматически инициализирует файловый обработчик
     при первом вызове любого метода логирования, если не был инициализирован ранее.
-    По умолчанию логи записываются в 'AppData\\Local\\Temp\\Pynamo/app.log' относительно корня проекта.
 
-    Класс поддерживает настройку пути к файлу и уровня логирования через метод `configure`.
-    Также предоставляет метод `clear` для безопасной очистки лог-файла даже под Windows.
+    Поддерживает подключение GUI-очереди через `attach_gui_queue()` — все сообщения
+    будут дублироваться в очередь для отображения в интерфейсе приложения.
 
     Example:
         >>> Logger.info("Приложение запущено")
@@ -48,6 +42,7 @@ class Logger:
     _log_file: str = ".log/app.log"
     _level: int = logging.DEBUG
     _logger: Optional[logging.Logger] = None
+    _gui_queue: Optional[queue.Queue] = None  # Очередь для GUI
 
     @staticmethod
     def get_temp_path() -> str:
@@ -55,20 +50,44 @@ class Logger:
         Возвращает путь к файлу app.log в системной временной папке.
         Использует переменные окружения TMP, TEMP, TMPDIR.
         Если не найдены — использует:
-            - '/tmp' на Unix-системах
-            - 'AppData\\Local\\Temp' на Windows
+        - '/tmp' на Unix-системах
+        - 'AppData\\Local\\Temp' на Windows
         """
         tmp_dir = '/tmp' if os.name != 'nt' else os.path.expanduser('~/AppData/Local/Temp')
-        
         return tmp_dir
+
+    @classmethod
+    def attach_gui_queue(cls, gui_queue: queue.Queue) -> None:
+        """
+        Подключает очередь GUI для дублирования логов в интерфейс.
+
+        Все сообщения, записанные через Logger (включая raw_dataframe и separator),
+        будут дополнительно отправляться в эту очередь.
+
+        :param gui_queue: Очередь queue.Queue, которую читает GUI-панель лога.
+        """
+        cls._ensure_initialized()
+        cls._gui_queue = gui_queue
+
+    @classmethod
+    def _send_to_gui(cls, text: str) -> None:
+        """
+        Отправляет текст в GUI-очередь, если она подключена.
+        Безопасный метод — не делает ничего, если очередь не подключена.
+
+        :param text: Текст для отправки в панель лога.
+        """
+        if cls._gui_queue is not None:
+            cls._gui_queue.put(text)
 
     @classmethod
     def _ensure_initialized(cls) -> None:
         """
         Гарантирует, что логгер инициализирован ровно один раз.
-
         Создаёт директорию для логов, настраивает форматтер и файловый обработчик,
         а также отключает распространение логов выше по иерархии (чтобы избежать дублирования).
+
+        Не-файловые обработчики (например, QueueHandler для GUI) сохраняются.
 
         :raises OSError: Если не удаётся создать директорию для логов.
         """
@@ -76,7 +95,6 @@ class Logger:
             return
 
         cls._log_file = os.path.abspath(cls._log_file)
-
         log_dir = os.path.dirname(cls._log_file)
         if log_dir:
             os.makedirs(log_dir, exist_ok=True)
@@ -92,24 +110,27 @@ class Logger:
         file_handler.setFormatter(formatter)
 
         cls._logger = logging.getLogger("log")
-        if cls._logger.hasHandlers():
-            cls._logger.handlers.clear()
+
+        # Удаляем ТОЛЬКО файловые обработчики, сохраняя остальные (QueueHandler для GUI)
+        for handler in cls._logger.handlers[:]:
+            if isinstance(handler, logging.FileHandler):
+                handler.close()
+                cls._logger.removeHandler(handler)
+
         cls._logger.setLevel(cls._level)
         cls._logger.addHandler(file_handler)
         cls._logger.propagate = False  # избегаем дублирования
 
         cls._initialized = True
 
-
     @classmethod
     def configure(cls, log_file: str = ".log/app.log", level: int = logging.INFO) -> None:
         """
         Настраивает параметры логирования до первого использования.
-
         Сбрасывает флаг инициализации, чтобы при следующем вызове логирования
         применить новые настройки.
 
-        :param log_file: Абсолютный или относительный путь к файлу лога. Будет преобразован в абсолютный путь.
+        :param log_file: Абсолютный или относительный путь к файлу лога.
         :param level: Уровень логирования (например, `logging.DEBUG`, `logging.INFO`).
         :raises ValueError: Если `log_file` — пустая строка или не строка.
         :raises TypeError: Если `level` не является целым числом.
@@ -118,6 +139,7 @@ class Logger:
             raise ValueError("log_file must be a non-empty string.")
         if not isinstance(level, int):
             raise TypeError("level must be an integer.")
+
         cls._log_file = os.path.abspath(log_file)
         cls._level = level
         cls._initialized = False  # сброс для переинициализации
@@ -126,9 +148,10 @@ class Logger:
     def init(cls, script_name: str) -> None:
         """
         Инициализирует логгер и записывает заголовок в начало лог-файла.
-
         Заголовок содержит имя скрипта и текущее время запуска.
         Если файл уже существует — он очищается.
+
+        Не-файловые обработчики (QueueHandler для GUI) сохраняются.
 
         :param script_name: Название скрипта для отображения в логе.
         :raises ValueError: Если script_name — пустая строка.
@@ -140,7 +163,6 @@ class Logger:
         # Гарантируем, что путь инициализирован
         cls._ensure_initialized()
 
-        import datetime
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         header = (
             f"{'='*50}\n"
@@ -149,104 +171,86 @@ class Logger:
             f"{'='*50}\n"
         )
 
-        # Закрываем обработчики, чтобы можно было перезаписать файл
+        # Закрываем ТОЛЬКО файловые обработчики, чтобы можно было перезаписать файл.
+        # Не-файловые обработчики (QueueHandler для GUI) не трогаем.
         if cls._logger is not None:
             for handler in cls._logger.handlers[:]:
                 if isinstance(handler, logging.FileHandler):
                     handler.close()
-            cls._logger.handlers.clear()
-        cls._initialized = False  # Перезапустим инициализацию позже
+                    cls._logger.removeHandler(handler)
+            cls._initialized = False  # Перезапустим инициализацию позже
 
-        # Записываем заголовок в файл
+        # Записываем заголовок в файл (очистка файла)
         log_dir = os.path.dirname(cls._log_file)
         if log_dir:
             os.makedirs(log_dir, exist_ok=True)
+
         with open(cls._log_file, 'w', encoding='utf-8') as f:
             f.write(header)
 
-        # Перезапускаем инициализацию, чтобы восстановить обработчики
+        # Перезапускаем инициализацию, чтобы восстановить файловый обработчик
         cls._ensure_initialized()
 
+        # Отправляем заголовок в GUI-панель
+        cls._send_to_gui(header.rstrip('\n'))
+
     @classmethod
-    def separator(cls, sep:str='-'):
+    def separator(cls, sep: str = '-'):
+        """Записывает разделительную линию в лог-файл и GUI."""
         cls._ensure_initialized()
+        line = f'{sep*80}'
         with open(cls._log_file, 'a', encoding='utf-8') as f:
-            f.write(f'{sep*80}\n')
+            f.write(line + '\n')
+        cls._send_to_gui(line)
 
     @classmethod
     def _get_logger(cls, name: str) -> logging.Logger:
         """
         Возвращает дочерний логгер с заданным именем.
-
         Гарантирует инициализацию основного логгера при необходимости.
 
-        :param name: Имя дочернего логгера (отображается в поле `%(name)s`).
+        :param name: Имя дочернего логгера.
         :return: Экземпляр `logging.Logger`.
         """
         cls._ensure_initialized()
-        return cls._logger.getChild(name)  # создаёт дочерний логгер   
+        return cls._logger.getChild(name)
 
     @classmethod
-    def debug(cls, message:str = '', name:str='') -> None:
-        """
-        Записывает сообщение уровня INFO.
-
-        :param name: Имя подсистемы или модуля (отображается в логе).
-        :param message: Текст сообщения.
-        """
-        
+    def debug(cls, message: str = '', name: str = '') -> None:
+        """Записывает сообщение уровня DEBUG."""
         cls._get_logger(name).debug(message, stacklevel=2)
 
     @classmethod
-    def info(cls, message:str = '', name:str='') -> None:
-        """
-        Записывает сообщение уровня WARNING.
-
-        :param name: Имя подсистемы или модуля (отображается в логе).
-        :param message: Текст сообщения.
-        """
+    def info(cls, message: str = '', name: str = '') -> None:
+        """Записывает сообщение уровня INFO."""
         cls._ensure_initialized()
         cls._get_logger(name).info(message, stacklevel=2)
 
     @classmethod
-    def warning(cls, message:str = '', name:str='') -> None:
-        """
-        Записывает сообщение уровня WARNING.
-
-        :param name: Имя подсистемы или модуля (отображается в логе).
-        :param message: Текст сообщения.
-        """
+    def warning(cls, message: str = '', name: str = '') -> None:
+        """Записывает сообщение уровня WARNING."""
         cls._ensure_initialized()
         cls._get_logger(name).warning(message, stacklevel=2)
 
     @classmethod
-    def error(cls, message:str = '', name:str='') -> None:
-        """
-        Записывает сообщение уровня ERROR.
-
-        :param name: Имя подсистемы или модуля (отображается в логе).
-        :param message: Текст сообщения.
-        """
+    def error(cls, message: str = '', name: str = '') -> None:
+        """Записывает сообщение уровня ERROR."""
         cls._ensure_initialized()
         cls._get_logger(name).error(message, stacklevel=2)
 
     @classmethod
-    def critical(cls, message:str = '', name:str='') -> None:
-        """
-        Записывает сообщение уровня CRITICAL.
-
-        :param name: Имя подсистемы или модуля (отображается в логе).
-        :param message: Текст сообщения.
-        """
+    def critical(cls, message: str = '', name: str = '') -> None:
+        """Записывает сообщение уровня CRITICAL."""
         cls._ensure_initialized()
         cls._get_logger(name).critical(message, stacklevel=2)
 
     @classmethod
     def path(cls):
+        """Возвращает путь к текущему лог-файлу."""
         return cls._log_file
-    
+
     @classmethod
-    def data(cls, data:list|tuple|dict, label:str='', name:str='data.', max_items=20):
+    def data(cls, data: list | tuple | dict, label: str = '', name: str = 'data.', max_items=20):
         """
         Логировать структуру данных для отладки.
 
@@ -279,26 +283,20 @@ class Logger:
                 if len(item_str) > 50:
                     item_str = item_str[:50] + "..."
                 cls._get_logger(name).debug(msg=f"   [{i}] {item_str}", stacklevel=2)
-
         else:
             cls._get_logger(name).debug(msg=f"Тип: {type(data).__name__}", stacklevel=2)
             cls._get_logger(name).debug(msg=f"  Значение: {data}", stacklevel=2)
-        
+
     @classmethod
     def raw_dataframe(cls, df, caption: str = "", max_rows: int = 50, max_cols: int = None) -> None:
         """
         Записывает pandas DataFrame в лог-файл «как есть» — без временных меток и форматтера.
-        
-        Таблица выглядит точно так же, как при выводе в консоль: с выравниванием столбцов,
-        заголовками и разделителями.
-        
+        Также дублирует вывод в GUI-очередь, если она подключена.
+
         :param df: pandas DataFrame
-        :param caption: Опциональная подпись над таблицей (например, "Портфель на 2026-02-07")
+        :param caption: Опциональная подпись над таблицей
         :param max_rows: Максимум строк для вывода
         :param max_cols: Максимум столбцов для вывода (None = все)
-        
-        Пример:
-            Logger.raw_dataframe(portfolio_df, caption="Текущий портфель", max_rows=20)
         """
         try:
             import pandas as pd
@@ -318,7 +316,7 @@ class Logger:
             max_rows=max_rows,
             max_cols=max_cols,
             show_dimensions=False,
-            line_width=180,  # ширина строки для корректного выравнивания
+            line_width=180,
             index=True
         )
 
@@ -330,12 +328,12 @@ class Logger:
             lines.append('=' * 80)
         else:
             lines.append("")  # пустая строка перед таблицей
-        
+
         lines.extend(df_str.split('\n'))
-        
+
         if len(df) > max_rows:
             lines.append(f"\n... (показаны первые {max_rows} из {len(df)} строк)")
-        
+
         lines.append('=' * 80)
         lines.append("")  # пустая строка после таблицы
 
@@ -347,8 +345,13 @@ class Logger:
         except OSError as e:
             cls.error(f"Не удалось записать таблицу в лог: {e}", name="logger")
 
+        # Дублируем в GUI-очередь
+        for line in lines:
+            cls._send_to_gui(line)
+
+
 if __name__ == '__main__':
     def run():
         Logger.info('as', "Тест логирования")
+
     run()
-    

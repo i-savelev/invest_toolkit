@@ -1,0 +1,1 @@
+"""GUI-модуль invest_toolkit."""
