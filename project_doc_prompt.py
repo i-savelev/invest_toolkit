@@ -266,6 +266,7 @@ if __name__ == "__main__":
             '.output',
             '.reports',
             '.DS_Store',
+            'scrapper_reports_archive',
             ],
         lang_mapping={  # Подсветка синтаксиса
             ".py": "python",
