@@ -33,7 +33,7 @@ def portfolio_report(
     vtb = read_vtb(report_path_vtb)
     summary = summary_report([sber, vtb], all_info)
     at = allocatin_table(allocation_path)
-    allocation_df = allocation_report(summary, at, deposit)
+    allocation_df = allocation_report(summary, at, deposit, all_stock_df=all_info)
     allow_sell_df = allow_sell(allocation_df, allow_sell=sell, tickers_to_sell=allow_sell_tickers)
     tracked_rows = allow_sell_df[allow_sell_df['ticker'].isin(TRACKED_TICKERS)]
     if not tracked_rows.empty:

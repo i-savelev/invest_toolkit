@@ -2,8 +2,6 @@ from invest_toolkit.ui.workers.base_worker import BaseWorker
 
 
 class LoadTickersWorker(BaseWorker):
-    """Читает отчёты + распределение и возвращает уникальные тикеры."""
-
     def __init__(self, sber_path, vtb_path, allocation_path, parent=None):
         super().__init__(parent)
         self._sber_path = sber_path
@@ -11,7 +9,6 @@ class LoadTickersWorker(BaseWorker):
         self._allocation_path = allocation_path
 
     def do_work(self):
-        # Импорт отложен, чтобы не грузить pandas/matplotlib при старте UI
         from invest_toolkit.utils import log
         from invest_toolkit.io import (
             read_sber, read_vtb, all_instruments_info, allocatin_table,
@@ -20,7 +17,9 @@ class LoadTickersWorker(BaseWorker):
 
         log.init("Загрузка тикеров для ребалансировки")
 
-        all_info = all_instruments_info()
+        # force_refresh=True → свежие цены при каждой загрузке тикеров
+        all_info = all_instruments_info(force_refresh=True)
+
         sber = read_sber(self._sber_path)
         vtb = read_vtb(self._vtb_path)
         summary = summary_report([sber, vtb], all_info)

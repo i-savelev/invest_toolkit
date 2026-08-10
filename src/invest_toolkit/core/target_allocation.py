@@ -6,25 +6,27 @@ from invest_toolkit.utils import log_dataframe
 TRACKED_TICKERS = ('LQDT', 'SBMM')
 
 @log_dataframe
-def allocation_report(report_df:pd.DataFrame, allocation_df:pd.DataFrame, deposit:float)->pd.DataFrame:
+@log_dataframe
+def allocation_report(
+    report_df: pd.DataFrame,
+    allocation_df: pd.DataFrame,
+    deposit: float,
+    all_stock_df: pd.DataFrame | None = None,
+) -> pd.DataFrame:
     """
     Сравнивает текущее распределение портфеля с целевым.
-
-    :param report_df: Текущий портфель (получается через `core.portfolio.summary_report`).
-    :param allocation_df: Целевое распределение (получается через `io.allocation.allocatin_table`).
-    :param deposit: Сумма дополнительного депозита.
-    :returns: DataFrame с дельтами (d_rub, d_lot) для ребалансировки.
+    :param all_stock_df: Справочник MOEX для обогащения тикеров, отсутствующих в портфеле.
     """
     log.info('Объединение с таблицей целевых распределений...')
-    money_count = report_df['value'].sum()+deposit
-    allocation_df['value'] = (money_count*allocation_df['%']/100).round(2)
+    money_count = report_df['value'].sum() + deposit
+    allocation_df['value'] = (money_count * allocation_df['%'] / 100).round(2)
     merged_df = pd.merge(
-        report_df, 
-        allocation_df, 
+        report_df,
+        allocation_df,
         on=['ticker'],
         suffixes=('_src', '_tgt'),
         how='outer'
-        )
+    )
     if 'type_tgt' in merged_df.columns:
         merged_df['type'] = merged_df['type_tgt'].where(
             merged_df['type_tgt'].notna(),
@@ -32,31 +34,74 @@ def allocation_report(report_df:pd.DataFrame, allocation_df:pd.DataFrame, deposi
         )
     numeric_columns = merged_df.select_dtypes(include='number').columns
     merged_df[numeric_columns] = merged_df[numeric_columns].fillna(0)
+
+    # === НОВОЕ: обогащение тикеров из allocation, отсутствующих в портфеле ===
+    if all_stock_df is not None:
+        merged_df = _enrich_missing_from_moex(merged_df, all_stock_df)
+    # ========================================================================
+
     merged_df['d_rub'] = (
         merged_df['value_tgt'] - merged_df['value_src']
-        )
+    )
     columns_to_drop = [
         column_name
         for column_name in ['isin', 'name', 'cap', 'type_src', 'type_tgt']
         if column_name in merged_df.columns
     ]
     merged_df = merged_df[merged_df.columns.drop(columns_to_drop)]
-    
-    merged_df['d_lot'] = (
-        merged_df['d_rub']/merged_df['price']/merged_df['lot_size']
-        )
+
+    # === ИЗМЕНЕНО: защита от деления на ноль ===
+    merged_df['d_lot'] = np.where(
+        (merged_df['price'] > 0) & (merged_df['lot_size'] > 0),
+        merged_df['d_rub'] / merged_df['price'] / merged_df['lot_size'],
+        0.0
+    )
     merged_df['d_lot'] = (
         merged_df['d_lot']
         .apply(lambda x: np.ceil(x) if x < 0 else np.floor(x))
-        )
-    
-    # Расчёт стоимости дельты в рублях
+    )
     merged_df['d_rub_calc'] = (
         merged_df['d_lot']
-        *merged_df['lot_size']
-        *merged_df['price']
-        )
-    
+        * merged_df['lot_size']
+        * merged_df['price']
+    )
+    return merged_df
+
+
+def _enrich_missing_from_moex(
+    merged_df: pd.DataFrame,
+    all_stock_df: pd.DataFrame,
+) -> pd.DataFrame:
+    """
+    Для тикеров с нулевой ценой (новых из allocation, отсутствующих в портфеле)
+    подтягивает price, lot_size и прочие атрибуты из справочника MOEX.
+    """
+    missing_mask = (merged_df['price'] == 0) & (merged_df['ticker'].notna())
+    if not missing_mask.any():
+        return merged_df
+
+    moex_lookup = all_stock_df.drop_duplicates(subset=['ticker']).set_index('ticker')
+
+    for idx in merged_df[missing_mask].index:
+        ticker = merged_df.loc[idx, 'ticker']
+        if ticker in moex_lookup.index:
+            row = moex_lookup.loc[ticker]
+            merged_df.loc[idx, 'price'] = row['price']
+            merged_df.loc[idx, 'lot_size'] = row['lot_size']
+            if pd.isna(merged_df.loc[idx, 'isin']):
+                merged_df.loc[idx, 'isin'] = row['isin']
+            if 'name' in merged_df.columns and pd.isna(merged_df.loc[idx, 'name']):
+                merged_df.loc[idx, 'name'] = row['name']
+            log.info(
+                f"Обогащение из MOEX: {ticker} "
+                f"price={row['price']}, lot_size={row['lot_size']}"
+            )
+        else:
+            log.warning(
+                f"Тикер {ticker} не найден в MOEX. "
+                f"Покупка невозможна — проверьте, торгуется ли бумага."
+            )
+
     return merged_df
 
 @log_dataframe

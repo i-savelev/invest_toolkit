@@ -54,8 +54,8 @@ def generate(save_path: str, deposit:float, adjust_df:pd.DataFrame)->None:
     bonds_percent = round(bonds_sum/all_money_sum*100, 1)
     date = datetime.date.today()
     money_market_mask = _money_market_mask(adjust_df)
-    target_bonds = adjust_df.loc[money_market_mask, '%_tgt'].sum()
-    target_stock = adjust_df.loc[~money_market_mask, '%_tgt'].sum()
+    target_bonds = round(adjust_df.loc[money_market_mask, '%_tgt'].sum(), 1)
+    target_stock = round(adjust_df.loc[~money_market_mask, '%_tgt'].sum(), 1)
     tracked_rows = adjust_df[
         adjust_df['ticker'].isin(TRACKED_TICKERS)
         | adjust_df['ticker'].astype(str).str.contains('LQDT|SBMM', regex=True, na=False)
