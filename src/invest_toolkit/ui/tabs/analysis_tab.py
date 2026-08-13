@@ -49,7 +49,7 @@ class AnalysisTab(QWidget):
         self._connect_signals()
         self._populate_presets_list()
         self._try_load_cache()
-
+        self._alloc_tickers: set[str] = set()
     # ───────────────────────────────────────────────────────────── UI
     def _build_ui(self):
         root = QVBoxLayout(self)
@@ -93,12 +93,22 @@ class AnalysisTab(QWidget):
         # === Основная область ===
         self._splitter = QSplitter(Qt.Orientation.Horizontal)
 
-        # --- Левая колонка: компании ---
+        # --- Левая колонка: компании --
         companies_widget = QWidget()
         companies_layout = QVBoxLayout(companies_widget)
         companies_layout.setContentsMargins(0, 0, 0, 0)
         companies_layout.setSpacing(4)
 
+        # Селектор таблицы распределения (index_fund.xlsx)
+        self._alloc_selector = FileSelector(
+            caption="Выберите таблицу распределения",
+            file_filter="Excel файлы (*.xlsx *.xls);;Все файлы (*)",
+        )
+        companies_layout.addWidget(self._alloc_selector)
+
+        # Переключатель фильтра
+        self._alloc_only_checkbox = QCheckBox("Только из распределения")
+        companies_layout.addWidget(self._alloc_only_checkbox)
         self._company_search = QLineEdit()
         self._company_search.setPlaceholderText("🔍 Поиск по тикеру или названию...")
         self._company_search.setClearButtonEnabled(True)
@@ -226,6 +236,8 @@ class AnalysisTab(QWidget):
         self._save_preset_btn.clicked.connect(self._on_save_preset)
         self._delete_preset_btn.clicked.connect(self._on_delete_preset)
         self._presets_list.itemClicked.connect(self._on_preset_selected)
+        self._alloc_only_checkbox.toggled.connect(self._on_alloc_toggle)
+        self._alloc_selector.pathChanged.connect(self._on_alloc_path_changed)
 
     # ───────────────────────────────────────────────────────────── Данные
     def _try_load_cache(self):
@@ -296,6 +308,7 @@ class AnalysisTab(QWidget):
             name = names_map.get(ticker, "")
             self._company_table.setItem(i, 0, QTableWidgetItem(ticker))
             self._company_table.setItem(i, 1, QTableWidgetItem(str(name)))
+        self._apply_company_filter()
 
     def _populate_metrics(self, df: pd.DataFrame):
         while self._metrics_layout.count():
@@ -444,14 +457,25 @@ class AnalysisTab(QWidget):
 
     # ───────────────────────────────────────────────────────────── Поиск компаний
     def _on_company_search(self, text: str):
-        text = text.lower().strip()
+        """Точка входа поиска — делегирует общему фильтру."""
+        self._apply_company_filter()
+
+    def _apply_company_filter(self):
+        """Комбинированный фильтр: поиск + тикеры из распределения."""
+        text = self._company_search.text().lower().strip()
+        alloc_only = self._alloc_only_checkbox.isChecked()
+        alloc_tickers = self._alloc_tickers if alloc_only else None
+
         for row in range(self._company_table.rowCount()):
             ticker_item = self._company_table.item(row, 0)
             name_item = self._company_table.item(row, 1)
-            ticker = ticker_item.text().lower() if ticker_item else ""
+            ticker = ticker_item.text() if ticker_item else ""
             name = name_item.text().lower() if name_item else ""
-            match = not text or text in ticker or text in name
-            self._company_table.setRowHidden(row, not match)
+
+            search_match = not text or text in ticker.lower() or text in name
+            alloc_match = (alloc_tickers is None) or (ticker in alloc_tickers)
+
+            self._company_table.setRowHidden(row, not (search_match and alloc_match))
 
     # ───────────────────────────────────────────────────────────── Графики
     def _schedule_redraw(self):
@@ -527,3 +551,51 @@ class AnalysisTab(QWidget):
 
     def set_log_panel(self, log_panel):
         pass
+
+    def _on_alloc_toggle(self, checked: bool):
+        """При включении фильтра без файла — открывает диалог выбора."""
+        if checked:
+            path = self._alloc_selector.path()
+            if not path or not Path(path).exists():
+                from PyQt6.QtWidgets import QFileDialog
+                new_path, _ = QFileDialog.getOpenFileName(
+                    self, "Выберите таблицу распределения",
+                    path or str(Path.home()),
+                    "Excel файлы (*.xlsx *.xls);;Все файлы (*)",
+                )
+                if not new_path:
+                    # Отмена — снимаем чекбокс без рекурсии сигналов
+                    self._alloc_only_checkbox.blockSignals(True)
+                    self._alloc_only_checkbox.setChecked(False)
+                    self._alloc_only_checkbox.blockSignals(False)
+                    return
+                self._alloc_selector.set_path(new_path)
+                # set_path → pathChanged → загрузка + фильтр
+                return
+            self._load_alloc_tickers()
+        self._apply_company_filter()
+
+    def _on_alloc_path_changed(self, path: str):
+        """При смене пути перечитываем тикеры, если фильтр активен."""
+        if self._alloc_only_checkbox.isChecked():
+            self._load_alloc_tickers()
+            self._apply_company_filter()
+
+    def _load_alloc_tickers(self):
+        """Читает таблицу распределения и извлекает уникальные тикеры."""
+        path = self._alloc_selector.path()
+        self._alloc_tickers = set()
+
+        if not path or not Path(path).exists():
+            self._status_label.setText("Файл распределения не найден")
+            return
+
+        try:
+            from invest_toolkit.io import allocatin_table
+            at = allocatin_table(path)
+            self._alloc_tickers = set(at['ticker'].dropna().astype(str).unique())
+            self._status_label.setText(
+                f"Тикеров в распределении: {len(self._alloc_tickers)}"
+            )
+        except Exception as e:
+            self._status_label.setText(f"Ошибка таблицы распределения: {e}")
