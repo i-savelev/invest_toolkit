@@ -3,14 +3,13 @@ import re
 import time
 from io import StringIO
 from pathlib import Path
-from typing import Dict, Iterable, Optional, Set
+from typing import Dict, Iterable, Optional, Set, List
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
 from invest_toolkit.utils import log
-
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
@@ -33,12 +32,6 @@ INDICATOR_ALIASES = {
 
 
 def _normalize_text(value: object) -> str:
-    """
-    Приводит текст к единому строковому виду без лишних пробелов.
-
-    :param value: Исходное значение ячейки или заголовка.
-    :returns: Очищенная строка.
-    """
     if value is None:
         return ""
     text = str(value).replace("\xa0", " ").replace("\ufeff", "").strip()
@@ -47,12 +40,6 @@ def _normalize_text(value: object) -> str:
 
 
 def _normalize_header_value(value: object) -> str:
-    """
-    Нормализует заголовок таблицы, включая многоуровневые tuple-колонки pandas.
-
-    :param value: Исходное значение заголовка.
-    :returns: Плоское строковое представление заголовка.
-    """
     if isinstance(value, tuple):
         parts = [_normalize_text(part) for part in value if _normalize_text(part)]
         return " ".join(parts)
@@ -60,12 +47,6 @@ def _normalize_header_value(value: object) -> str:
 
 
 def _normalize_indicator_for_match(indicator: str) -> str:
-    """
-    Нормализует название показателя для сопоставления с локальным CSV.
-
-    :param indicator: Название показателя из HTML-таблицы или CSV.
-    :returns: Нормализованная строка для сравнения.
-    """
     normalized = _normalize_text(indicator).lower().replace("ё", "е")
     replacements = {
         "произв.": "производительность",
@@ -75,53 +56,24 @@ def _normalize_indicator_for_match(indicator: str) -> str:
     }
     for source, target in replacements.items():
         normalized = normalized.replace(source, target)
-
     normalized = re.sub(r"[^a-zа-я0-9]+", "", normalized)
     return INDICATOR_ALIASES.get(normalized, normalized)
 
 
 def _normalize_ticker(value: str) -> str:
-    """
-    Нормализует тикер для внутренних сравнений.
-
-    :param value: Исходный тикер.
-    :returns: Тикер в верхнем регистре без лишних пробелов.
-    """
     return _normalize_text(value).upper()
 
 
 def _is_year_column(column_name: str) -> bool:
-    """
-    Проверяет, является ли имя столбца годом.
-
-    :param column_name: Имя столбца.
-    :returns: ``True``, если столбец содержит год в формате YYYY.
-    """
     return bool(YEAR_PATTERN.fullmatch(_normalize_text(column_name)))
 
 
 def _is_ltm_column(column_name: str) -> bool:
-    """
-    Проверяет, соответствует ли имя столбца периоду LTM.
-
-    SmartLab иногда добавляет к заголовку `LTM` служебный символ `?` из tooltip,
-    поэтому проверка не должна опираться только на точное совпадение строки.
-
-    :param column_name: Имя столбца или текст ячейки.
-    :returns: ``True``, если столбец соответствует LTM.
-    """
     normalized = _normalize_text(column_name).upper()
     return normalized == LTM_COLUMN or normalized.startswith(f"{LTM_COLUMN} ")
 
 
 def _normalize_period_name(period_name: str) -> str:
-    """
-    Нормализует имя периода к каноническому виду.
-
-    :param period_name: Имя периода, переданное пользователем или прочитанное из HTML.
-    :returns: Каноническое имя периода.
-    :raises ValueError: Если имя периода пустое или не поддерживается.
-    """
     normalized = _normalize_text(period_name).upper()
     if not normalized:
         raise ValueError("Список периодов содержит пустое значение.")
@@ -133,13 +85,6 @@ def _normalize_period_name(period_name: str) -> str:
 
 
 def _get_random_delay(min_delay: float = 1.5, max_delay: float = 4.0) -> float:
-    """
-    Генерирует случайную задержку в указанном диапазоне.
-
-    :param min_delay: Минимальная задержка в секундах.
-    :param max_delay: Максимальная задержка в секундах.
-    :returns: Случайное значение задержки.
-    """
     if min_delay < 0 or max_delay < 0:
         raise ValueError("Delays must be non-negative")
     if min_delay > max_delay:
@@ -148,23 +93,10 @@ def _get_random_delay(min_delay: float = 1.5, max_delay: float = 4.0) -> float:
 
 
 def _apply_delay(min_delay: float = 1.5, max_delay: float = 4.0) -> None:
-    """
-    Выполняет паузу между запросами к SmartLab.
-
-    :param min_delay: Минимальная задержка в секундах.
-    :param max_delay: Максимальная задержка в секундах.
-    """
     time.sleep(_get_random_delay(min_delay, max_delay))
 
 
 def _get_existing_report_paths(save_directory: str) -> Dict[str, Path]:
-    """
-    Находит все уже сохранённые CSV-отчёты в целевой папке.
-
-    :param save_directory: Путь к директории с локальными CSV SmartLab.
-    :returns: Словарь вида ``{ticker: path_to_csv}``.
-    :raises ValueError: Если директория не существует.
-    """
     directory = Path(save_directory)
     if not directory.exists() or not directory.is_dir():
         raise ValueError(f"Директория не найдена: {save_directory}")
@@ -176,13 +108,6 @@ def _get_existing_report_paths(save_directory: str) -> Dict[str, Path]:
 
 
 def _fetch_share_tickers(timeout: int = 30) -> list[str]:
-    """
-    Загружает список тикеров акций со страницы SmartLab ``/q/shares/``.
-
-    :param timeout: Таймаут HTTP-запроса в секундах.
-    :returns: Упорядоченный список тикеров без дублей.
-    :raises ValueError: Если на странице не удалось найти таблицу с тикерами.
-    """
     html = _fetch_company_page(page_url=SMARTLAB_SHARES_URL, timeout=timeout)
     soup = BeautifulSoup(html, "html.parser")
 
@@ -233,13 +158,6 @@ def _fetch_share_tickers(timeout: int = 30) -> list[str]:
 
 
 def _get_family_key(ticker: str, available_tickers: Set[str]) -> str:
-    """
-    Возвращает ключ семейства тикера для обычки и префов.
-
-    :param ticker: Исходный тикер.
-    :param available_tickers: Все доступные тикеры для текущего запуска.
-    :returns: Ключ семейства.
-    """
     normalized_ticker = _normalize_ticker(ticker)
     if normalized_ticker.endswith("P"):
         base_ticker = normalized_ticker[:-1]
@@ -258,15 +176,6 @@ def _build_ticker_families(
     source_tickers: list[str],
     tickers: Optional[list[str]] = None,
 ) -> list[dict[str, object]]:
-    """
-    Строит семейства тикеров для обновления с одной страницы эмитента.
-
-    :param save_directory: Директория для локальных CSV SmartLab.
-    :param report_paths: Словарь локальных CSV.
-    :param source_tickers: Список тикеров со страницы SmartLab shares.
-    :param tickers: Необязательный список тикеров для выборочного запуска.
-    :returns: Список словарей с описанием семейств.
-    """
     requested_tickers = None
     if tickers is not None:
         requested_tickers = {_normalize_ticker(ticker) for ticker in tickers}
@@ -303,12 +212,6 @@ def _build_ticker_families(
 
 
 def _build_family_candidates(member_tickers: list[str]) -> list[str]:
-    """
-    Возвращает порядок тикеров-кандидатов для поиска рабочей страницы SmartLab.
-
-    :param member_tickers: Тикеры внутри одного семейства.
-    :returns: Список тикеров-кандидатов без дублей.
-    """
     normalized_members = sorted({_normalize_ticker(ticker) for ticker in member_tickers})
     ordinary = [ticker for ticker in normalized_members if not ticker.endswith("P")]
     preferred = [ticker for ticker in normalized_members if ticker.endswith("P")]
@@ -325,38 +228,30 @@ def _build_family_candidates(member_tickers: list[str]) -> list[str]:
 
 
 def _build_report_url(ticker: str) -> str:
-    """
-    Формирует URL страницы годовой отчётности SmartLab для тикера.
-
-    :param ticker: Тикер компании.
-    :returns: Ссылка на страницу SmartLab.
-    """
     return SMARTLAB_YEARLY_REPORT_URL.format(ticker=ticker)
 
 
-def _fetch_company_page(page_url: str, timeout: int = 30) -> str:
-    """
-    Загружает HTML страницы компании на SmartLab.
-
-    :param page_url: URL страницы годовой отчётности.
-    :param timeout: Таймаут запроса в секундах.
-    :returns: HTML страницы.
-    :raises requests.RequestException: При ошибках сети или HTTP.
-    """
-    response = requests.get(page_url, headers=HEADERS, timeout=timeout)
-    response.raise_for_status()
-    response.encoding = response.apparent_encoding or response.encoding
-    return response.text
+# --- ИЗМЕНЕНИЕ 1: Добавлен механизм повторных попыток (Retry) ---
+def _fetch_company_page(page_url: str, timeout: int = 30, max_retries: int = 2) -> str:
+    last_exception: Optional[Exception] = None
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = requests.get(page_url, headers=HEADERS, timeout=timeout)
+            response.raise_for_status()
+            response.encoding = response.apparent_encoding or response.encoding
+            return response.text
+        except requests.exceptions.RequestException as e:
+            last_exception = e
+            log.warning(f"Попытка {attempt}/{max_retries} не удалась для {page_url}: {e}")
+            if attempt < max_retries:
+                time.sleep(3)  # Короткая пауза перед повторной попыткой
+    
+    if last_exception:
+        raise last_exception
+    raise RuntimeError(f"Неизвестная ошибка при загрузке {page_url}")
 
 
 def _fetch_company_table(ticker: str, timeout: int = 30) -> tuple[str, pd.DataFrame]:
-    """
-    Загружает и парсит таблицу SmartLab для указанного тикера.
-
-    :param ticker: Тикер, по которому нужно открыть страницу.
-    :param timeout: Таймаут HTTP-запроса.
-    :returns: Кортеж ``(page_url, page_df)``.
-    """
     page_url = _build_report_url(ticker)
     html = _fetch_company_page(page_url=page_url, timeout=timeout)
     page_df = _extract_financial_table(html)
@@ -368,16 +263,6 @@ def _resolve_family_page(
     member_tickers: list[str],
     timeout: int = 30,
 ) -> dict[str, object]:
-    """
-    Находит рабочую каноническую страницу SmartLab для семейства тикеров.
-
-    :param family_key: Ключ семейства.
-    :param member_tickers: Список тикеров семейства.
-    :param timeout: Таймаут HTTP-запроса.
-    :returns: Информация о найденной странице и распарсенной таблице.
-    :raises requests.RequestException: Если ни один URL не открылся.
-    :raises ValueError: Если страница открылась, но таблица не найдена.
-    """
     candidates = _build_family_candidates(member_tickers=member_tickers)
     last_error: Optional[Exception] = None
 
@@ -404,12 +289,6 @@ def _resolve_family_page(
 
 
 def _extract_period_columns_from_row(row: Iterable[str]) -> list[tuple[int, str]]:
-    """
-    Извлекает из строки заголовка позиции колонок периодов (годы и LTM).
-
-    :param row: Последовательность текстов ячеек.
-    :returns: Список кортежей ``(index, period)`` в исходном порядке.
-    """
     periods = []
     for idx, cell in enumerate(row):
         text = _normalize_text(cell)
@@ -422,16 +301,9 @@ def _extract_period_columns_from_row(row: Iterable[str]) -> list[tuple[int, str]
 
 
 def _build_indicator_name(parts: list[str]) -> str:
-    """
-    Собирает читаемое имя показателя из левых ячеек строки таблицы.
-
-    :param parts: Левая часть строки без значений периодов.
-    :returns: Название показателя.
-    """
     filtered_parts = [part for part in (_normalize_text(part) for part in parts) if part and part != "?"]
     if not filtered_parts:
         return ""
-
     if len(filtered_parts) == 1:
         return filtered_parts[0]
 
@@ -444,13 +316,6 @@ def _build_indicator_name(parts: list[str]) -> str:
 
 
 def _parse_table_with_bs4(html: str) -> pd.DataFrame:
-    """
-    Разбирает HTML-таблицу SmartLab в DataFrame, близкий к исходному CSV.
-
-    :param html: HTML страницы компании.
-    :returns: DataFrame со столбцом показателя и колонками периодов.
-    :raises ValueError: Если финансовая таблица не найдена.
-    """
     soup = BeautifulSoup(html, "html.parser")
 
     for table in soup.find_all("table"):
@@ -524,12 +389,6 @@ def _parse_table_with_bs4(html: str) -> pd.DataFrame:
 
 
 def _extract_financial_table(html: str) -> pd.DataFrame:
-    """
-    Возвращает таблицу годовой отчётности SmartLab.
-
-    :param html: HTML страницы компании.
-    :returns: DataFrame с показателями и периодами.
-    """
     try:
         return _parse_table_with_bs4(html)
     except ValueError:
@@ -568,12 +427,6 @@ def _extract_financial_table(html: str) -> pd.DataFrame:
 
 
 def _load_local_report(csv_path: Path) -> pd.DataFrame:
-    """
-    Загружает локальный CSV SmartLab в DataFrame со строковыми значениями.
-
-    :param csv_path: Путь к локальному CSV.
-    :returns: DataFrame в исходном широком формате.
-    """
     df = pd.read_csv(
         csv_path,
         sep=";",
@@ -588,13 +441,6 @@ def _load_local_report(csv_path: Path) -> pd.DataFrame:
 
 
 def _align_page_indicators(page_df: pd.DataFrame, local_df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Приводит названия показателей страницы к тем, что уже используются в локальном CSV.
-
-    :param page_df: Таблица, полученная со страницы SmartLab.
-    :param local_df: Локальный CSV по этому тикеру.
-    :returns: Копия ``page_df`` с выровненными названиями показателей.
-    """
     result = page_df.copy()
     local_indicators = local_df[INDICATOR_COLUMN].tolist()
     normalized_local = {
@@ -623,13 +469,54 @@ def _align_page_indicators(page_df: pd.DataFrame, local_df: pd.DataFrame) -> pd.
     return result
 
 
-def _sort_periods(periods: Iterable[str]) -> list[str]:
+# --- ИЗМЕНЕНИЕ 2: Функция для сравнения и логирования полей ---
+def _compare_and_log_indicators(ticker: str, local_df: pd.DataFrame, page_df: pd.DataFrame) -> None:
     """
-    Сортирует периоды в привычном порядке SmartLab: годы по возрастанию, затем LTM.
+    Сравнивает показатели локального CSV и страницы с учётом умной нормализации.
+    Показывает, какие поля совпали (даже если называются по-разному), какие новые, а какие действительно пропали.
+    """
+    local_indicators = local_df[INDICATOR_COLUMN].dropna().astype(str).str.strip().tolist()
+    page_indicators = page_df[INDICATOR_COLUMN].dropna().astype(str).str.strip().tolist()
+    
+    # Создаём словари: {нормализованное_имя: оригинальное_имя}
+    normalized_local = {
+        _normalize_indicator_for_match(ind): ind
+        for ind in local_indicators
+    }
+    normalized_page = {
+        _normalize_indicator_for_match(ind): ind
+        for ind in page_indicators
+    }
+    
+    # Находим пересечения и различия по нормализованным ключам
+    matched_keys = set(normalized_local.keys()).intersection(set(normalized_page.keys()))
+    matched_count = len(matched_keys)
+    
+    new_keys = set(normalized_page.keys()) - set(normalized_local.keys())
+    new_on_site = [normalized_page[k] for k in sorted(new_keys)]
+    
+    missing_keys = set(normalized_local.keys()) - set(normalized_page.keys())
+    missing_on_site = [normalized_local[k] for k in sorted(missing_keys)]
+    
+    # Находим поля, которые совпали по смыслу, но называются по-разному
+    renamed = []
+    for key in matched_keys:
+        if normalized_local[key] != normalized_page[key]:
+            renamed.append(f"'{normalized_page[key]}' -> '{normalized_local[key]}'")
 
-    :param periods: Набор периодов.
-    :returns: Отсортированный список периодов без дублей.
-    """
+    log.info(f"    [Сравнение полей] {ticker}: Всего в CSV={len(local_indicators)}, На сайте={len(page_indicators)}, Совпало={matched_count}")
+    
+    if renamed:
+        log.info(f"    [Сопоставлены (разные имена)] {', '.join(renamed)}")
+        
+    if new_on_site:
+        log.info(f"    [Новые поля] Будут добавлены: {', '.join(new_on_site)}")
+    
+    if missing_on_site:
+        log.warning(f"    [Отсутствуют на сайте] Поля из CSV, не найденные на странице: {', '.join(missing_on_site)}")
+
+
+def _sort_periods(periods: Iterable[str]) -> list[str]:
     normalized_periods = []
     seen = set()
     for period in periods:
@@ -649,16 +536,6 @@ def _resolve_requested_periods(
     page_df: pd.DataFrame,
     period_columns: list[str],
 ) -> list[str]:
-    """
-    Определяет, какие периоды нужно добавить или обновить в локальном CSV.
-
-    В итоговый список попадают только периоды, которые явно запросил пользователь
-    и которые реально присутствуют на странице SmartLab.
-
-    :param page_df: Таблица, полученная со страницы SmartLab.
-    :param period_columns: Список периодов, которые нужно синхронизировать.
-    :returns: Список периодов для записи в локальный CSV.
-    """
     requested_periods = _sort_periods(period_columns)
     page_periods = {_normalize_period_name(column) for column in page_df.columns if _is_year_column(column) or _is_ltm_column(column)}
     available_periods = [period for period in requested_periods if period in page_periods]
@@ -670,14 +547,6 @@ def _merge_periods(
     page_df: pd.DataFrame,
     periods_to_sync: list[str],
 ) -> tuple[pd.DataFrame, list[str]]:
-    """
-    Добавляет или обновляет указанные периоды в локальном CSV.
-
-    :param local_df: Локальный CSV с полной историей.
-    :param page_df: Таблица, полученная со страницы SmartLab.
-    :param periods_to_sync: Список периодов для добавления или обновления.
-    :returns: Кортеж ``(updated_df, new_indicators)``.
-    """
     local_order = local_df[INDICATOR_COLUMN].tolist()
     page_order = page_df[INDICATOR_COLUMN].tolist()
 
@@ -706,25 +575,12 @@ def _merge_periods(
 
 
 def _save_local_report(csv_path: Path, df: pd.DataFrame) -> None:
-    """
-    Сохраняет обновлённый DataFrame обратно в CSV SmartLab.
-
-    :param csv_path: Путь к локальному CSV.
-    :param df: Подготовленный DataFrame для сохранения.
-    """
     save_df = df.fillna("").copy()
     save_df.columns = ["", *save_df.columns[1:]]
     save_df.to_csv(csv_path, sep=";", index=False, encoding="utf-8-sig")
 
 
 def _build_new_local_report(page_df: pd.DataFrame, periods_to_sync: list[str]) -> pd.DataFrame:
-    """
-    Собирает новый локальный CSV из страницы SmartLab для тикера, которого ещё нет локально.
-
-    :param page_df: Таблица, полученная со страницы SmartLab.
-    :param periods_to_sync: Периоды, которые нужно сохранить в CSV.
-    :returns: DataFrame в формате локального CSV.
-    """
     ordered_columns = [INDICATOR_COLUMN, *_sort_periods(periods_to_sync)]
     return page_df.reindex(columns=ordered_columns).fillna("")
 
@@ -734,14 +590,6 @@ def _update_one_report(
     page_df: pd.DataFrame,
     period_columns: list[str],
 ) -> Optional[dict[str, object]]:
-    """
-    Обновляет один локальный CSV отчёт по данным со страницы SmartLab.
-
-    :param csv_path: Путь к существующему CSV тикера.
-    :param page_df: Таблица со страницы канонического тикера семейства.
-    :param period_columns: Список периодов для добавления или обновления.
-    :returns: Словарь с результатом обновления или ``None``, если обновление не потребовалось.
-    """
     ticker = csv_path.stem
     periods_to_sync = _resolve_requested_periods(
         page_df=page_df,
@@ -763,6 +611,10 @@ def _update_one_report(
         }
 
     local_df = _load_local_report(csv_path)
+    
+    # Логирование сопоставления полей перед обновлением
+    _compare_and_log_indicators(ticker, local_df, page_df)
+    
     page_df = _align_page_indicators(page_df=page_df, local_df=local_df)
 
     updated_df, new_indicators = _merge_periods(
@@ -787,24 +639,6 @@ def scrape_and_download(
     max_delay: float = 10,
     tickers: Optional[list[str]] = None,
 ) -> Set[str]:
-    """
-    Инкрементально обновляет локальные CSV SmartLab по списку бумаг со страницы shares.
-
-    Источником тикеров служит таблица на странице ``https://smart-lab.ru/q/shares/``.
-    Тикеры объединяются в семейства эмитента, например ``SBER/SBERP`` или
-    ``RTKM/RTKMP``. Для семейства ищется одна каноническая страница SmartLab,
-    таблица с неё используется для обновления всех локальных CSV этого семейства.
-    Если для тикера ещё нет локального CSV, он будет создан. Какие именно периоды
-    нужно добавить или обновить, пользователь задаёт явно через ``period_columns``.
-
-    :param save_directory: Директория с локальными CSV SmartLab.
-    :param period_columns: Список периодов SmartLab для добавления или обновления,
-        например ``["2025"]`` или ``["2025", "LTM"]``.
-    :param min_delay: Минимальная задержка между запросами к страницам компаний.
-    :param max_delay: Максимальная задержка между запросами к страницам компаний.
-    :param tickers: Необязательный список тикеров для выборочного запуска.
-    :returns: Множество путей к обновлённым CSV файлам.
-    """
     requested_periods = _sort_periods(period_columns)
     if not requested_periods:
         raise ValueError("Нужно передать хотя бы один период в period_columns.")
@@ -818,6 +652,11 @@ def scrape_and_download(
         tickers=tickers,
     )
     updated_files: Set[str] = set()
+    
+    # --- ИЗМЕНЕНИЕ 3: Счётчики для итоговой сводки ---
+    error_tickers: Set[str] = set()
+    no_update_tickers: Set[str] = set()
+    updated_tickers: Set[str] = set()
 
     for idx, family in enumerate(families, start=1):
         family_key: str = family["family_key"]  # type: ignore[assignment]
@@ -848,10 +687,12 @@ def scrape_and_download(
                     periods_string = ", ".join(requested_periods)
                     log.info(f"    - Запрошенных периодов нет на странице или в обновлении не требуется: {ticker} [{periods_string}]")
                     print(f"    - Запрошенных периодов нет на странице или в обновлении не требуется: {ticker} [{periods_string}]")
+                    no_update_tickers.add(ticker) # Добавляем в список без обновлений
                     continue
 
                 family_has_updates = True
                 updated_files.add(result["path"])
+                updated_tickers.add(ticker) # Добавляем в список успешных
                 periods_string = ", ".join(result["updated_periods"])
                 if result["created"]:
                     log.info(f"    + Создан CSV и записаны периоды [{periods_string}] для {ticker}")
@@ -872,16 +713,32 @@ def scrape_and_download(
 
         except requests.exceptions.HTTPError as error:
             status_code = error.response.status_code if error.response is not None else "unknown"
-            if status_code == 429:
-                log.error(f"  ! SmartLab вернул 429 для семейства {family_key}. Пауза 10 секунд.")
-                print(f"  ! SmartLab вернул 429 для семейства {family_key}. Пауза 10 секунд.")
-                time.sleep(10)
-            else:
-                log.error(f"  ! HTTP ошибка {status_code} для семейства {family_key}: {error}")
-                print(f"  ! HTTP ошибка {status_code} для семейства {family_key}: {error}")
+            log.error(f"  ! HTTP ошибка {status_code} для семейства {family_key}: {error}")
+            print(f"  ! HTTP ошибка {status_code} для семейства {family_key}: {error}")
+            error_tickers.update(member_tickers)
         except Exception as error:
             log.error(f"  ! Ошибка обновления семейства {family_key}: {error}")
             print(f"  ! Ошибка обновления семейства {family_key}: {error}")
+            error_tickers.update(member_tickers)
+
+    # --- ИЗМЕНЕНИЕ 3: Итоговая сводка ---
+    log.info("=" * 60)
+    log.info("ИТОГОВАЯ СВОДКА ВЫПОЛНЕНИЯ")
+    log.info(f"Всего обработано семейств: {len(families)}")
+    log.info(f"Успешно обновлено тикеров: {len(updated_tickers)}")
+    
+    if no_update_tickers:
+        log.info(f"Тикеров без новых данных: {len(no_update_tickers)}")
+        log.info(f"  Список: {', '.join(sorted(no_update_tickers))}")
+    else:
+        log.info("Тикеров без новых данных: 0")
+        
+    if error_tickers:
+        log.warning(f"Тикеров с ошибками: {len(error_tickers)}")
+        log.warning(f"  Список: {', '.join(sorted(error_tickers))}")
+    else:
+        log.info("Тикеров с ошибками: 0")
+    log.info("=" * 60)
 
     return updated_files
 
@@ -890,6 +747,8 @@ if __name__ == "__main__":
     log.init("Обновление локальных CSV SmartLab")
     scrape_and_download(
         period_columns=["2025"],
-        min_delay=5,
-        max_delay=10,
-        save_directory=r"./support_files/scrapper_reports")
+        min_delay=4,
+        max_delay=8,
+        save_directory=r"./support_files/scrapper_reports",
+        tickers=['ABIO']
+    )
